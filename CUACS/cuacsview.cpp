@@ -31,7 +31,7 @@ void CUACSView::displayNewAnimal(Animal newAnimal){
     ui->animalTbl->setCellWidget(row-1,2,new QLabel(newAnimal.getBreed()));
     ui->animalTbl->setCellWidget(row-1,3,new QLabel(newAnimal.getGender()));
     ui->animalTbl->setCellWidget(row-1,4,new QLabel(newAnimal.getDOB()));
-    ui->animalTbl->setCellWidget(row-1,5,new QLabel(newAnimal.getYears() + "/" + newAnimal.getMonths()));
+    ui->animalTbl->setCellWidget(row-1,5,new QLabel(QString::number(newAnimal.getYears()) + "/" + QString::number(newAnimal.getMonths())));
 
     QLabel *vaccinated;
     if(newAnimal.isVaccinated()){
@@ -71,6 +71,5 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->yearsSpn->setValue(0);
         ui->monthsSpn->setValue(0);
         ui->emptyItemlbl->setHidden(true);
-        ui->test->setText(animals[0].getYears()+"/"+animals[0].getMonths());
     }
 }
