@@ -39,7 +39,7 @@
      <attribute name="title">
       <string>View Animals</string>
      </attribute>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="animalTbl">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -47,6 +47,9 @@
         <width>671</width>
         <height>231</height>
        </rect>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
       </property>
       <property name="columnCount">
        <number>7</number>
@@ -69,12 +72,12 @@
       </column>
       <column>
        <property name="text">
-        <string>New Column</string>
+        <string>Breed</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Breed</string>
+        <string>Gender</string>
        </property>
       </column>
       <column>
@@ -133,7 +136,7 @@
        <string>Items marked with a * are required</string>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -286,6 +289,19 @@
         </layout>
        </item>
       </layout>
+     </widget>
+     <widget class="QLabel" name="test">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>200</y>
+        <width>64</width>
+        <height>17</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
      </widget>
     </widget>
    </widget>

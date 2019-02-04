@@ -17,15 +17,15 @@ public:
     void setVaccinated(int);
 
     //Getter Functions
-    QString getBreed();
-    QString getGender();
-    QString getSpecies();
-    QString getName();
-    QString getDOB();
+    QString getBreed() const;
+    QString getGender() const;
+    QString getSpecies() const;
+    QString getName() const;
+    QString getDOB() const;
 
-    int getMonths();
-    int getYears();
-    bool isVaccinated();
+    int getMonths() const;
+    int getYears() const;
+    bool isVaccinated() const;
 
 
 private:

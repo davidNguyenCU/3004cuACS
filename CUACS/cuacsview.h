@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "animal.h"
+using namespace std;
 
 namespace Ui {
 class CUACSView;
@@ -22,6 +23,7 @@ private slots:
 private:
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
+    void displayNewAnimal(Animal);
 };
 
 #endif // CUACSVIEW_H

@@ -13,3 +13,28 @@ Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinate
 
 
 }
+
+QString Animal::getBreed() const{
+    return breed;
+}
+QString Animal::getDOB() const{
+    return dateOfBirth;
+}
+QString Animal::getGender() const{
+    return gender;
+}
+QString Animal::getSpecies() const{
+    return species;
+}
+QString Animal::getName() const{
+    return name;
+}
+int Animal::getYears() const{
+    return ageYears;
+}
+int Animal::getMonths() const{
+    return ageMonths;
+}
+bool Animal::isVaccinated() const{
+    return vaccinated;
+}
