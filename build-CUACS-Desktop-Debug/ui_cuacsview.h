@@ -24,6 +24,7 @@
 #include <QtWidgets/QSpinBox>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QTabWidget>
+#include <QtWidgets/QTableWidget>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -35,10 +36,11 @@ public:
     QWidget *centralWidget;
     QTabWidget *tabWidget;
     QWidget *tab;
+    QTableWidget *animalTbl;
     QWidget *tab_2;
     QPushButton *addAnimalBtn;
     QLabel *emptyItemlbl;
-    QWidget *widget;
+    QWidget *layoutWidget;
     QHBoxLayout *horizontalLayout_13;
     QVBoxLayout *verticalLayout;
     QHBoxLayout *horizontalLayout;
@@ -70,7 +72,7 @@ public:
     {
         if (CUACSView->objectName().isEmpty())
             CUACSView->setObjectName(QStringLiteral("CUACSView"));
-        CUACSView->resize(661, 279);
+        CUACSView->resize(667, 280);
         centralWidget = new QWidget(CUACSView);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
@@ -81,22 +83,45 @@ public:
         tabWidget->setToolTipDuration(-2);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
+        animalTbl = new QTableWidget(tab);
+        if (animalTbl->columnCount() < 7)
+            animalTbl->setColumnCount(7);
+        QTableWidgetItem *__qtablewidgetitem = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(0, __qtablewidgetitem);
+        QTableWidgetItem *__qtablewidgetitem1 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(1, __qtablewidgetitem1);
+        QTableWidgetItem *__qtablewidgetitem2 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(2, __qtablewidgetitem2);
+        QTableWidgetItem *__qtablewidgetitem3 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(3, __qtablewidgetitem3);
+        QTableWidgetItem *__qtablewidgetitem4 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(4, __qtablewidgetitem4);
+        QTableWidgetItem *__qtablewidgetitem5 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(5, __qtablewidgetitem5);
+        QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
+        animalTbl->setHorizontalHeaderItem(6, __qtablewidgetitem6);
+        animalTbl->setObjectName(QStringLiteral("animalTbl"));
+        animalTbl->setGeometry(QRect(0, 0, 671, 231));
+        animalTbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
+        animalTbl->setColumnCount(7);
+        animalTbl->horizontalHeader()->setCascadingSectionResizes(false);
+        animalTbl->horizontalHeader()->setDefaultSectionSize(95);
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         addAnimalBtn = new QPushButton(tab_2);
         addAnimalBtn->setObjectName(QStringLiteral("addAnimalBtn"));
         addAnimalBtn->setEnabled(true);
-        addAnimalBtn->setGeometry(QRect(490, 170, 82, 25));
+        addAnimalBtn->setGeometry(QRect(560, 150, 82, 25));
         addAnimalBtn->setToolTipDuration(-1);
         addAnimalBtn->setCheckable(false);
         emptyItemlbl = new QLabel(tab_2);
         emptyItemlbl->setObjectName(QStringLiteral("emptyItemlbl"));
         emptyItemlbl->setGeometry(QRect(0, 150, 231, 17));
-        widget = new QWidget(tab_2);
-        widget->setObjectName(QStringLiteral("widget"));
-        widget->setGeometry(QRect(0, 0, 641, 151));
-        horizontalLayout_13 = new QHBoxLayout(widget);
+        layoutWidget = new QWidget(tab_2);
+        layoutWidget->setObjectName(QStringLiteral("layoutWidget"));
+        layoutWidget->setGeometry(QRect(0, 0, 641, 151));
+        horizontalLayout_13 = new QHBoxLayout(layoutWidget);
         horizontalLayout_13->setSpacing(6);
         horizontalLayout_13->setContentsMargins(11, 11, 11, 11);
         horizontalLayout_13->setObjectName(QStringLiteral("horizontalLayout_13"));
@@ -107,12 +132,12 @@ public:
         horizontalLayout = new QHBoxLayout();
         horizontalLayout->setSpacing(6);
         horizontalLayout->setObjectName(QStringLiteral("horizontalLayout"));
-        label = new QLabel(widget);
+        label = new QLabel(layoutWidget);
         label->setObjectName(QStringLiteral("label"));
 
         horizontalLayout->addWidget(label);
 
-        nameTxt = new QLineEdit(widget);
+        nameTxt = new QLineEdit(layoutWidget);
         nameTxt->setObjectName(QStringLiteral("nameTxt"));
 
         horizontalLayout->addWidget(nameTxt);
@@ -123,12 +148,12 @@ public:
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setSpacing(6);
         horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
-        label_2 = new QLabel(widget);
+        label_2 = new QLabel(layoutWidget);
         label_2->setObjectName(QStringLiteral("label_2"));
 
         horizontalLayout_2->addWidget(label_2);
 
-        breedTxt = new QLineEdit(widget);
+        breedTxt = new QLineEdit(layoutWidget);
         breedTxt->setObjectName(QStringLiteral("breedTxt"));
 
         horizontalLayout_2->addWidget(breedTxt);
@@ -139,12 +164,12 @@ public:
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setSpacing(6);
         horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
-        label_7 = new QLabel(widget);
+        label_7 = new QLabel(layoutWidget);
         label_7->setObjectName(QStringLiteral("label_7"));
 
         horizontalLayout_5->addWidget(label_7);
 
-        DOBTxt = new QLineEdit(widget);
+        DOBTxt = new QLineEdit(layoutWidget);
         DOBTxt->setObjectName(QStringLiteral("DOBTxt"));
         DOBTxt->setToolTipDuration(-1);
 
@@ -162,27 +187,27 @@ public:
         horizontalLayout_3 = new QHBoxLayout();
         horizontalLayout_3->setSpacing(6);
         horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
-        label_3 = new QLabel(widget);
+        label_3 = new QLabel(layoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         horizontalLayout_3->addWidget(label_3);
 
-        label_4 = new QLabel(widget);
+        label_4 = new QLabel(layoutWidget);
         label_4->setObjectName(QStringLiteral("label_4"));
 
         horizontalLayout_3->addWidget(label_4);
 
-        yearsSpn = new QSpinBox(widget);
+        yearsSpn = new QSpinBox(layoutWidget);
         yearsSpn->setObjectName(QStringLiteral("yearsSpn"));
 
         horizontalLayout_3->addWidget(yearsSpn);
 
-        label_5 = new QLabel(widget);
+        label_5 = new QLabel(layoutWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
 
         horizontalLayout_3->addWidget(label_5);
 
-        monthsSpn = new QSpinBox(widget);
+        monthsSpn = new QSpinBox(layoutWidget);
         monthsSpn->setObjectName(QStringLiteral("monthsSpn"));
         monthsSpn->setMaximum(12);
 
@@ -194,17 +219,17 @@ public:
         horizontalLayout_4 = new QHBoxLayout();
         horizontalLayout_4->setSpacing(6);
         horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
-        label_6 = new QLabel(widget);
+        label_6 = new QLabel(layoutWidget);
         label_6->setObjectName(QStringLiteral("label_6"));
 
         horizontalLayout_4->addWidget(label_6);
 
-        genderCombo = new QComboBox(widget);
+        genderCombo = new QComboBox(layoutWidget);
         genderCombo->setObjectName(QStringLiteral("genderCombo"));
 
         horizontalLayout_4->addWidget(genderCombo);
 
-        vaccinatedChk = new QCheckBox(widget);
+        vaccinatedChk = new QCheckBox(layoutWidget);
         vaccinatedChk->setObjectName(QStringLiteral("vaccinatedChk"));
         vaccinatedChk->setLayoutDirection(Qt::RightToLeft);
 
@@ -216,12 +241,12 @@ public:
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setSpacing(6);
         horizontalLayout_6->setObjectName(QStringLiteral("horizontalLayout_6"));
-        label_8 = new QLabel(widget);
+        label_8 = new QLabel(layoutWidget);
         label_8->setObjectName(QStringLiteral("label_8"));
 
         horizontalLayout_6->addWidget(label_8);
 
-        speciesCombo = new QComboBox(widget);
+        speciesCombo = new QComboBox(layoutWidget);
         speciesCombo->setObjectName(QStringLiteral("speciesCombo"));
 
         horizontalLayout_6->addWidget(speciesCombo);
@@ -249,6 +274,20 @@ public:
     void retranslateUi(QMainWindow *CUACSView)
     {
         CUACSView->setWindowTitle(QApplication::translate("CUACSView", "CUACSView", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem = animalTbl->horizontalHeaderItem(0);
+        ___qtablewidgetitem->setText(QApplication::translate("CUACSView", "Name", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem1 = animalTbl->horizontalHeaderItem(1);
+        ___qtablewidgetitem1->setText(QApplication::translate("CUACSView", "Species", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem2 = animalTbl->horizontalHeaderItem(2);
+        ___qtablewidgetitem2->setText(QApplication::translate("CUACSView", "Breed", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem3 = animalTbl->horizontalHeaderItem(3);
+        ___qtablewidgetitem3->setText(QApplication::translate("CUACSView", "Gender", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem4 = animalTbl->horizontalHeaderItem(4);
+        ___qtablewidgetitem4->setText(QApplication::translate("CUACSView", "Date of Birth", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem5 = animalTbl->horizontalHeaderItem(5);
+        ___qtablewidgetitem5->setText(QApplication::translate("CUACSView", "Age(Y/M)", Q_NULLPTR));
+        QTableWidgetItem *___qtablewidgetitem6 = animalTbl->horizontalHeaderItem(6);
+        ___qtablewidgetitem6->setText(QApplication::translate("CUACSView", "Vaccinated", Q_NULLPTR));
         tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("CUACSView", "View Animals", Q_NULLPTR));
         addAnimalBtn->setText(QApplication::translate("CUACSView", "Add animal", Q_NULLPTR));
         emptyItemlbl->setText(QApplication::translate("CUACSView", "Items marked with a * are required", Q_NULLPTR));

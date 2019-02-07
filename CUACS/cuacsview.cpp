@@ -7,20 +7,58 @@ CUACSView::CUACSView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    animalDB = databaseManager("animals.db");
+
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
-    QString species[] = {"Select Animal...","Dog","Cat","Bird","Turtle","Frog","Hamster","Guinea Pig"};
+    QString species[] = {"Dog","Cat","Bird","Turtle","Frog","Hamster","Guinea Pig"};
     for(int i = 0;i<7; i++){
         ui->speciesCombo->insertItem(i,species[i]);
     }
-
+    ui->speciesCombo->setCurrentIndex(-1);
+    ui->genderCombo->setCurrentIndex(-1);
     ui->emptyItemlbl->setHidden(true);
     ui->animalTbl->setRowCount(animals.size());
 }
 
 CUACSView::~CUACSView()
 {
+
+    delete ui->speciesCombo;
+    delete ui->label_8;
+    delete ui->horizontalLayout_6;
+    delete ui->vaccinatedChk;
+    delete ui->label_6;
+    delete ui->genderCombo;
+    delete ui->horizontalLayout_4;
+    delete ui->yearsSpn;
+    delete ui->monthsSpn;
+    delete ui->label_5;
+    delete ui->label_4;
+    delete ui->label_3;
+    delete ui->horizontalLayout_3;
+    delete ui->verticalLayout_2;
+    delete ui->label_7;
+    delete ui->DOBTxt;
+    delete ui->horizontalLayout_5;
+    delete ui->label_2;
+    delete ui->breedTxt;
+    delete ui->horizontalLayout_2;
+    delete ui->nameTxt;
+    delete ui->label;
+    delete ui->horizontalLayout;
+    delete ui->verticalLayout;
+    delete ui->horizontalLayout_13;
+    delete ui->emptyItemlbl;
+    delete ui->addAnimalBtn;
+    delete ui->tab_2;
+    delete ui->animalTbl;
+    delete ui->tab;
+    delete ui->tabWidget;
+    delete ui->centralWidget;
+    delete ui->statusBar;
     delete ui;
+
 }
 
 void CUACSView::displayNewAnimal(Animal newAnimal){
@@ -53,14 +91,15 @@ void CUACSView::on_addAnimalBtn_clicked()
     int ageYears = ui->yearsSpn->value();
     int ageMonths = ui->monthsSpn->value();
 
-    if(name == ""||breed == ""||species == "Select Animal..."||(ageYears == 0 && ageMonths == 0)){
+    if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
         ui->emptyItemlbl->setHidden(false);
     }else{
         if(DOB==""){
             animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species));
-            ui->DOBTxt->clear();
+
         }else{
             animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, DOB));
+            ui->DOBTxt->clear();
         }
         displayNewAnimal(animals[animals.size()-1]);
         ui->nameTxt->clear();

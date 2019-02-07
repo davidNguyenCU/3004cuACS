@@ -13,6 +13,8 @@ Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinate
 
 
 }
+Animal::~Animal(){
+}
 
 QString Animal::getBreed() const{
     return breed;

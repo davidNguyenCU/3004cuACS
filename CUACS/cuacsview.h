@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "animal.h"
+#include "databasemanager.h"
 using namespace std;
 
 namespace Ui {
@@ -24,6 +25,7 @@ private:
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
     void displayNewAnimal(Animal);
+    databaseManager animalDB = databaseManager("animals.db");
 };
 
 #endif // CUACSVIEW_H
