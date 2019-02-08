@@ -2,7 +2,7 @@
 
 databaseManager::databaseManager(const QString& path)
 {
-animalDB = QSqlDatabase::addDatabase("SQLITE");
+animalDB = QSqlDatabase::addDatabase("QSQLITE");
 animalDB.setDatabaseName(path);
 
 
@@ -15,20 +15,25 @@ if (!animalDB.open()){
 //adds an animal to the database
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
-    query.prepare("INSERT INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species) VALUES (:b, :ay, :am, :gen, :vacc, :name, :DOB, :spec");
-    query.bindValue(":b", add.getBreed());
-    query.bindValue(":ay", add.getYears());
-    query.bindValue(":am", add.getMonths());
-    query.bindValue(":gen", add.getGender());
-    query.bindValue(":name", add.getName());
-    query.bindValue(":DOB", add.getDOB());
-    query.bindValue(":spec", add.getSpecies());
+    query.prepare("INSERT INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species) VALUES (:br, :ay, :am, :gen, :vacc, :name, :DOB, :spec)");
+    query.bindValue(":br",add.getBreed());
+    query.bindValue(":ay",(add.getYears()));
+    query.bindValue(":am",add.getMonths());
+    query.bindValue(":gen",add.getGender());
+    query.bindValue(":name",add.getName());
+    query.bindValue(":DOB",add.getDOB());
+    query.bindValue(":spec",add.getSpecies());
     if(add.isVaccinated()){
-        query.bindValue(":vacc", "Yes");
+        query.bindValue(":vacc","Yes");
     }else{
-        query.bindValue(":vacc", "No");
+        query.bindValue(":vacc","No");
     }
-    query.exec();
+
+    if(!query.exec()){
+        qDebug()<<query.lastError()<<query.executedQuery();
+    }
+
+    cout<<"Added animal to DB\n";
 }
 
 vector<Animal> databaseManager::getAnimals(){
@@ -53,6 +58,7 @@ vector<Animal> databaseManager::getAnimals(){
         }
         Animal a = Animal(breed,ageYears,ageMonths,gender,vaccBool,name,DOB,species);
         currentAnimals.push_back(a);
+        cout<<"\nPrinted an animal from tthe database\n";
     }
     return currentAnimals;
 }

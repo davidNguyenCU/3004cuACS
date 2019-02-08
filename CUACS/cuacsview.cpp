@@ -8,6 +8,7 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->setupUi(this);
 
     animalDB = databaseManager("animals.db");
+    animals = animalDB.getAnimals();
 
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
@@ -19,6 +20,9 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->genderCombo->setCurrentIndex(-1);
     ui->emptyItemlbl->setHidden(true);
     ui->animalTbl->setRowCount(animals.size());
+    for(int i = 0;i< animals.size();i++){
+        displayNewAnimal(animals[i]);
+    }
 }
 
 CUACSView::~CUACSView()
@@ -102,6 +106,7 @@ void CUACSView::on_addAnimalBtn_clicked()
             ui->DOBTxt->clear();
         }
         displayNewAnimal(animals[animals.size()-1]);
+        animalDB.addAnimal(animals[animals.size()-1]);
         ui->nameTxt->clear();
         ui->breedTxt->clear();
         ui->speciesCombo->setCurrentIndex(-1);

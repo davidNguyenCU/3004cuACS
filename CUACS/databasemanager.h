@@ -1,5 +1,7 @@
 #ifndef DATABASEMANAGER_H
 #define DATABASEMANAGER_H
+#include <QDebug>
+#include <qsqlerror.h>
 #include <QSqlDatabase>
 #include <QSqlQuery>
 #include <QVariant>
