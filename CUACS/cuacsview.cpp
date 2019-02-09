@@ -7,7 +7,7 @@ CUACSView::CUACSView(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    animalDB = databaseManager("animals.db");
+    animalDB.createTable();
     animals = animalDB.getAnimals();
 
     ui->genderCombo->insertItem(0, "Male");

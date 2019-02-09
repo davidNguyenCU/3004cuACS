@@ -12,6 +12,23 @@ if (!animalDB.open()){
     cout << "Successfully connected with database";
 }
 }
+
+bool databaseManager::createTable()
+{
+    bool success = false;
+
+    QSqlQuery query;
+    query.prepare("CREATE TABLE IF NOT EXISTS animals(breed TEXT, ageYears INTEGER, ageMonths INTEGER, gender TEXT, vaccinated TEXT, name TEXT PRIMARY KEY, DOB INTEGER, species TEXT);");
+
+    if (!query.exec())
+    {
+        qDebug() << "Couldn't create the table 'team': one might already exist.";
+        success = false;
+    }
+
+    return success;
+}
+
 //adds an animal to the database
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;

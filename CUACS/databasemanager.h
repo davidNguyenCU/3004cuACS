@@ -13,6 +13,7 @@ class databaseManager
 {
 public:
     databaseManager(const QString& path);
+    bool createTable();
     void addAnimal(Animal);
     vector<Animal> getAnimals();
 private:
