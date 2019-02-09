@@ -15,6 +15,7 @@
 #include <QtWidgets/QButtonGroup>
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
@@ -34,8 +35,11 @@ class Ui_CUACSView
 {
 public:
     QWidget *centralWidget;
+    QGridLayout *gridLayout_2;
     QTabWidget *tabWidget;
     QWidget *tab;
+    QGridLayout *gridLayout;
+    QVBoxLayout *verticalLayout_3;
     QTableWidget *animalTbl;
     QWidget *tab_2;
     QPushButton *addAnimalBtn;
@@ -72,17 +76,27 @@ public:
     {
         if (CUACSView->objectName().isEmpty())
             CUACSView->setObjectName(QStringLiteral("CUACSView"));
-        CUACSView->resize(667, 280);
+        CUACSView->resize(721, 521);
         centralWidget = new QWidget(CUACSView);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
+        gridLayout_2 = new QGridLayout(centralWidget);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setEnabled(true);
-        tabWidget->setGeometry(QRect(0, 0, 671, 481));
         tabWidget->setFocusPolicy(Qt::ClickFocus);
         tabWidget->setToolTipDuration(-2);
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
+        gridLayout = new QGridLayout(tab);
+        gridLayout->setSpacing(6);
+        gridLayout->setContentsMargins(11, 11, 11, 11);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        verticalLayout_3 = new QVBoxLayout();
+        verticalLayout_3->setSpacing(6);
+        verticalLayout_3->setObjectName(QStringLiteral("verticalLayout_3"));
         animalTbl = new QTableWidget(tab);
         if (animalTbl->columnCount() < 7)
             animalTbl->setColumnCount(7);
@@ -101,11 +115,21 @@ public:
         QTableWidgetItem *__qtablewidgetitem6 = new QTableWidgetItem();
         animalTbl->setHorizontalHeaderItem(6, __qtablewidgetitem6);
         animalTbl->setObjectName(QStringLiteral("animalTbl"));
-        animalTbl->setGeometry(QRect(0, 0, 671, 231));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(10);
+        sizePolicy.setVerticalStretch(10);
+        sizePolicy.setHeightForWidth(animalTbl->sizePolicy().hasHeightForWidth());
+        animalTbl->setSizePolicy(sizePolicy);
         animalTbl->setEditTriggers(QAbstractItemView::NoEditTriggers);
         animalTbl->setColumnCount(7);
         animalTbl->horizontalHeader()->setCascadingSectionResizes(false);
         animalTbl->horizontalHeader()->setDefaultSectionSize(95);
+
+        verticalLayout_3->addWidget(animalTbl);
+
+
+        gridLayout->addLayout(verticalLayout_3, 0, 0, 1, 1);
+
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
@@ -258,6 +282,9 @@ public:
         horizontalLayout_13->addLayout(verticalLayout_2);
 
         tabWidget->addTab(tab_2, QString());
+
+        gridLayout_2->addWidget(tabWidget, 0, 0, 1, 1);
+
         CUACSView->setCentralWidget(centralWidget);
         statusBar = new QStatusBar(CUACSView);
         statusBar->setObjectName(QStringLiteral("statusBar"));

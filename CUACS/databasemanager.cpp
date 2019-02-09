@@ -73,7 +73,7 @@ vector<Animal> databaseManager::getAnimals(){
         }else{
             vaccBool = false;
         }
-        Animal a = Animal(breed,ageYears,ageMonths,gender,vaccBool,name,DOB,species);
+        Animal a = Animal(breed,ageYears,ageMonths,gender,vaccBool,name,species,DOB);
         currentAnimals.push_back(a);
         cout<<"\nPrinted an animal from tthe database\n";
     }
