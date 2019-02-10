@@ -19,9 +19,11 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->speciesCombo->setCurrentIndex(-1);
     ui->genderCombo->setCurrentIndex(-1);
     ui->emptyItemlbl->setHidden(true);
+
     ui->animalTbl->setRowCount(animals.size());
-    for(int i = 0;i< animals.size();i++){
-        displayNewAnimal(animals[i]);
+    for(unsigned int i = 0;i< animals.size();i++){
+        displayNewAnimal(animals[i],i+1 );
+        cout<<"\n"<<animals[i].getBreed().toStdString()<<"\n";
     }
 }
 
@@ -65,8 +67,8 @@ CUACSView::~CUACSView()
 
 }
 
-void CUACSView::displayNewAnimal(Animal newAnimal){
-    int row = animals.size();
+void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
+    int row = rowNum;
     ui->animalTbl->setRowCount(row);
     ui->animalTbl->setCellWidget(row-1,0,new QLabel(newAnimal.getName()));
     ui->animalTbl->setCellWidget(row-1,1,new QLabel(newAnimal.getSpecies()));
@@ -74,7 +76,7 @@ void CUACSView::displayNewAnimal(Animal newAnimal){
     ui->animalTbl->setCellWidget(row-1,3,new QLabel(newAnimal.getGender()));
     ui->animalTbl->setCellWidget(row-1,4,new QLabel(newAnimal.getDOB()));
     ui->animalTbl->setCellWidget(row-1,5,new QLabel(QString::number(newAnimal.getYears()) + "/" + QString::number(newAnimal.getMonths())));
-
+    cout<< newAnimal.getName().toStdString();
     QLabel *vaccinated;
     if(newAnimal.isVaccinated()){
         vaccinated = new QLabel("Yes");

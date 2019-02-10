@@ -75,7 +75,7 @@ vector<Animal> databaseManager::getAnimals(){
         }
         Animal a = Animal(breed,ageYears,ageMonths,gender,vaccBool,name,species,DOB);
         currentAnimals.push_back(a);
-        cout<<"\nPrinted an animal from tthe database\n";
+
     }
     return currentAnimals;
 }
