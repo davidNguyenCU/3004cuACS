@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "animal.h"
+#include "databasemanager.h"
 using namespace std;
 
 namespace Ui {
@@ -23,7 +24,8 @@ private slots:
 private:
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
-    void displayNewAnimal(Animal);
+    void displayNewAnimal(Animal, int);
+    databaseManager animalDB = databaseManager("animals.db");
 };
 
 #endif // CUACSVIEW_H

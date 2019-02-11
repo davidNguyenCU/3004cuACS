@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_DEPRECATED_WARNINGS -DQT_QML_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_SQL_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I../CUACS -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
+INCPATH       = -I../CUACS -I. -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtSql -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -isystem /usr/include/libdrm -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
 QMAKE         = /usr/lib/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -35,10 +35,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = CUACS1.0.0
-DISTDIR = /home/student/build-CUACS-Desktop-Debug/.tmp/CUACS1.0.0
+DISTDIR = /home/student/Desktop/GitHub/3004cuACS/build-CUACS-Desktop-Debug/.tmp/CUACS1.0.0
 LINK          = g++
 LFLAGS        = 
-LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Core -lGL -lpthread 
+LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
@@ -52,10 +52,12 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../CUACS/main.cpp \
 		../CUACS/cuacsview.cpp \
-		../CUACS/animal.cpp moc_cuacsview.cpp
+		../CUACS/animal.cpp \
+		../CUACS/databasemanager.cpp moc_cuacsview.cpp
 OBJECTS       = main.o \
 		cuacsview.o \
 		animal.o \
+		databasemanager.o \
 		moc_cuacsview.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -148,9 +150,11 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../CUACS/CUACS.pro ../CUACS/cuacsview.h \
-		../CUACS/animal.h ../CUACS/main.cpp \
+		../CUACS/animal.h \
+		../CUACS/databasemanager.h ../CUACS/main.cpp \
 		../CUACS/cuacsview.cpp \
-		../CUACS/animal.cpp
+		../CUACS/animal.cpp \
+		../CUACS/databasemanager.cpp
 QMAKE_TARGET  = CUACS
 DESTDIR       = 
 TARGET        = CUACS
@@ -255,6 +259,7 @@ Makefile: ../CUACS/CUACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qma
 		../CUACS/CUACS.pro \
 		/usr/lib/x86_64-linux-gnu/libQt5Widgets.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Gui.prl \
+		/usr/lib/x86_64-linux-gnu/libQt5Sql.prl \
 		/usr/lib/x86_64-linux-gnu/libQt5Core.prl
 	$(QMAKE) -o Makefile ../CUACS/CUACS.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
 /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf:
@@ -350,6 +355,7 @@ Makefile: ../CUACS/CUACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qma
 ../CUACS/CUACS.pro:
 /usr/lib/x86_64-linux-gnu/libQt5Widgets.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Gui.prl:
+/usr/lib/x86_64-linux-gnu/libQt5Sql.prl:
 /usr/lib/x86_64-linux-gnu/libQt5Core.prl:
 qmake: FORCE
 	@$(QMAKE) -o Makefile ../CUACS/CUACS.pro -spec linux-g++ CONFIG+=debug CONFIG+=qml_debug
@@ -366,8 +372,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h ../CUACS/databasemanager.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp ../CUACS/databasemanager.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CUACS/cuacsview.ui $(DISTDIR)/
 
 
@@ -404,10 +410,11 @@ compiler_moc_header_make_all: moc_cuacsview.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_cuacsview.cpp
 moc_cuacsview.cpp: ../CUACS/animal.h \
+		../CUACS/databasemanager.h \
 		../CUACS/cuacsview.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/cuacsview.h -o moc_cuacsview.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/GitHub/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/cuacsview.h -o moc_cuacsview.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -429,16 +436,22 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 ####### Compile
 
 main.o: ../CUACS/main.cpp ../CUACS/cuacsview.h \
-		../CUACS/animal.h
+		../CUACS/animal.h \
+		../CUACS/databasemanager.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../CUACS/main.cpp
 
 cuacsview.o: ../CUACS/cuacsview.cpp ../CUACS/cuacsview.h \
 		../CUACS/animal.h \
+		../CUACS/databasemanager.h \
 		ui_cuacsview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cuacsview.o ../CUACS/cuacsview.cpp
 
 animal.o: ../CUACS/animal.cpp ../CUACS/animal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animal.o ../CUACS/animal.cpp
+
+databasemanager.o: ../CUACS/databasemanager.cpp ../CUACS/databasemanager.h \
+		../CUACS/animal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o databasemanager.o ../CUACS/databasemanager.cpp
 
 moc_cuacsview.o: moc_cuacsview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cuacsview.o moc_cuacsview.cpp

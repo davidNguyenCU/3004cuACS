@@ -7,6 +7,8 @@ class Animal
 {
 public:
     Animal(QString, int, int, QString, bool, QString, QString, QString = "UNKNOWN");
+    ~Animal();
+    /*
     void setDOB(QString);
     void setBreed(QString);
     void setGender(QString);
@@ -15,7 +17,7 @@ public:
     void setAgeYears(int);
     void setAgeMonths(int);
     void setVaccinated(int);
-
+    */
     //Getter Functions
     QString getBreed() const;
     QString getGender() const;
@@ -38,12 +40,13 @@ private:
     QString breed;
     QString species;//to be abstracted in later versions
 
+    /*
     //Twelve unique attributes needed
     int monthlyCost;
     double friendliness;//marked on a scale of 1-10
     int trainability;
     int energy;
-
+    */
 
 };
 
