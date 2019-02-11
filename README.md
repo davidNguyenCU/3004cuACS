@@ -3,7 +3,7 @@ Instructions on how to untar, install, and run this program:
 
 Untar:
 1. Open a terminal window in the location of the .tar file
-2. Enter this command to untar: 
+2. Enter this command to untar: 'tar -xvf CUACS.tar'
 
 Install:
 1. Untar the .tar file
