@@ -1,5 +1,6 @@
 #include "databasemanager.h"
 
+//constructor for the databaseManager
 databaseManager::databaseManager(const QString& path)
 {
 animalDB = QSqlDatabase::addDatabase("QSQLITE");
@@ -13,6 +14,13 @@ if (!animalDB.open()){
     }
 }
 
+/**
+Function:
+in:
+out:
+return: A bool indicating whether creating a table was successful
+purpose: Checks whether or not the SQL table currently exists, and creates  it if it does not
+**/
 bool databaseManager::createTable()
 {
     bool success = false;
@@ -29,7 +37,13 @@ bool databaseManager::createTable()
     return success;
 }
 
-//adds an animal to the database
+/**
+Function: addAnimal(Animal)
+in: Animal add to be inserted in to the database
+out:
+return: void
+purpose: Adds a given animal to the SQL Database
+**/
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
     query.prepare("INSERT INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species) VALUES (:br, :ay, :am, :gen, :vacc, :name, :DOB, :spec)");
@@ -51,6 +65,13 @@ void databaseManager::addAnimal(Animal add){
     }
 }
 
+/**
+Function: getAnimals()
+in:
+out:
+return: vector<Animal> containing all of the Animals in the database
+purpose: return all animals currently in the database
+**/
 vector<Animal> databaseManager::getAnimals(){
     QSqlQuery query;
     vector<Animal> currentAnimals;

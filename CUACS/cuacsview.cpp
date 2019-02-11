@@ -1,6 +1,7 @@
 #include "cuacsview.h"
 #include "ui_cuacsview.h"
 
+//Constructor for the CUACSView, initializes all on screen items properly
 CUACSView::CUACSView(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CUACSView)
@@ -23,10 +24,11 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->animalTbl->setRowCount(animals.size());
     for(unsigned int i = 0;i< animals.size();i++){
         displayNewAnimal(animals[i],i+1 );
-        cout<<"\n"<<animals[i].getBreed().toStdString()<<"\n";
+
     }
 }
 
+//destructor for CUACSView
 CUACSView::~CUACSView()
 {
 
@@ -67,6 +69,13 @@ CUACSView::~CUACSView()
 
 }
 
+/**
+Function: displayNewAnimal(Animal, int)
+in: Animal newAnimal to be displayed in the GUI, int rownum to set where to place the newly added animal
+out:
+return:
+purpose: Display a newly added Animal to the animalTbl
+**/
 void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     int row = rowNum;
     ui->animalTbl->setRowCount(row);
@@ -85,6 +94,13 @@ void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
 }
 
+/**
+Function: on_addAnimalBtn_clicked()
+in:
+out:
+return:
+purpose: Handle adding a new animal to the database and updating the display as a new animal is added.
+**/
 void CUACSView::on_addAnimalBtn_clicked()
 {
     QString name = ui->nameTxt->text();
