@@ -10,7 +10,7 @@ if (!animalDB.open()){
     cout <<"Error: Failed connection with database";
 }else{
     cout << "Successfully connected with database";
-}
+    }
 }
 
 bool databaseManager::createTable()
@@ -49,8 +49,6 @@ void databaseManager::addAnimal(Animal add){
     if(!query.exec()){
         qDebug()<<query.lastError()<<query.executedQuery();
     }
-
-    cout<<"Added animal to DB\n";
 }
 
 vector<Animal> databaseManager::getAnimals(){

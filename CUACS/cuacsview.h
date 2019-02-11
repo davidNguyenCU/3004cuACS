@@ -24,7 +24,7 @@ private slots:
 private:
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
-    void displayNewAnimal(Animal, int = 0);
+    void displayNewAnimal(Animal, int);
     databaseManager animalDB = databaseManager("animals.db");
 };
 
