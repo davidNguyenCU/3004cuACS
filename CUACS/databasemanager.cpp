@@ -44,6 +44,14 @@ out:
 return: void
 purpose: Adds a given animal to the SQL Database
 **/
+/*TO DO:
+ * Add all the new algorithm attributes to the table
+ * add the ID to the table as the primary key
+ * Ensure that when an animal is created it is done using the full attribute constructor
+ * Add a second table to be used for clients
+ * Add an addClient function, which will take a client and add it to the table
+ * Add a getClients function, which will return all clients in the database, in a vector
+ */
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
     query.prepare("INSERT INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species) VALUES (:br, :ay, :am, :gen, :vacc, :name, :DOB, :spec)");

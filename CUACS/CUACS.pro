@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         cuacsview.cpp \
     animal.cpp \
-    databasemanager.cpp
+    databasemanager.cpp \
+    client.cpp
 
 HEADERS += \
         cuacsview.h \
     animal.h \
-    databasemanager.h
+    databasemanager.h \
+    client.h
 
 FORMS += \
         cuacsview.ui

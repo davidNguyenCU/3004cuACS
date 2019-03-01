@@ -8,6 +8,7 @@ CUACSView::CUACSView(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    //My (Max) suggestions for the animal table is changing the name from animals to something else, and simply adding functions to the database manage for client, staff, etc.
     animalDB.createTable();
     animals = animalDB.getAnimals();
 
@@ -74,7 +75,7 @@ Function: displayNewAnimal(Animal, int)
 in: Animal newAnimal to be displayed in the GUI, int rownum to set where to place the newly added animal
 out:
 return:
-purpose: Display a newly added Animal to the animalTbl
+purpose: Display a newly added Animal to the animalTbl, for listing all animals
 **/
 void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     int row = rowNum;
@@ -101,6 +102,7 @@ out:
 return:
 purpose: Handle adding a new animal to the database and updating the display as a new animal is added.
 **/
+//This function will need to be updated in accordance with the new animal attributes
 void CUACSView::on_addAnimalBtn_clicked()
 {
     QString name = ui->nameTxt->text();
