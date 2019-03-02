@@ -25,7 +25,7 @@ private:
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
     void displayNewAnimal(Animal, int);
-    databaseManager animalDB = databaseManager("animals.db");
+    databaseManager localDB = databaseManager("localStorage.db");
 };
 
 #endif // CUACSVIEW_H

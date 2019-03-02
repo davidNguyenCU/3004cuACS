@@ -7,9 +7,11 @@ using namespace std;
 class Client
 {
 public:
-    Client(QString, QString, QString, QString, QString, QString, QString, int, QString, QString = "");
 
-    QString getName() const;
+    Client(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString, QString = "");
+
+    QString getfName() const;
+    QString getlName() const;
     QString getPostalCode() const;
     QString getCity() const;
     QString getProvince() const;
@@ -18,10 +20,10 @@ public:
     QString getUsername() const;
     QString getPassword() const;
     QString getEmail() const;
-    int getPhoneNumber() const;
+    QString getPhoneNumber() const;
 private:
-   QString name;
-
+   QString fname;
+   QString lname;
    QString postalCode;
    QString city;
    QString province;
@@ -34,7 +36,7 @@ private:
    //If we have time, we will be encrypting the passwords using SHA256, in order to have some security
 
    QString email;
-   int phoneNumber;
+   QString phoneNumber;
 };
 
 #endif // CLIENT_H
