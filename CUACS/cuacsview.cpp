@@ -103,6 +103,24 @@ void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
 }
 
+bool CUACSView::checkUsername(QString newUser){
+    int pos = 0;
+    if(newUser==""){
+        return false;
+    }
+    for(int i = 0;i<clients.size();i++){
+        if(newUser==clients[i].getUsername()){
+            return false;
+        }
+    }
+    QRegExp userRegex("^[a-zA-Z0-9]*$");
+    QRegExpValidator userValid(userRegex);
+    if(userValid.validate(newUser,pos)!=Acceptable){
+        return false;
+    }
+    return true;
+}
+
 /**
 Function: on_addAnimalBtn_clicked()
 in:
@@ -187,15 +205,19 @@ void CUACSView::on_addClientBtn_clicked()
     phone = ui->phoneTxt->text();
     if(checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
         ui->emptyClientLbl->setHidden(false);
-    }else if(validateTextOnly(first,pos)!=Acceptable||first==""){
+    }
+    if(validateTextOnly.validate(first,pos)!=Acceptable||first==""){
         ui->emptyClientLbl->setHidden(false);
-    }else if(validateTextOnly(last,pos)!=Acceptable||last=""){
+    }
+    if(validateTextOnly.validate(last,pos)!=Acceptable||last==""){
         ui->emptyClientLbl->setHidden(false);
-    }else if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
+    }
+    if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
         ui->emptyClientLbl->setHidden(false);
-    }else if(validatePassword.validate(pass,pos)!=Acceptable||pass!=""||pass!=confirmPass){
+    }
+    if(validatePassword.validate(pass,pos)!=Acceptable||pass==""||pass!=confirmPass){
         ui->emptyClientLbl->setHidden(false);
-    }else if(validateTextOnly(town,pos)!=Acceptable||town==""){
+    }else if(validateTextOnly.validate(town,pos)!=Acceptable||town==""){
         ui->emptyClientLbl->setHidden(false);
     }else if(emailValid.validate(mail,pos) != Acceptable||mail==""){
         ui->emptyClientLbl->setHidden(false);

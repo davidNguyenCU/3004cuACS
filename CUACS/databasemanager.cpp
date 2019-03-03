@@ -162,8 +162,8 @@ void databaseManager::addClient(Client add)
     QSqlQuery query;
     query.prepare("INSERT INTO OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
                   "VALUES (:fName, :lName, :pCode, :cit, :pro, :ad1, :ad2, :user, :pass, :ema, :pNum)");
-    query.bindValue(":fName",add.getfName());
-    query.bindValue(":lName",add.getlName());
+    query.bindValue(":fName",add.getFirstName());
+    query.bindValue(":lName",add.getLastName());
     query.bindValue(":pCode",add.getPostalCode());
     query.bindValue(":cit",add.getCity());
     query.bindValue(":pro",add.getProvince());

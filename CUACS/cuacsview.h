@@ -21,7 +21,7 @@ public:
     explicit CUACSView(QWidget *parent = 0);
     ~CUACSView();
     void addAnimal();
-    boolean checkUsername(QString);
+    bool checkUsername(QString);
 private slots:
     void on_addAnimalBtn_clicked();
 
