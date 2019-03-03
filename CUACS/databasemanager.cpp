@@ -66,7 +66,7 @@ bool databaseManager::createTable()
                   "addressLine1 TEXT, "
                   "addressLine2 TEXT, "
                   "username TEXT, "
-                  "passwrod TEXT, "
+                  "password TEXT, "
                   "email TEXT, "
                   "phoneNumber TEXT, "
                   "primary key (username));");
@@ -160,7 +160,7 @@ purpose: Adds a given Client to the SQL Database
 void databaseManager::addClient(Client add)
 {
     QSqlQuery query;
-    query.prepare("INSERT INTO OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
+    query.prepare("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
                   "VALUES (:fName, :lName, :pCode, :cit, :pro, :ad1, :ad2, :user, :pass, :ema, :pNum)");
     query.bindValue(":fName",add.getFirstName());
     query.bindValue(":lName",add.getLastName());

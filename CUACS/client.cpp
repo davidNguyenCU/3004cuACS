@@ -22,9 +22,9 @@ QString Client::getFirstName() const{return firstName;}
 QString Client::getLastName() const{return lastName;}
 QString Client::getCity() const{return city;}
 QString Client::getEmail() const{return email;}
-QString Client::getProvince() const{return email;}
-QString Client::getPostalCode() const{return email;}
-QString Client::getUsername() const{return email;}
+QString Client::getProvince() const{return province;}
+QString Client::getPostalCode() const{return postalCode;}
+QString Client::getUsername() const{return username;}
 QString Client::getPassword() const{return password;}
 QString Client::getPhoneNumber() const {return phoneNumber;}
 

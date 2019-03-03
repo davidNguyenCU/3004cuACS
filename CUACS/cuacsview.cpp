@@ -152,7 +152,7 @@ void CUACSView::on_addAnimalBtn_clicked()
     QString DOB = ui->DOBTxt->text();
     QString gender = ui->genderCombo->currentText();
 
-    QRegExp breedRegEx("^[a-z][a-z\\s]*$");
+    QRegExp breedRegEx("^[a-zA-Z][a-zA-Z\\s]*$");
     QRegExpValidator breedValidator(breedRegEx);
     //format yyyy-mm-dd
     QRegExp DOBRegEx("\\d\\d\\d\\d-\\d\\d-\\d\\d");
@@ -278,7 +278,7 @@ void CUACSView::on_addClientBtn_clicked()
             Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2);
             clients.push_back(addClient);
         }
-        //displayNewClient(clients[clients.size()-1], clients.size());
+        displayNewClient(clients[clients.size()-1], clients.size());
         localDB.addClient(clients[clients.size()-1]);
         ui->passConLbl->setHidden(true);
         ui->usernameTxt->clear();

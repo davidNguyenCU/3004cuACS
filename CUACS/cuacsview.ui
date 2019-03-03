@@ -105,8 +105,8 @@
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>0</y>
-          <width>531</width>
+          <y>10</y>
+          <width>691</width>
           <height>431</height>
          </rect>
         </property>
@@ -126,7 +126,7 @@
          <bool>true</bool>
         </attribute>
         <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>105</number>
+         <number>137</number>
         </attribute>
         <attribute name="horizontalHeaderHighlightSections">
          <bool>true</bool>
