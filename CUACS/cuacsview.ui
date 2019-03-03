@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>887</width>
-    <height>556</height>
+    <width>888</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
        <number>-2</number>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -162,6 +162,19 @@
           <string>Phone Number</string>
          </property>
         </column>
+       </widget>
+       <widget class="QPushButton" name="detailedClientsBtn">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>10</y>
+          <width>161</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>See Detailed Clients</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
