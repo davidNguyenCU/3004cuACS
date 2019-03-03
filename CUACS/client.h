@@ -9,9 +9,8 @@ class Client
 public:
 
     Client(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString, QString = "");
-
-    QString getfName() const;
-    QString getlName() const;
+    QString getFirstName() const;
+    QString getLastName() const;
     QString getPostalCode() const;
     QString getCity() const;
     QString getProvince() const;
@@ -22,8 +21,9 @@ public:
     QString getEmail() const;
     QString getPhoneNumber() const;
 private:
-   QString fname;
-   QString lname;
+   QString firstName;
+   QString lastName;
+
    QString postalCode;
    QString city;
    QString province;

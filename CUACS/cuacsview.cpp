@@ -19,9 +19,16 @@ CUACSView::CUACSView(QWidget *parent) :
     for(int i = 0;i<7; i++){
         ui->speciesCombo->insertItem(i,species[i]);
     }
+
+    QString provinces[] = {"BC", "AB", "SK", "MB", "ON", "QC", "NL", "NB","NU","NS", "NT","PE", "YT"};
+    for(int i = 0;i<13; i++){
+        ui->provinceCombo->insertItem(i,provinces[i]);
+    }
+
     ui->speciesCombo->setCurrentIndex(-1);
     ui->genderCombo->setCurrentIndex(-1);
-    ui->emptyItemlbl->setHidden(true);
+    ui->provinceCombo->setCurrentIndex(-1);
+    ui->emptyAnimalLbl->setHidden(true);
 
     ui->animalTbl->setRowCount(animals.size());
     for(unsigned int i = 0;i< animals.size();i++){
@@ -59,7 +66,7 @@ CUACSView::~CUACSView()
     delete ui->horizontalLayout;
     delete ui->verticalLayout;
     delete ui->horizontalLayout_13;
-    delete ui->emptyItemlbl;
+    delete ui->emptyAnimalLbl;
     delete ui->addAnimalBtn;
     delete ui->tab_2;
     delete ui->animalTbl;
@@ -111,12 +118,23 @@ void CUACSView::on_addAnimalBtn_clicked()
     QString species = ui->speciesCombo->currentText();
     QString DOB = ui->DOBTxt->text();
     QString gender = ui->genderCombo->currentText();
+
+    QRegExp breedRegEx("^[a-z][a-z\\s]*$");
+    QRegExpValidator breedValidator(breedRegEx);
+    //format yyyy-mm-dd
+    QRegExp DOBRegEx("\\d\\d\\d\\d-\\d\\d-\\d\\d");
+    QRegExpValidator DOBValidator(DOBRegEx);
     bool vaccinated = ui->vaccinatedChk->checkState();
     int ageYears = ui->yearsSpn->value();
     int ageMonths = ui->monthsSpn->value();
 
-    if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
-        ui->emptyItemlbl->setHidden(false);
+    int pos = 0;
+    if(DOBValidator.validate(DOB,pos)!=Acceptable &&DOB!=""){
+        ui->emptyAnimalLbl->setHidden(false);
+    }else if(breedValidator.validate(breed,pos)!=Acceptable){
+        ui->emptyAnimalLbl->setHidden(false);
+    }else if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
+        ui->emptyAnimalLbl->setHidden(false);
     }else{
         if(DOB==""){
             animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species));
@@ -134,6 +152,65 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->vaccinatedChk->setChecked(false);
         ui->yearsSpn->setValue(0);
         ui->monthsSpn->setValue(0);
-        ui->emptyItemlbl->setHidden(true);
+        ui->emptyAnimalLbl->setHidden(true);
+    }
+}
+
+void CUACSView::on_addClientBtn_clicked()
+{
+    QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
+    int pos = 0;
+    //I will need to set up validators of some sort for username(ensure its unique), postal code, pass and confrimPass,
+    //phone number, and maybe email
+    user = ui->usernameTxt->text();
+    QRegExp textNoSpaces("^[a-z]*$");
+    QRegExpValidator validateTextOnly(textNoSpaces);
+    first = ui->firstNameTxt->text();
+    last = ui->lastNameTxt->text();
+    QRegExp postalRegex("^([A-Za-z]\d[A-Za-z][-]?\d[A-Za-z]\d)");
+    QRegExpValidator postalValidator(postalRegex);
+    postal = ui->postalCodeTxt->text();
+
+    QRegExp passRegex("^[a-zA-Z0-9]*$");
+    QRegExpValidator validatePassword(passRegex);
+    pass = ui->passwordTxt->text();
+    confirmPass = ui->confirmPasswordTxt->text();
+    town = ui->cityTxt->text();
+    prov = ui->provinceCombo->currentText();
+    mail = ui->emailTxt->text();
+    QRegExp emailRegex("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
+    QRegExpValidator emailValid(emailRegex);
+    addLn1 = ui->addressLine1Txt->text();
+    addLn2 = ui->addressLine2Txt->text();
+    QRegExp phoneRegex("\\d-(\\d\\d\\d)-\\d\\d\\d-\\d\\d\\d\\d");
+    QRegExpValidator phoneValidator(phoneRegex);
+    phone = ui->phoneTxt->text();
+    if(checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
+        ui->emptyClientLbl->setHidden(false);
+    }else if(validateTextOnly(first,pos)!=Acceptable||first==""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(validateTextOnly(last,pos)!=Acceptable||last=""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(validatePassword.validate(pass,pos)!=Acceptable||pass!=""||pass!=confirmPass){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(validateTextOnly(town,pos)!=Acceptable||town==""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(emailValid.validate(mail,pos) != Acceptable||mail==""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if (prov ==""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(addLn1 == ""){
+        ui->emptyClientLbl->setHidden(false);
+    }else if(phoneValidator.validate(phone,pos)!=Acceptable||phone==""){
+       ui->emptyClientLbl->setHidden(false);
+    }else{
+        if(addLn2==""){
+            Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1);
+        }else{
+            Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2);
+        }
+
     }
 }
