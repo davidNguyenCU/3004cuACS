@@ -1,17 +1,6 @@
 #include "animal.h"
 
-//Constructor for Animal class
-Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies, QString DOB)
-{
-    breed = aBreed;
-    ageYears = ageY;
-    ageMonths = ageM;
-    gender = aGender;
-    vaccinated = isVaccinated;
-    name = aName;
-    dateOfBirth = DOB;
-    species = aSpecies;
-}
+
 
 
 Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){

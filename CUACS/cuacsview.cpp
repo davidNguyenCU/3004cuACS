@@ -160,8 +160,22 @@ void CUACSView::on_addAnimalBtn_clicked()
     bool vaccinated = ui->vaccinatedChk->checkState();
     int ageYears = ui->yearsSpn->value();
     int ageMonths = ui->monthsSpn->value();
-
     int pos = 0;
+
+    int temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience;
+    temperament = ui->temperamentSpin->value();
+    trainability = ui->trainabilitySpin->value();
+    intelligence = ui->intelligenceSpin->value();
+    mischievousness = ui->mischievousnessSpin->value();
+    socialAttitude = ui->animalFriendlySpin->value();
+    strangerFriendly = ui->friendlyStrangerSpin->value();
+    energy = ui->energySpin->value();
+    childFriendly = ui->childFriendlySpin->value();
+    playfulness = ui->playfulnessSpin->value();
+    patience = ui->patienceSpin->value();
+    independence = ui->independenceSpin->value();
+    obedience = ui->obedienceSpin->value();
+
     if(DOBValidator.validate(DOB,pos)!=Acceptable &&DOB!=""){
         ui->emptyAnimalLbl->setHidden(false);
     }else if(breedValidator.validate(breed,pos)!=Acceptable){
@@ -170,12 +184,26 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->emptyAnimalLbl->setHidden(false);
     }else{
         if(DOB==""){
-            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species));
+            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience));
 
         }else{
-            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, DOB));
+            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB));
             ui->DOBTxt->clear();
         }
+
+        ui->temperamentSpin->setValue(1);
+        ui->trainabilitySpin->setValue(1);
+        ui->intelligenceSpin->setValue(1);
+        ui->mischievousnessSpin->setValue(1);
+        ui->animalFriendlySpin->setValue(1);
+        ui->friendlyStrangerSpin->setValue(1);
+        ui->energySpin->setValue(1);
+        ui->childFriendlySpin->setValue(1);
+        ui->playfulnessSpin->setValue(1);
+        ui->patienceSpin->setValue(1);
+        ui->independenceSpin->setValue(1);
+        ui->obedienceSpin->setValue(1);
+
         displayNewAnimal(animals[animals.size()-1], animals.size());
         localDB.addAnimal(animals[animals.size()-1]);
         ui->nameTxt->clear();
