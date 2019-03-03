@@ -35,7 +35,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = CUACS1.0.0
-DISTDIR = /home/student/Desktop/GitHub/3004cuACS/build-CUACS-Desktop-Debug/.tmp/CUACS1.0.0
+DISTDIR = /home/student/Desktop/WorkingFolder/3004cuACS/build-CUACS-Desktop-Debug/.tmp/CUACS1.0.0
 LINK          = g++
 LFLAGS        = 
 LIBS          = $(SUBLIBS) -lQt5Widgets -lQt5Gui -lQt5Sql -lQt5Core -lGL -lpthread 
@@ -53,11 +53,13 @@ OBJECTS_DIR   = ./
 SOURCES       = ../CUACS/main.cpp \
 		../CUACS/cuacsview.cpp \
 		../CUACS/animal.cpp \
-		../CUACS/databasemanager.cpp moc_cuacsview.cpp
+		../CUACS/databasemanager.cpp \
+		../CUACS/client.cpp moc_cuacsview.cpp
 OBJECTS       = main.o \
 		cuacsview.o \
 		animal.o \
 		databasemanager.o \
+		client.o \
 		moc_cuacsview.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -151,10 +153,12 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		../CUACS/CUACS.pro ../CUACS/cuacsview.h \
 		../CUACS/animal.h \
-		../CUACS/databasemanager.h ../CUACS/main.cpp \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h ../CUACS/main.cpp \
 		../CUACS/cuacsview.cpp \
 		../CUACS/animal.cpp \
-		../CUACS/databasemanager.cpp
+		../CUACS/databasemanager.cpp \
+		../CUACS/client.cpp
 QMAKE_TARGET  = CUACS
 DESTDIR       = 
 TARGET        = CUACS
@@ -372,8 +376,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h ../CUACS/databasemanager.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp ../CUACS/databasemanager.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h ../CUACS/databasemanager.h ../CUACS/client.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp ../CUACS/databasemanager.cpp ../CUACS/client.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../CUACS/cuacsview.ui $(DISTDIR)/
 
 
@@ -414,7 +418,7 @@ moc_cuacsview.cpp: ../CUACS/animal.h \
 		../CUACS/cuacsview.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/GitHub/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/cuacsview.h -o moc_cuacsview.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/WorkingFolder/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/cuacsview.h -o moc_cuacsview.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -452,6 +456,9 @@ animal.o: ../CUACS/animal.cpp ../CUACS/animal.h
 databasemanager.o: ../CUACS/databasemanager.cpp ../CUACS/databasemanager.h \
 		../CUACS/animal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o databasemanager.o ../CUACS/databasemanager.cpp
+
+client.o: ../CUACS/client.cpp ../CUACS/client.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o client.o ../CUACS/client.cpp
 
 moc_cuacsview.o: moc_cuacsview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cuacsview.o moc_cuacsview.cpp

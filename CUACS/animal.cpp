@@ -127,3 +127,63 @@ purpose: Get whether or not the current Animal is vaccinated
 bool Animal::isVaccinated() const{
     return vaccinated;
 }
+
+int Animal::getTemperament() const
+{
+    return temperament;
+}
+
+int Animal::getTrainability() const
+{
+    return trainability;
+}
+
+int Animal::getIntelligence() const
+{
+    return intelligence;
+}
+
+int Animal::getMischievousness() const
+{
+    return mischievousness;
+}
+
+int Animal::getSocialAttitutde() const
+{
+    return socialAttitude;
+}
+
+int Animal::getStrangerFriendly() const
+{
+    return strangerFriendly;
+}
+
+int Animal::getEnergy() const
+{
+    return energy;
+}
+
+int Animal::getChildFriendly() const
+{
+    return childFriendly;
+}
+
+int Animal::getPlayfulness() const
+{
+    return playfulness;
+}
+
+int Animal::getPatience() const
+{
+    return patience;
+}
+
+int Animal::getIndependence() const
+{
+    return independence;
+}
+
+int Animal::getObedience() const
+{
+    return obedience;
+}

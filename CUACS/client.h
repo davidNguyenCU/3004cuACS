@@ -7,8 +7,8 @@ using namespace std;
 class Client
 {
 public:
-    Client(QString, QString, QString, QString, QString, QString, QString, QString, int, QString, QString = "");
 
+    Client(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString, QString = "");
     QString getFirstName() const;
     QString getLastName() const;
     QString getPostalCode() const;

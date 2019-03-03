@@ -33,7 +33,7 @@ private:
     std::vector<Animal> animals;
     std::vector<Client> clients;
     void displayNewAnimal(Animal, int);
-    databaseManager animalDB = databaseManager("animals.db");
+    databaseManager localDB = databaseManager("localStorage.db");
 };
 
 #endif // CUACSVIEW_H

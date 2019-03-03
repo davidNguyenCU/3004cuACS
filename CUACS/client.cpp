@@ -1,6 +1,6 @@
 #include "client.h"
 
-Client::Client(QString fName, QString lName, QString post, QString town, QString prov, QString user, QString mail,QString pass,  int phone, QString addLn1, QString addLn2)
+Client::Client(QString fName, QString lName, QString post, QString town, QString prov, QString user, QString mail,QString pass,  QString phone, QString addLn1, QString addLn2)
 {
     firstName = fName;
     lastName = lName;
@@ -27,4 +27,5 @@ QString Client::getPostalCode() const{return email;}
 QString Client::getUsername() const{return email;}
 QString Client::getPassword() const{return password;}
 QString Client::getPhoneNumber() const {return phoneNumber;}
+
 
