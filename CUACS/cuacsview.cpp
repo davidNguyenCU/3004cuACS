@@ -8,10 +8,10 @@ CUACSView::CUACSView(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    //My (Max) suggestions for the animal table is changing the name from animals to something else, and simply adding functions to the database manage for client, staff, etc.
     localDB.createTable();
     localDB.populateTables();
     animals = localDB.getAnimals();
+    clients = localDB.getClients();
 
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
@@ -29,11 +29,16 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->genderCombo->setCurrentIndex(-1);
     ui->provinceCombo->setCurrentIndex(-1);
     ui->emptyAnimalLbl->setHidden(true);
+    ui->emptyClientLbl->setHidden(true);
+    ui->passConLbl->setHidden(true);
 
     ui->animalTbl->setRowCount(animals.size());
     for(unsigned int i = 0;i< animals.size();i++){
         displayNewAnimal(animals[i],i+1 );
-
+    }
+    ui->clientTable->setRowCount(clients.size());
+    for(unsigned int i = 0;i< clients.size();i++){
+        displayNewClient(clients[i],i+1 );
     }
 }
 
@@ -71,7 +76,6 @@ CUACSView::~CUACSView()
     delete ui->tab_2;
     delete ui->animalTbl;
     delete ui->tab;
-    delete ui->tabWidget;
     delete ui->centralWidget;
     delete ui->statusBar;
     delete ui;
@@ -102,6 +106,17 @@ void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     }
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
 }
+
+void CUACSView::displayNewClient(Client newClient, int rowNum){
+    int row = rowNum;
+    ui->clientTable->setRowCount(row);
+    ui->clientTable->setCellWidget(row-1,0,new QLabel(newClient.getUsername()));
+    ui->clientTable->setCellWidget(row-1,1,new QLabel(newClient.getFirstName()));
+    ui->clientTable->setCellWidget(row-1,2,new QLabel(newClient.getLastName()));
+    ui->clientTable->setCellWidget(row-1,3,new QLabel(newClient.getEmail()));
+    ui->clientTable->setCellWidget(row-1,4,new QLabel(newClient.getPhoneNumber()));
+}
+
 
 bool CUACSView::checkUsername(QString newUser){
     int pos = 0;
@@ -177,15 +192,16 @@ void CUACSView::on_addAnimalBtn_clicked()
 void CUACSView::on_addClientBtn_clicked()
 {
     QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
+    bool allFull = true;
     int pos = 0;
     //I will need to set up validators of some sort for username(ensure its unique), postal code, pass and confrimPass,
     //phone number, and maybe email
     user = ui->usernameTxt->text();
-    QRegExp textNoSpaces("^[a-z]*$");
+    QRegExp textNoSpaces("^[a-zA-Z]*$");
     QRegExpValidator validateTextOnly(textNoSpaces);
     first = ui->firstNameTxt->text();
     last = ui->lastNameTxt->text();
-    QRegExp postalRegex("^([A-Za-z]\d[A-Za-z][-]?\d[A-Za-z]\d)");
+    QRegExp postalRegex("^([A-Za-z]\\d[A-Za-z][-]?\\d[A-Za-z]\\d)");
     QRegExpValidator postalValidator(postalRegex);
     postal = ui->postalCodeTxt->text();
 
@@ -196,43 +212,87 @@ void CUACSView::on_addClientBtn_clicked()
     town = ui->cityTxt->text();
     prov = ui->provinceCombo->currentText();
     mail = ui->emailTxt->text();
-    QRegExp emailRegex("^\\w+@[a-zA-Z_]+?\\.[a-zA-Z]{2,3}$");
+    QRegExp emailRegex("\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}\\b");
+    emailRegex.setCaseSensitivity(Qt::CaseInsensitive);
+    emailRegex.setPatternSyntax(QRegExp::RegExp);
     QRegExpValidator emailValid(emailRegex);
     addLn1 = ui->addressLine1Txt->text();
     addLn2 = ui->addressLine2Txt->text();
-    QRegExp phoneRegex("\\d-(\\d\\d\\d)-\\d\\d\\d-\\d\\d\\d\\d");
+    QRegExp phoneRegex("\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d");
     QRegExpValidator phoneValidator(phoneRegex);
     phone = ui->phoneTxt->text();
-    if(checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
+    if(!checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
         ui->emptyClientLbl->setHidden(false);
+        allFull = false;
     }
     if(validateTextOnly.validate(first,pos)!=Acceptable||first==""){
         ui->emptyClientLbl->setHidden(false);
+        allFull = false;
     }
     if(validateTextOnly.validate(last,pos)!=Acceptable||last==""){
         ui->emptyClientLbl->setHidden(false);
+        allFull = false;
     }
     if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
         ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+
     }
-    if(validatePassword.validate(pass,pos)!=Acceptable||pass==""||pass!=confirmPass){
-        ui->emptyClientLbl->setHidden(false);
-    }else if(validateTextOnly.validate(town,pos)!=Acceptable||town==""){
-        ui->emptyClientLbl->setHidden(false);
-    }else if(emailValid.validate(mail,pos) != Acceptable||mail==""){
-        ui->emptyClientLbl->setHidden(false);
-    }else if (prov ==""){
-        ui->emptyClientLbl->setHidden(false);
-    }else if(addLn1 == ""){
-        ui->emptyClientLbl->setHidden(false);
-    }else if(phoneValidator.validate(phone,pos)!=Acceptable||phone==""){
-       ui->emptyClientLbl->setHidden(false);
+    if(pass!=confirmPass){
+        ui->passConLbl->setHidden(false);
     }else{
+        ui->passConLbl->setHidden(true);
+    }
+    if(validatePassword.validate(pass,pos)!=Acceptable||pass==""){
+        ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+
+    }
+    if(validateTextOnly.validate(town,pos)!=Acceptable||town==""){
+        ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+    }
+    if(emailValid.validate(mail,pos) != Acceptable||mail==""){
+        ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+    }
+    if (prov ==""){
+        ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+    }
+    if(addLn1 == ""){
+        ui->emptyClientLbl->setHidden(false);
+        allFull = false;
+    }
+    if(phoneValidator.validate(phone,pos)!=Acceptable||phone==""){
+       ui->emptyClientLbl->setHidden(false);
+       allFull = false;
+    }
+
+    if(allFull){
+
         if(addLn2==""){
             Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1);
+            clients.push_back(addClient);
         }else{
             Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2);
+            clients.push_back(addClient);
         }
-
+        //displayNewClient(clients[clients.size()-1], clients.size());
+        localDB.addClient(clients[clients.size()-1]);
+        ui->passConLbl->setHidden(true);
+        ui->usernameTxt->clear();
+        ui->firstNameTxt->clear();
+        ui->lastNameTxt->clear();
+        ui->addressLine1Txt->clear();
+        ui->addressLine2Txt->clear();
+        ui->passwordTxt->clear();
+        ui->confirmPasswordTxt->clear();
+        ui->cityTxt->clear();
+        ui->phoneTxt->clear();
+        ui->postalCodeTxt->clear();
+        ui->provinceCombo->setCurrentIndex(-1);
+        ui->emailTxt->clear();
+        ui->emptyClientLbl->setHidden(true);
     }
 }

@@ -33,6 +33,7 @@ private:
     std::vector<Animal> animals;
     std::vector<Client> clients;
     void displayNewAnimal(Animal, int);
+    void displayNewClient(Client, int);
     databaseManager localDB = databaseManager("localStorage.db");
 };
 

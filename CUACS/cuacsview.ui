@@ -15,8 +15,8 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
-     <widget class="QTabWidget" name="tabWidget">
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="tabView">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -96,6 +96,73 @@
          </layout>
         </item>
        </layout>
+      </widget>
+      <widget class="QWidget" name="clientTab">
+       <attribute name="title">
+        <string>View Clients</string>
+       </attribute>
+       <widget class="QTableWidget" name="clientTable">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>531</width>
+          <height>431</height>
+         </rect>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+          <horstretch>10</horstretch>
+          <verstretch>10</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="columnCount">
+         <number>5</number>
+        </property>
+        <attribute name="horizontalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>105</number>
+        </attribute>
+        <attribute name="horizontalHeaderHighlightSections">
+         <bool>true</bool>
+        </attribute>
+        <attribute name="horizontalHeaderStretchLastSection">
+         <bool>false</bool>
+        </attribute>
+        <attribute name="verticalHeaderCascadingSectionResizes">
+         <bool>true</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Username</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>First Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Last Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Email</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Phone Number</string>
+         </property>
+        </column>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -301,7 +368,7 @@
           <x>0</x>
           <y>0</y>
           <width>701</width>
-          <height>196</height>
+          <height>227</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -310,7 +377,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="QLabel" name="label_13">
+              <widget class="QLabel" name="fNameLbl">
                <property name="text">
                 <string>*First Name:</string>
                </property>
@@ -324,7 +391,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <widget class="QLabel" name="label_10">
+              <widget class="QLabel" name="lNamelbl">
                <property name="text">
                 <string>*Last Name</string>
                </property>
@@ -338,7 +405,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_17">
              <item>
-              <widget class="QLabel" name="label_18">
+              <widget class="QLabel" name="emailLbl">
                <property name="text">
                 <string>*Email: </string>
                </property>
@@ -352,7 +419,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_9">
              <item>
-              <widget class="QLabel" name="label_9">
+              <widget class="QLabel" name="userLbl">
                <property name="text">
                 <string>*Username: </string>
                </property>
@@ -366,7 +433,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
-              <widget class="QLabel" name="label_11">
+              <widget class="QLabel" name="passLbl">
                <property name="text">
                 <string>*Password:</string>
                </property>
@@ -380,7 +447,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_10">
              <item>
-              <widget class="QLabel" name="label_12">
+              <widget class="QLabel" name="confPassLbl">
                <property name="text">
                 <string>*Confirm Password:</string>
                </property>
@@ -391,6 +458,13 @@
              </item>
             </layout>
            </item>
+           <item>
+            <widget class="QLabel" name="passConLbl">
+             <property name="text">
+              <string>Please ensure both passwords match</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
          <item>
@@ -398,7 +472,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_15">
              <item>
-              <widget class="QLabel" name="label_16">
+              <widget class="QLabel" name="postLbl">
                <property name="text">
                 <string>*Postal Code</string>
                </property>
@@ -412,7 +486,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_12">
              <item>
-              <widget class="QLabel" name="label_14">
+              <widget class="QLabel" name="cityLbl">
                <property name="text">
                 <string>*City:</string>
                </property>
@@ -426,7 +500,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_14">
              <item>
-              <widget class="QLabel" name="label_15">
+              <widget class="QLabel" name="provLbl">
                <property name="text">
                 <string>*Province:</string>
                </property>
@@ -440,7 +514,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_16">
              <item>
-              <widget class="QLabel" name="label_17">
+              <widget class="QLabel" name="addLn1lbl">
                <property name="text">
                 <string>*Address Line 1:</string>
                </property>
@@ -454,7 +528,7 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_19">
              <item>
-              <widget class="QLabel" name="label_20">
+              <widget class="QLabel" name="addLn2Lbl">
                <property name="text">
                 <string>Address Line 2:</string>
                </property>
@@ -468,9 +542,9 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_18">
              <item>
-              <widget class="QLabel" name="label_19">
+              <widget class="QLabel" name="phoneLbl">
                <property name="text">
-                <string>*Phone Number:</string>
+                <string>*Phone Number (xxx)-xxx-xxxx:</string>
                </property>
               </widget>
              </item>
@@ -479,6 +553,13 @@
              </item>
             </layout>
            </item>
+           <item>
+            <widget class="QPushButton" name="addClientBtn">
+             <property name="text">
+              <string>Add Client</string>
+             </property>
+            </widget>
+           </item>
           </layout>
          </item>
         </layout>
@@ -486,8 +567,8 @@
        <widget class="QLabel" name="emptyClientLbl">
         <property name="geometry">
          <rect>
-          <x>0</x>
-          <y>200</y>
+          <x>340</x>
+          <y>230</y>
           <width>231</width>
           <height>17</height>
          </rect>
@@ -496,17 +577,17 @@
          <string>Items marked with a * are required</string>
         </property>
        </widget>
-       <widget class="QPushButton" name="addClientBtn">
+       <widget class="QLabel" name="label_9">
         <property name="geometry">
          <rect>
-          <x>560</x>
-          <y>200</y>
-          <width>131</width>
-          <height>25</height>
+          <x>0</x>
+          <y>230</y>
+          <width>291</width>
+          <height>17</height>
          </rect>
         </property>
         <property name="text">
-         <string>Add Client</string>
+         <string>Passwords can include letters and numbers</string>
         </property>
        </widget>
       </widget>
