@@ -9,8 +9,9 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->setupUi(this);
 
     //My (Max) suggestions for the animal table is changing the name from animals to something else, and simply adding functions to the database manage for client, staff, etc.
-    animalDB.createTable();
-    animals = animalDB.getAnimals();
+    localDB.createTable();
+    localDB.populateTables();
+    animals = localDB.getAnimals();
 
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
@@ -125,7 +126,7 @@ void CUACSView::on_addAnimalBtn_clicked()
             ui->DOBTxt->clear();
         }
         displayNewAnimal(animals[animals.size()-1], animals.size());
-        animalDB.addAnimal(animals[animals.size()-1]);
+        localDB.addAnimal(animals[animals.size()-1]);
         ui->nameTxt->clear();
         ui->breedTxt->clear();
         ui->speciesCombo->setCurrentIndex(-1);
