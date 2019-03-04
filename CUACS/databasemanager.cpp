@@ -15,7 +15,7 @@ if (!localDB.open()){
 }
 
 /**
-Function:
+Function: createTable()
 in:
 out:
 return: A bool indicating whether creating a table was successful
@@ -80,7 +80,13 @@ bool databaseManager::createTable()
     return success;
 }
 
-
+/**
+Function: populateTables
+in:
+out:
+return:
+purpose: Fills the database tables with 25 animals and 5 clients
+**/
 void databaseManager::populateTables()
 {
      QSqlQuery query;

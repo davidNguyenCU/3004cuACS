@@ -117,61 +117,145 @@ bool Animal::isVaccinated() const{
     return vaccinated;
 }
 
+/**
+Function: getTemperament()
+in:
+out:
+return: The temperance ranking of the Animal as an int
+purpose: Gets the temperance score of the Animal
+**/
 int Animal::getTemperament() const
 {
     return temperament;
 }
 
+/**
+Function: getTrainability()
+in:
+out:
+return: The trainability ranking of the Animal as an int
+purpose: Gets the score of how trained the Animal is
+**/
 int Animal::getTrainability() const
 {
     return trainability;
 }
 
+/**
+Function: getIntelligence()
+in:
+out:
+return: The intelligence ranking of the Animal as an int
+purpose: Gets the score of how smart the Animal is
+**/
 int Animal::getIntelligence() const
 {
     return intelligence;
 }
 
+/**
+Function: getMischievousness()
+in:
+out:
+return: The mischievousness ranking of the Animal as an int
+purpose: Gets the score of how mischievous the Animal is
+**/
 int Animal::getMischievousness() const
 {
     return mischievousness;
 }
 
+/**
+Function: getSocialAttitude()
+in:
+out:
+return: The social attitude ranking of the Animal as an int
+purpose: Gets the score of how mischievous the Animal is
+**/
 int Animal::getSocialAttitutde() const
 {
     return socialAttitude;
 }
 
+/**
+Function: getStrangerFriendly()
+in:
+out:
+return: The stranger friendly ranking of the Animal as an int
+purpose: Gets the score of how friendly the Animal is to strangers
+**/
 int Animal::getStrangerFriendly() const
 {
     return strangerFriendly;
 }
 
+/**
+Function: getEnergy()
+in:
+out:
+return: The energy ranking of the Animal as an int
+purpose: Gets the score of how energetic the Animal has
+**/
 int Animal::getEnergy() const
 {
     return energy;
 }
 
+/**
+Function: getChildFriendly()
+in:
+out:
+return: The child friendly ranking of the Animal as an int
+purpose: Gets the score of how friendly the Animal is with children
+**/
 int Animal::getChildFriendly() const
 {
     return childFriendly;
 }
 
+/**
+Function: getPlayfulness()
+in:
+out:
+return: The playfulness ranking of the Animal as an int
+purpose: Gets the score of how playful the Animal is
+**/
 int Animal::getPlayfulness() const
 {
     return playfulness;
 }
 
+/**
+Function: getPatience()
+in:
+out:
+return: The patience ranking of the Animal as an int
+purpose: Gets the score of how patient the Animal is
+**/
 int Animal::getPatience() const
 {
     return patience;
 }
 
+/**
+Function: getIndependence()
+in:
+out:
+return: The independence ranking of the Animal as an int
+purpose: Gets the score of how independent the Animal is
+**/
 int Animal::getIndependence() const
 {
     return independence;
 }
 
+/**
+Function: getObedience()
+in:
+out:
+return: The obedience ranking of the Animal as an int
+purpose: Gets the score of how obedient the Animal is
+**/
 int Animal::getObedience() const
 {
     return obedience;
