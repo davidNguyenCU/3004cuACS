@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>887</width>
-    <height>556</height>
+    <width>888</width>
+    <height>531</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="0">
+    <item row="0" column="1">
      <widget class="QTabWidget" name="tabView">
       <property name="enabled">
        <bool>true</bool>
@@ -27,73 +27,76 @@
        <number>-2</number>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>View Animals</string>
        </attribute>
-       <layout class="QGridLayout" name="gridLayout">
-        <item row="0" column="0">
-         <layout class="QVBoxLayout" name="verticalLayout_3">
-          <item>
-           <widget class="QTableWidget" name="animalTbl">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-              <horstretch>10</horstretch>
-              <verstretch>10</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="editTriggers">
-             <set>QAbstractItemView::NoEditTriggers</set>
-            </property>
-            <property name="columnCount">
-             <number>7</number>
-            </property>
-            <attribute name="horizontalHeaderCascadingSectionResizes">
-             <bool>false</bool>
-            </attribute>
-            <attribute name="horizontalHeaderDefaultSectionSize">
-             <number>95</number>
-            </attribute>
-            <column>
-             <property name="text">
-              <string>Name</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Species</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Breed</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Gender</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Date of Birth</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Age(Y/M)</string>
-             </property>
-            </column>
-            <column>
-             <property name="text">
-              <string>Vaccinated</string>
-             </property>
-            </column>
-           </widget>
-          </item>
-         </layout>
+       <layout class="QGridLayout" name="_2">
+        <item row="1" column="0">
+         <widget class="QTableWidget" name="animalTbl">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>1</horstretch>
+            <verstretch>1</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="columnCount">
+           <number>7</number>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>95</number>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Species</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Breed</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Gender</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Date of Birth</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Age(Y/M)</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Vaccinated</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QPushButton" name="pushButton">
+          <property name="text">
+           <string>See Detailed Animal View</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -162,6 +165,19 @@
           <string>Phone Number</string>
          </property>
         </column>
+       </widget>
+       <widget class="QPushButton" name="detailedClientsBtn">
+        <property name="geometry">
+         <rect>
+          <x>700</x>
+          <y>10</y>
+          <width>161</width>
+          <height>61</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>See Detailed Clients</string>
+        </property>
        </widget>
       </widget>
       <widget class="QWidget" name="tab_2">
