@@ -1,0 +1,8 @@
+CUACS/CUACS.pro.user
+build-CUACS-Desktop-Debug/CUACS
+build-CUACS-Desktop-Debug/animal.o
+build-CUACS-Desktop-Debug/client.o
+build-CUACS-Desktop-Debug/cuacsview.o
+build-CUACS-Desktop-Debug/databasemanager.o
+build-CUACS-Desktop-Debug/main.o
+build-CUACS-Desktop-Debug/moc_cuacsview.o

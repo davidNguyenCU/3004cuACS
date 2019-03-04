@@ -18,7 +18,7 @@ AnimalDetailedView::~AnimalDetailedView()
 void AnimalDetailedView::setAnimals(vector<Animal> &a){
     animals = a;
     if(animals.size()!=0){
-        ui->ageLbl->setText(animals[0].getYears() + "/" + animals[0].getMonths());
+        ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
         ui->nameLbl->setText(animals[0].getName());
         ui->breedLbl->setText(animals[0].getBreed());
         ui->speciesLbl->setText(animals[0].getSpecies());
@@ -53,7 +53,7 @@ void AnimalDetailedView::on_previousBtn_clicked()
     }else{
         index-=1;
     }
-    ui->ageLbl->setText(animals[index].getYears() + "/" + animals[index].getMonths());
+    ui->ageLbl->setText(QString::number(animals[index].getYears()) + "/" + QString::number(animals[index].getMonths()));
             ui->nameLbl->setText(animals[index].getName());
             ui->breedLbl->setText(animals[index].getBreed());
             ui->speciesLbl->setText(animals[index].getSpecies());
@@ -87,7 +87,7 @@ void AnimalDetailedView::on_nextBtn_clicked()
     }else{
         index+=1;
     }
-            ui->ageLbl->setText(animals[index].getYears() + "/" + animals[index].getMonths());
+            ui->ageLbl->setText(QString::number(animals[index].getYears()) + "/" + QString::number(animals[index].getMonths()));
             ui->nameLbl->setText(animals[index].getName());
             ui->breedLbl->setText(animals[index].getBreed());
             ui->speciesLbl->setText(animals[index].getSpecies());
