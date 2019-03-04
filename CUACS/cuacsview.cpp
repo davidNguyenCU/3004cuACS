@@ -9,7 +9,7 @@ CUACSView::CUACSView(QWidget *parent) :
     ui->setupUi(this);
 
     detailedView = new DetailedClientView();
-    
+    animalView = new AnimalDetailedView();
 
     localDB.createTable();
     localDB.populateTables();
@@ -49,6 +49,7 @@ CUACSView::CUACSView(QWidget *parent) :
 CUACSView::~CUACSView()
 {
     delete detailedView;
+    delete animalView;
     delete ui->speciesCombo;
     delete ui->label_8;
     delete ui->horizontalLayout_6;
@@ -332,4 +333,10 @@ void CUACSView::on_detailedClientsBtn_clicked()
 {
     detailedView->setClients(clients);
     detailedView->show();
+}
+
+void CUACSView::on_pushButton_clicked()
+{
+    animalView->setAnimals(animals);
+    animalView->show();
 }

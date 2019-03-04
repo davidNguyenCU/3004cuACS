@@ -248,8 +248,8 @@ vector<Client> databaseManager::getClients(){
        QString ad1 = query.value(5).toString();
        QString ad2 = query.value(6).toString();
        QString user = query.value(7).toString();
-       QString pass = query.value(8).toString();
-       QString ema = query.value(9).toString();
+       QString pass = query.value(9).toString();
+       QString ema = query.value(8).toString();
        QString pNum = query.value(10).toString();
 
        Client a = Client(fName, lName, pCode, cit, pro, user, pass, ema, pNum, ad1, ad2);

@@ -8,6 +8,7 @@
 #include "databasemanager.h"
 #include "client.h"
 #include "detailedclientview.h"
+#include "animaldetailedview.h"
 using namespace std;
 
 namespace Ui {
@@ -30,8 +31,11 @@ private slots:
 
     void on_detailedClientsBtn_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     DetailedClientView *detailedView;
+    AnimalDetailedView *animalView;
     const int Acceptable = QValidator::Acceptable;
     Ui::CUACSView *ui;
     std::vector<Animal> animals;
