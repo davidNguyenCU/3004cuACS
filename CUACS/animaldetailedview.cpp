@@ -14,7 +14,13 @@ AnimalDetailedView::~AnimalDetailedView()
     delete ui;
 }
 
-//set the animals and displays the first animal
+/**
+Function: setAnimals
+in: A vector of Animals that will be displayed in detail
+out:
+return:
+purpose: Initialize the animals in the detailed View and display the first animal
+**/
 void AnimalDetailedView::setAnimals(vector<Animal> &a){
     animals = a;
     if(animals.size()!=0){
@@ -46,6 +52,14 @@ void AnimalDetailedView::setAnimals(vector<Animal> &a){
 
     }
 }
+
+/**
+Function: on_previousBtn_clicked()
+in:
+out:
+return:
+purpose: Displays the previous Animal or loops back around to the last animal upon clicking the previous button
+**/
 void AnimalDetailedView::on_previousBtn_clicked()
 {
     if(index == 0){
@@ -80,6 +94,13 @@ void AnimalDetailedView::on_previousBtn_clicked()
             ui->trainabilityLbl->setText(QString::number(animals[index].getTrainability()));
 }
 
+/**
+Function: on_nextBtn_clicked()
+in:
+out:
+return:
+purpose:Display the next animal or loops back to the beginning when the next button is clicked
+**/
 void AnimalDetailedView::on_nextBtn_clicked()
 {
     if(index == (animals.size()-1)){

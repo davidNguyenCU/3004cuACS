@@ -14,7 +14,13 @@ DetailedClientView::~DetailedClientView()
     delete ui;
 }
 
-//Sets the clients and displays the first client
+/**
+Function: setClients
+in: A vector of Clients that will be displayed in detail
+out:
+return:
+purpose: Initialize the Clients in the detailed View and display the first Client
+**/
 void DetailedClientView::setClients(vector<Client> &c){
     clients = c;
     if(clients.size()!=0){
@@ -31,7 +37,13 @@ void DetailedClientView::setClients(vector<Client> &c){
     }
 }
 
-
+/**
+Function: on_nextBtn_clicked()
+in:
+out:
+return:
+purpose:Display the next Client or loops back to the beginning when the next button is clicked
+**/
 void DetailedClientView::on_nextBtn_clicked()
 {
     if(index == (clients.size()-1)){
@@ -51,6 +63,13 @@ void DetailedClientView::on_nextBtn_clicked()
     ui->postalCodeLbl->setText(clients[index].getPostalCode());
 }
 
+/**
+Function: on_previousBtn_clicked()
+in:
+out:
+return:
+purpose: Displays the previous Client or loops back around to the last Client upon clicking the previous button
+**/
 void DetailedClientView::on_previousBtn_clicked()
 {
     if(index == 0){

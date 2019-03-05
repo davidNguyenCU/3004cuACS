@@ -111,6 +111,13 @@ void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
 }
 
+/**
+Function: displayNewClient(Client, int)
+in: Client newClient to be displayed in the GUI, int rownum to set where to place the newly added Client
+out:
+return:
+purpose: Display a newly added Client to the clientTbl, for listing all clients
+**/
 void CUACSView::displayNewClient(Client newClient, int rowNum){
     int row = rowNum;
     ui->clientTable->setRowCount(row);
@@ -121,7 +128,13 @@ void CUACSView::displayNewClient(Client newClient, int rowNum){
     ui->clientTable->setCellWidget(row-1,4,new QLabel(newClient.getPhoneNumber()));
 }
 
-
+/**
+Function: displayNewClient(Client, int)
+in: QString newUser which is the name to be compared
+out:
+return: bool stating whether or not the given username is acceptable to be used
+purpose: Determine whether a username is currently being used, and fits the username criteria
+**/
 bool CUACSView::checkUsername(QString newUser){
     int pos = 0;
     if(newUser==""){
@@ -221,6 +234,13 @@ void CUACSView::on_addAnimalBtn_clicked()
     }
 }
 
+/**
+Function: on_addClientBtn_clicked()
+in:
+out:
+return:
+purpose: Handle adding a new Client to the database and updating the display as a new Client is added.
+**/
 void CUACSView::on_addClientBtn_clicked()
 {
     QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
@@ -329,12 +349,26 @@ void CUACSView::on_addClientBtn_clicked()
     }
 }
 
+/**
+Function: on_detailedClientsBtn_clicked()
+in:
+out:
+return:
+purpose: Calls and displays the detailedClientView when detailedClient button is clicked
+**/
 void CUACSView::on_detailedClientsBtn_clicked()
 {
     detailedView->setClients(clients);
     detailedView->show();
 }
 
+/**
+Function: on_pushButton_clicked()
+in:
+out:
+return:
+purpose: Calls and displays the animalDetailedView when the button is clicked
+**/
 void CUACSView::on_pushButton_clicked()
 {
     animalView->setAnimals(animals);

@@ -15,7 +15,7 @@ Client::Client(QString fName, QString lName, QString post, QString town, QString
 
     password = pass;
 }
-
+//Getter functions for the client
 QString Client::getAddressLine1() const{return addressLine1;}
 QString Client::getAddressLine2() const{return addressLine2;}
 QString Client::getFirstName() const{return firstName;}
