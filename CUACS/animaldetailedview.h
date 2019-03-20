@@ -16,7 +16,7 @@ class AnimalDetailedView : public QDialog
 public:
     explicit AnimalDetailedView(QWidget *parent = 0);
     ~AnimalDetailedView();
-    void setAnimals(vector<Animal>&);
+    void setAnimals(vector<Animal>);
 private slots:
     void on_previousBtn_clicked();
 

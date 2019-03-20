@@ -31,7 +31,11 @@ SOURCES += \
     databasemanager.cpp \
     client.cpp \
     detailedclientview.cpp \
-    animaldetailedview.cpp
+    animaldetailedview.cpp \
+    clientmanager.cpp \
+    animalmanager.cpp \
+    login.cpp \
+    clientonlyview.cpp
 
 HEADERS += \
         cuacsview.h \
@@ -39,9 +43,15 @@ HEADERS += \
     databasemanager.h \
     client.h \
     detailedclientview.h \
-    animaldetailedview.h
+    animaldetailedview.h \
+    clientmanager.h \
+    animalmanager.h \
+    login.h \
+    clientonlyview.h
 
 FORMS += \
         cuacsview.ui \
     detailedclientview.ui \
-    animaldetailedview.ui
+    animaldetailedview.ui \
+    login.ui \
+    clientonlyview.ui

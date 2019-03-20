@@ -57,6 +57,7 @@ bool databaseManager::createTable()
     }
 
     //Creates the client's table
+    //int ownCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend;
     query.prepare("CREATE TABLE IF NOT EXISTS clients("
                   "firstName TEXT, "
                   "lastName TEXT, "
@@ -69,6 +70,14 @@ bool databaseManager::createTable()
                   "password TEXT, "
                   "email TEXT, "
                   "phoneNumber TEXT, "
+                  "ownerCon INTEGER, "
+                  "ownRank INTEGER, "
+                  "socab INTEGER, "
+                  "socRank INTEGER, "
+                  "behav INTEGER, "
+                  "behavRank INTEGER, "
+                  "strangeFriend INTEGER, "
+                  "childFriend INTEGER, "
                   "primary key (username));");
 
     if (!query.exec())
@@ -141,17 +150,16 @@ void databaseManager::populateTables()
     query.exec("INSERT OR REPLACE INTO animals(breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience)"
      "VALUES('Penguin', 3, 7, 'Female', 'Yes','Pengu','UNKNOWN','Bird', 3, 2, 5, 3, 9, 4, 3, 1, 8, 2, 4, 10)");
 
-
-    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-     "VALUES ('Joseph', 'Hugh', 'K1S2Y3', 'Ottawa', 'ON', '956 Aylmer Ave.', '', 'JHug', 'secret123', 'J_Hugh@yahoo.com', '(357)-846-9513')");
-    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-     "VALUES ('Sarah', 'Marceline', 'L6N0M3', 'Oakville', 'ON', '831 Steeles Ave.', '', 'SMar', 'notsoSecret547', 'S_Lineh@gmail.com', '(905)-476-9842')");
-    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-     "VALUES ('Johann', 'Bach', 'R5R5P5', 'Brandon', 'MB', '52 Park Ave.', '', 'PianistBach', 'P1an0', 'Bach@hotmail.com', '(578)-555-9891')");
-    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-     "VALUES ('Mattheus', 'Simpson', 'L5R1E3', 'Saskatoon', 'SK', '185 Applby Dr.', '', 'MSimp', 'password123', 'SimpsonM@hotmail.com', '(781)-159-2233')");
-    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-     "VALUES ('Miles', 'Parker', 'C4T2Q5', 'Halifax', 'NS', '789 Summit St.', '', 'MParker', 'notSpider', 'Parker@gmail.com', '(678)-567-3287')");
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+     "VALUES ('Joseph', 'Hugh', 'K1S2Y3', 'Ottawa', 'ON', '956 Aylmer Ave.', '', 'JHug', 'secret123', 'J_Hugh@yahoo.com', '(357)-846-9513',10,3,10,3,10,3,3,3)");
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+     "VALUES ('Sarah', 'Marceline', 'L6N0M3', 'Oakville', 'ON', '831 Steeles Ave.', '', 'SMar', 'notsoSecret547', 'S_Lineh@gmail.com', '(905)-476-9842',1,4,10,3,3,1,1,1)");
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+     "VALUES ('Johann', 'Bach', 'R5R5P5', 'Brandon', 'MB', '52 Park Ave.', '', 'PianistBach', 'P1an0', 'Bach@hotmail.com', '(578)-555-9891',3,4,6,2,9,3,1,3)");
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+     "VALUES ('Mattheus', 'Simpson', 'L5R1E3', 'Saskatoon', 'SK', '185 Applby Dr.', '', 'MSimp', 'password123', 'SimpsonM@hotmail.com', '(781)-159-2233',10,3,5,1,8,2,2,2)");
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+     "VALUES ('Miles', 'Parker', 'C4T2Q5', 'Halifax', 'NS', '789 Summit St.', '', 'MParker', 'notSpider', 'Parker@gmail.com', '(678)-567-3287',7,2,10,3,4,1,3,3)");
 
 }
 
@@ -164,14 +172,7 @@ out:
 return: void
 purpose: Adds a given animal to the SQL Database
 **/
-/*TO DO:
- * Add all the new algorithm attributes to the table
- * add the ID to the table as the primary key
- * Ensure that when an animal is created it is done using the full attribute constructor
- * Add a second table to be used for clients
- * Add an addClient function, which will take a client and add it to the table
- * Add a getClients function, which will return all clients in the database, in a vector
- */
+
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
     query.prepare("INSERT OR REPLACE INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
@@ -218,8 +219,8 @@ purpose: Adds a given Client to the SQL Database
 void databaseManager::addClient(Client add)
 {
     QSqlQuery query;
-    query.prepare("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber) "
-                  "VALUES (:fName, :lName, :pCode, :cit, :pro, :ad1, :ad2, :user, :pass, :ema, :pNum)");
+    query.prepare("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+                  "VALUES (:fName, :lName, :pCode, :cit, :pro, :ad1, :ad2, :user, :pass, :ema, :pNum, :oc, :or, :soc, :sr, :bhv, :bhvRank, :strFr, :child)");
     query.bindValue(":fName",add.getFirstName());
     query.bindValue(":lName",add.getLastName());
     query.bindValue(":pCode",add.getPostalCode());
@@ -231,6 +232,14 @@ void databaseManager::addClient(Client add)
     query.bindValue(":pass",add.getPassword());
     query.bindValue(":ema",add.getEmail());
     query.bindValue(":pNum",add.getPhoneNumber());
+    query.bindValue(":oc", add.getOwnerControl());
+    query.bindValue(":or", add.getOwnerRank());
+    query.bindValue(":soc", add.getSociability());
+    query.bindValue(":sr", add.getSocialRank());
+    query.bindValue(":bhv", add.getBehaviour());
+    query.bindValue(":bhvRank", add.getBehaveRank());
+    query.bindValue(":strFr", add.getStrangerFriendly());
+    query.bindValue("child", add.getChildFriendly());
 
     if(!query.exec()){
         qDebug()<<query.lastError()<<query.executedQuery();
@@ -309,8 +318,17 @@ vector<Client> databaseManager::getClients(){
        QString pass = query.value(9).toString();
        QString ema = query.value(8).toString();
        QString pNum = query.value(10).toString();
+       int ownCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend;
+       ownCon = query.value(11).toInt();
+       ownRank = query.value(12).toInt();
+       socab = query.value(13).toInt();
+       socRank = query.value(14).toInt();
+       behav = query.value(15).toInt();
+       behavRank = query.value(16).toInt();
+       strangeFriend = query.value(17).toInt();
+       childFriend = query.value(18).toInt();
 
-       Client a = Client(fName, lName, pCode, cit, pro, user, pass, ema, pNum, ad1, ad2);
+       Client a = Client(fName, lName, pCode, cit, pro, user, pass, ema, pNum, ad1, ad2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend);
        currentClients.push_back(a);
 
     }

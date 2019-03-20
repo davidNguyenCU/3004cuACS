@@ -15,7 +15,7 @@ class DetailedClientView : public QDialog
 public:
     explicit DetailedClientView(QWidget *parent = 0);
     ~DetailedClientView();
-    void setClients(vector<Client>&);
+    void setClients(vector<Client>);
 private slots:
 
     void on_nextBtn_clicked();
@@ -26,6 +26,7 @@ private:
     Ui::DetailedClientView *ui;
     vector<Client> clients;
     int index;
+    void update();
 };
 
 #endif // DETAILEDCLIENTVIEW_H

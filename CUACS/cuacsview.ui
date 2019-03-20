@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="1">
+    <item row="0" column="0">
      <widget class="QTabWidget" name="tabView">
       <property name="enabled">
        <bool>true</bool>
@@ -27,14 +27,14 @@
        <number>-2</number>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
         <string>View Animals</string>
        </attribute>
-       <layout class="QGridLayout" name="_2">
-        <item row="1" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_21">
+        <item>
          <widget class="QTableWidget" name="animalTbl">
           <property name="sizePolicy">
            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -91,7 +91,7 @@
           </column>
          </widget>
         </item>
-        <item row="1" column="1">
+        <item>
          <widget class="QPushButton" name="pushButton">
           <property name="text">
            <string>See Detailed Animal View</string>
@@ -104,81 +104,71 @@
        <attribute name="title">
         <string>View Clients</string>
        </attribute>
-       <widget class="QTableWidget" name="clientTable">
-        <property name="geometry">
-         <rect>
-          <x>0</x>
-          <y>10</y>
-          <width>691</width>
-          <height>431</height>
-         </rect>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-          <horstretch>10</horstretch>
-          <verstretch>10</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="columnCount">
-         <number>5</number>
-        </property>
-        <attribute name="horizontalHeaderCascadingSectionResizes">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderDefaultSectionSize">
-         <number>137</number>
-        </attribute>
-        <attribute name="horizontalHeaderHighlightSections">
-         <bool>true</bool>
-        </attribute>
-        <attribute name="horizontalHeaderStretchLastSection">
-         <bool>false</bool>
-        </attribute>
-        <attribute name="verticalHeaderCascadingSectionResizes">
-         <bool>true</bool>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Username</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>First Name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Last Name</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Email</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Phone Number</string>
-         </property>
-        </column>
-       </widget>
-       <widget class="QPushButton" name="detailedClientsBtn">
-        <property name="geometry">
-         <rect>
-          <x>700</x>
-          <y>10</y>
-          <width>161</width>
-          <height>61</height>
-         </rect>
-        </property>
-        <property name="text">
-         <string>See Detailed Clients</string>
-        </property>
-       </widget>
+       <layout class="QHBoxLayout" name="horizontalLayout_22">
+        <item>
+         <widget class="QTableWidget" name="clientTable">
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <horstretch>10</horstretch>
+            <verstretch>10</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
+          <property name="columnCount">
+           <number>5</number>
+          </property>
+          <attribute name="horizontalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderDefaultSectionSize">
+           <number>137</number>
+          </attribute>
+          <attribute name="horizontalHeaderHighlightSections">
+           <bool>true</bool>
+          </attribute>
+          <attribute name="horizontalHeaderStretchLastSection">
+           <bool>false</bool>
+          </attribute>
+          <attribute name="verticalHeaderCascadingSectionResizes">
+           <bool>true</bool>
+          </attribute>
+          <column>
+           <property name="text">
+            <string>Username</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>First Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Last Name</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Email</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Phone Number</string>
+           </property>
+          </column>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="detailedClientsBtn">
+          <property name="text">
+           <string>See Detailed Clients</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
@@ -755,8 +745,8 @@
          <rect>
           <x>0</x>
           <y>0</y>
-          <width>701</width>
-          <height>227</height>
+          <width>861</width>
+          <height>270</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_20">
@@ -845,6 +835,13 @@
               <widget class="QLineEdit" name="confirmPasswordTxt"/>
              </item>
             </layout>
+           </item>
+           <item>
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Passwords can include letters and numbers</string>
+             </property>
+            </widget>
            </item>
            <item>
             <widget class="QLabel" name="passConLbl">
@@ -941,13 +938,6 @@
              </item>
             </layout>
            </item>
-           <item>
-            <widget class="QPushButton" name="addClientBtn">
-             <property name="text">
-              <string>Add Client</string>
-             </property>
-            </widget>
-           </item>
           </layout>
          </item>
         </layout>
@@ -955,8 +945,8 @@
        <widget class="QLabel" name="emptyClientLbl">
         <property name="geometry">
          <rect>
-          <x>340</x>
-          <y>230</y>
+          <x>260</x>
+          <y>430</y>
           <width>231</width>
           <height>17</height>
          </rect>
@@ -965,18 +955,289 @@
          <string>Items marked with a * are required</string>
         </property>
        </widget>
-       <widget class="QLabel" name="label_9">
+       <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
          <rect>
           <x>0</x>
-          <y>230</y>
-          <width>291</width>
+          <y>280</y>
+          <width>201</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Child Friendliness</string>
+        </property>
+        <widget class="QRadioButton" name="childFriendly">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Must be child friendly</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="noChildPreference">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>161</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>No preference</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="notFriendlyChild">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>171</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Not child friendly</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QPushButton" name="addClientBtn">
+        <property name="geometry">
+         <rect>
+          <x>500</x>
+          <y>430</y>
+          <width>358</width>
+          <height>25</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Add Client</string>
+        </property>
+       </widget>
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="geometry">
+         <rect>
+          <x>210</x>
+          <y>280</y>
+          <width>201</width>
+          <height>121</height>
+         </rect>
+        </property>
+        <property name="title">
+         <string>Stranger Friendliness</string>
+        </property>
+        <widget class="QRadioButton" name="strangeFriend">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>30</y>
+           <width>171</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Must be stranger friendly</string>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="noStrangePreference">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>60</y>
+           <width>161</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>No preference</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+        <widget class="QRadioButton" name="notFriendlyStrange">
+         <property name="geometry">
+          <rect>
+           <x>20</x>
+           <y>90</y>
+           <width>171</width>
+           <height>23</height>
+          </rect>
+         </property>
+         <property name="text">
+          <string>Not stranger friendly</string>
+         </property>
+        </widget>
+       </widget>
+       <widget class="QLabel" name="label_34">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>280</y>
+          <width>181</width>
           <height>17</height>
          </rect>
         </property>
         <property name="text">
-         <string>Passwords can include letters and numbers</string>
+         <string>Desired Attributes in a pet:</string>
         </property>
+       </widget>
+       <widget class="QLabel" name="label_38">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>400</y>
+          <width>331</width>
+          <height>17</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>1 being more aggressive, 10 being more passive</string>
+        </property>
+       </widget>
+       <widget class="QWidget" name="gridLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>298</y>
+          <width>327</width>
+          <height>101</height>
+         </rect>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="2" column="0">
+          <widget class="QLabel" name="label_36">
+           <property name="text">
+            <string>Sociability:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="2">
+          <widget class="QComboBox" name="tempRank">
+           <item>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>No preference</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QLabel" name="label_37">
+           <property name="text">
+            <string>Temperament:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="2">
+          <widget class="QComboBox" name="socRank">
+           <item>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>No preference</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QComboBox" name="trainRank">
+           <item>
+            <property name="text">
+             <string>1</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>2</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>3</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>No preference</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_35">
+           <property name="text">
+            <string>Ability to train::</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QSpinBox" name="trainSpin">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QSpinBox" name="socSpin">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="1">
+          <widget class="QSpinBox" name="tempSpin">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>10</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
        </widget>
       </widget>
      </widget>

@@ -9,6 +9,8 @@
 #include "client.h"
 #include "detailedclientview.h"
 #include "animaldetailedview.h"
+#include "clientmanager.h"
+#include "animalmanager.h"
 using namespace std;
 
 namespace Ui {
@@ -34,15 +36,17 @@ private slots:
     void on_pushButton_clicked();
 
 private:
+    int clientNum;
+    int animalNum;
     DetailedClientView *detailedView;
     AnimalDetailedView *animalView;
     const int Acceptable = QValidator::Acceptable;
     Ui::CUACSView *ui;
-    std::vector<Animal> animals;
-    std::vector<Client> clients;
     void displayNewAnimal(Animal, int);
+    void editDisplayedAnimal(Animal, int);
     void displayNewClient(Client, int);
-    databaseManager localDB = databaseManager("localStorage.db");
+    ClientManager manageClients;
+    AnimalManager manageAnimals;
 };
 
 #endif // CUACSVIEW_H

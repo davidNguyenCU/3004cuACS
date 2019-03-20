@@ -7,14 +7,20 @@ CUACSView::CUACSView(QWidget *parent) :
     ui(new Ui::CUACSView)
 {
     ui->setupUi(this);
-
+    clientNum = 1;
+    animalNum = 1;
+    databaseManager *localDB = new databaseManager("localStorage.db");
+    manageClients = ClientManager(localDB);
+    manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView();
 
-    localDB.createTable();
-    localDB.populateTables();
-    animals = localDB.getAnimals();
-    clients = localDB.getClients();
+    localDB->createTable();
+    //localDB->populateTables();
+    std::vector<Client> clients;
+    std::vector<Animal> animals;
+    animals = manageAnimals.getAnimals();
+    clients = manageClients.getClients();
 
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
@@ -37,7 +43,7 @@ CUACSView::CUACSView(QWidget *parent) :
 
     ui->animalTbl->setRowCount(animals.size());
     for(unsigned int i = 0;i< animals.size();i++){
-        displayNewAnimal(animals[i],i+1 );
+        displayNewAnimal(animals[i],i+1);
     }
     ui->clientTable->setRowCount(clients.size());
     for(unsigned int i = 0;i< clients.size();i++){
@@ -109,8 +115,34 @@ void CUACSView::displayNewAnimal(Animal newAnimal, int rowNum){
         vaccinated = new QLabel("No");
     }
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
+    animalNum+=1;
 }
 
+
+/**
+Function: displayNewAnimal(Animal, int)
+in: Animal newAnimal to be displayed in the GUI, int rownum to set where to place the newly added animal
+out:
+return:
+purpose: Display a newly added Animal to the animalTbl, for listing all animals
+**/
+void CUACSView::editDisplayedAnimal (Animal newAnimal, int row){
+
+    ui->animalTbl->setCellWidget(row,0,new QLabel(newAnimal.getName()));
+    ui->animalTbl->setCellWidget(row,1,new QLabel(newAnimal.getSpecies()));
+    ui->animalTbl->setCellWidget(row,2,new QLabel(newAnimal.getBreed()));
+    ui->animalTbl->setCellWidget(row,3,new QLabel(newAnimal.getGender()));
+    ui->animalTbl->setCellWidget(row,4,new QLabel(newAnimal.getDOB()));
+    ui->animalTbl->setCellWidget(row,5,new QLabel(QString::number(newAnimal.getYears()) + "/" + QString::number(newAnimal.getMonths())));
+    QLabel *vaccinated;
+    if(newAnimal.isVaccinated()){
+        vaccinated = new QLabel("Yes");
+    }else{
+        vaccinated = new QLabel("No");
+    }
+    ui->animalTbl->setCellWidget(row-1,6,vaccinated);
+
+}
 /**
 Function: displayNewClient(Client, int)
 in: Client newClient to be displayed in the GUI, int rownum to set where to place the newly added Client
@@ -118,6 +150,7 @@ out:
 return:
 purpose: Display a newly added Client to the clientTbl, for listing all clients
 **/
+
 void CUACSView::displayNewClient(Client newClient, int rowNum){
     int row = rowNum;
     ui->clientTable->setRowCount(row);
@@ -126,32 +159,9 @@ void CUACSView::displayNewClient(Client newClient, int rowNum){
     ui->clientTable->setCellWidget(row-1,2,new QLabel(newClient.getLastName()));
     ui->clientTable->setCellWidget(row-1,3,new QLabel(newClient.getEmail()));
     ui->clientTable->setCellWidget(row-1,4,new QLabel(newClient.getPhoneNumber()));
+    clientNum += 1;
 }
 
-/**
-Function: displayNewClient(Client, int)
-in: QString newUser which is the name to be compared
-out:
-return: bool stating whether or not the given username is acceptable to be used
-purpose: Determine whether a username is currently being used, and fits the username criteria
-**/
-bool CUACSView::checkUsername(QString newUser){
-    int pos = 0;
-    if(newUser==""){
-        return false;
-    }
-    for(int i = 0;i<clients.size();i++){
-        if(newUser==clients[i].getUsername()){
-            return false;
-        }
-    }
-    QRegExp userRegex("^[a-zA-Z0-9]*$");
-    QRegExpValidator userValid(userRegex);
-    if(userValid.validate(newUser,pos)!=Acceptable){
-        return false;
-    }
-    return true;
-}
 
 /**
 Function: on_addAnimalBtn_clicked()
@@ -160,7 +170,7 @@ out:
 return:
 purpose: Handle adding a new animal to the database and updating the display as a new animal is added.
 **/
-//This function will need to be updated in accordance with the new animal attributes
+//Change this function to pass information to the animalManagementClass
 void CUACSView::on_addAnimalBtn_clicked()
 {
     QString name = ui->nameTxt->text();
@@ -200,13 +210,6 @@ void CUACSView::on_addAnimalBtn_clicked()
     }else if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
         ui->emptyAnimalLbl->setHidden(false);
     }else{
-        if(DOB==""){
-            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience));
-
-        }else{
-            animals.push_back(Animal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB));
-            ui->DOBTxt->clear();
-        }
 
         ui->temperamentSpin->setValue(1);
         ui->trainabilitySpin->setValue(1);
@@ -221,8 +224,7 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->independenceSpin->setValue(1);
         ui->obedienceSpin->setValue(1);
 
-        displayNewAnimal(animals[animals.size()-1], animals.size());
-        localDB.addAnimal(animals[animals.size()-1]);
+        displayNewAnimal(manageAnimals.addAnimal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB),animalNum);
         ui->nameTxt->clear();
         ui->breedTxt->clear();
         ui->speciesCombo->setCurrentIndex(-1);
@@ -241,13 +243,12 @@ out:
 return:
 purpose: Handle adding a new Client to the database and updating the display as a new Client is added.
 **/
+//change this function to pass info to client management, return bool
 void CUACSView::on_addClientBtn_clicked()
 {
     QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
     bool allFull = true;
     int pos = 0;
-    //I will need to set up validators of some sort for username(ensure its unique), postal code, pass and confrimPass,
-    //phone number, and maybe email
     user = ui->usernameTxt->text();
     QRegExp textNoSpaces("^[a-zA-Z]*$");
     QRegExpValidator validateTextOnly(textNoSpaces);
@@ -273,7 +274,7 @@ void CUACSView::on_addClientBtn_clicked()
     QRegExp phoneRegex("\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d");
     QRegExpValidator phoneValidator(phoneRegex);
     phone = ui->phoneTxt->text();
-    if(!checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
+    if(!manageClients.checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
@@ -321,17 +322,65 @@ void CUACSView::on_addClientBtn_clicked()
        allFull = false;
     }
 
-    if(allFull){
+    int ownCon = ui->trainSpin->value();
+    int ownRank;
+    QString oR = ui->trainRank->currentText();
+    if(oR=="1"){
+        ownRank = 1;
+    }else if (oR=="2"){
+        ownRank = 2;
+    }else if(oR == "3"){
+        ownRank = 3;
+    }else{
+        ownRank = 4;
+    }
+    int socab = ui->socSpin->value();
+    int socRank;
+    QString sR = ui->socRank->currentText();
+    if(sR == "1"){
+        socRank = 1;
+    }else if (sR == "2"){
+        socRank = 2;
+    }else if (sR == "3"){
+        socRank = 3;
+    }else{
+        socRank = 4;
+    }
+    int behav = ui->tempSpin->value();
+    int behavRank;
+    QString behave = ui->tempRank->currentText();
+    if(behave == "1"){
+        behavRank = 1;
+    }else if (behave == "2"){
+        behavRank = 2;
+    }else if (behave == "3"){
+        behavRank = 3;
+    } else{
+        behavRank = 4;
+    }
+    int strangeFriend;
+    int childFriend;
 
-        if(addLn2==""){
-            Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1);
-            clients.push_back(addClient);
-        }else{
-            Client addClient = Client(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2);
-            clients.push_back(addClient);
-        }
-        displayNewClient(clients[clients.size()-1], clients.size());
-        localDB.addClient(clients[clients.size()-1]);
+    if(ui->notFriendlyChild->isChecked()){
+        childFriend = 1;
+    }else if(ui->noChildPreference->isChecked()){
+        childFriend = 2;
+    }else if (ui->childFriendly->isChecked()){
+        childFriend = 3;
+    }
+
+    if(ui->notFriendlyStrange->isChecked()){
+        strangeFriend = 1;
+    }else if (ui->noStrangePreference->isChecked()){
+        strangeFriend = 2;
+    } else if(ui->notFriendlyStrange->isChecked()){
+        strangeFriend = 3;
+    }
+
+
+    if(allFull){
+        //clients.push_back(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2));
+        displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clientNum);
         ui->passConLbl->setHidden(true);
         ui->usernameTxt->clear();
         ui->firstNameTxt->clear();
@@ -358,7 +407,7 @@ purpose: Calls and displays the detailedClientView when detailedClient button is
 **/
 void CUACSView::on_detailedClientsBtn_clicked()
 {
-    detailedView->setClients(clients);
+    detailedView->setClients(manageClients.getClients());
     detailedView->show();
 }
 
@@ -371,6 +420,6 @@ purpose: Calls and displays the animalDetailedView when the button is clicked
 **/
 void CUACSView::on_pushButton_clicked()
 {
-    animalView->setAnimals(animals);
+    animalView->setAnimals(manageAnimals.getAnimals());
     animalView->show();
 }

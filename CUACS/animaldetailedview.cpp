@@ -21,7 +21,7 @@ out:
 return:
 purpose: Initialize the animals in the detailed View and display the first animal
 **/
-void AnimalDetailedView::setAnimals(vector<Animal> &a){
+void AnimalDetailedView::setAnimals(vector<Animal> a){
     animals = a;
     if(animals.size()!=0){
         ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
