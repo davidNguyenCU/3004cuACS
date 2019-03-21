@@ -26,6 +26,7 @@ private:
     Ui::AnimalDetailedView *ui;
     vector<Animal> animals;
     int index;
+    void edit(bool);
 };
 
 #endif // ANIMALDETAILEDVIEW_H
