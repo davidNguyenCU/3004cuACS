@@ -9,7 +9,6 @@ AnimalManager::AnimalManager(databaseManager *data){
 AnimalManager::~AnimalManager(){
     delete db;
 }
-
 void AnimalManager::editAnimal(bool vacc, int year,int month,int soc,int energy,int indep,int intel,int misc,int obed,int pat,int play,int strange,int child, int temp, int train, int index){
     animals[index].setVacc(vacc);
     animals[index].setYrs(year);
@@ -34,9 +33,9 @@ vector<Animal> AnimalManager::getAnimals(){return animals;}
 
 Animal AnimalManager::addAnimal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){
     if(DOB==""){
-        animals.push_back(Animal(animals.size()+1, aBreed,ageY,ageM,aGender, isVaccinated, aName,aSpecies, temp, train, intel, misc, soc, strange, nrg, child, play, pat, indp, obed));
+        animals.push_back(Animal(aBreed,ageY,ageM,aGender, isVaccinated, aName,aSpecies, temp, train, intel, misc, soc, strange, nrg, child, play, pat, indp, obed));
     }else{
-        animals.push_back(Animal(animals.size()+1, aBreed,ageY,ageM,aGender, isVaccinated, aName,aSpecies, temp, train, intel, misc, soc, strange, nrg, child, play, pat, indp, obed, DOB));
+        animals.push_back(Animal(aBreed,ageY,ageM,aGender, isVaccinated, aName,aSpecies, temp, train, intel, misc, soc, strange, nrg, child, play, pat, indp, obed, DOB));
     }
     db->addAnimal(animals[animals.size()-1]);
     return animals[animals.size()-1];

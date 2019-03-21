@@ -8,14 +8,15 @@ class Animal
 public:
     //This is the basic constructor that is to be used when creating a new animal
     //This constructor does not contain any of the algorithm matching attributes
-    Animal(int, QString, int, int, QString, bool, QString, QString, QString = "UNKNOWN");
+    //Animal(QString, int, int, QString, bool, QString, QString, QString = "UNKNOWN");
 
     //This constructor can be used to create a fully detailed animal profile
+    Animal(QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
     Animal(int, QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
 
 
     ~Animal();
-
+    static int IDNum;
     //Getter Functions
     QString getBreed() const;
     QString getGender() const;

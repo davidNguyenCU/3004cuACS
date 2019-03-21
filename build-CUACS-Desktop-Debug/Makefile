@@ -56,9 +56,15 @@ SOURCES       = ../CUACS/main.cpp \
 		../CUACS/databasemanager.cpp \
 		../CUACS/client.cpp \
 		../CUACS/detailedclientview.cpp \
-		../CUACS/animaldetailedview.cpp moc_cuacsview.cpp \
+		../CUACS/animaldetailedview.cpp \
+		../CUACS/clientmanager.cpp \
+		../CUACS/animalmanager.cpp \
+		../CUACS/login.cpp \
+		../CUACS/clientonlyview.cpp moc_cuacsview.cpp \
 		moc_detailedclientview.cpp \
-		moc_animaldetailedview.cpp
+		moc_animaldetailedview.cpp \
+		moc_login.cpp \
+		moc_clientonlyview.cpp
 OBJECTS       = main.o \
 		cuacsview.o \
 		animal.o \
@@ -66,9 +72,15 @@ OBJECTS       = main.o \
 		client.o \
 		detailedclientview.o \
 		animaldetailedview.o \
+		clientmanager.o \
+		animalmanager.o \
+		login.o \
+		clientonlyview.o \
 		moc_cuacsview.o \
 		moc_detailedclientview.o \
-		moc_animaldetailedview.o
+		moc_animaldetailedview.o \
+		moc_login.o \
+		moc_clientonlyview.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -164,13 +176,21 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		../CUACS/databasemanager.h \
 		../CUACS/client.h \
 		../CUACS/detailedclientview.h \
-		../CUACS/animaldetailedview.h ../CUACS/main.cpp \
+		../CUACS/animaldetailedview.h \
+		../CUACS/clientmanager.h \
+		../CUACS/animalmanager.h \
+		../CUACS/login.h \
+		../CUACS/clientonlyview.h ../CUACS/main.cpp \
 		../CUACS/cuacsview.cpp \
 		../CUACS/animal.cpp \
 		../CUACS/databasemanager.cpp \
 		../CUACS/client.cpp \
 		../CUACS/detailedclientview.cpp \
-		../CUACS/animaldetailedview.cpp
+		../CUACS/animaldetailedview.cpp \
+		../CUACS/clientmanager.cpp \
+		../CUACS/animalmanager.cpp \
+		../CUACS/login.cpp \
+		../CUACS/clientonlyview.cpp
 QMAKE_TARGET  = CUACS
 DESTDIR       = 
 TARGET        = CUACS
@@ -179,7 +199,7 @@ TARGET        = CUACS
 first: all
 ####### Build rules
 
-$(TARGET): ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h $(OBJECTS)  
+$(TARGET): ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h ui_login.h ui_clientonlyview.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../CUACS/CUACS.pro /usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++/qmake.conf /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -388,9 +408,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h ../CUACS/databasemanager.h ../CUACS/client.h ../CUACS/detailedclientview.h ../CUACS/animaldetailedview.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp ../CUACS/databasemanager.cpp ../CUACS/client.cpp ../CUACS/detailedclientview.cpp ../CUACS/animaldetailedview.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../CUACS/cuacsview.ui ../CUACS/detailedclientview.ui ../CUACS/animaldetailedview.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/cuacsview.h ../CUACS/animal.h ../CUACS/databasemanager.h ../CUACS/client.h ../CUACS/detailedclientview.h ../CUACS/animaldetailedview.h ../CUACS/clientmanager.h ../CUACS/animalmanager.h ../CUACS/login.h ../CUACS/clientonlyview.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/main.cpp ../CUACS/cuacsview.cpp ../CUACS/animal.cpp ../CUACS/databasemanager.cpp ../CUACS/client.cpp ../CUACS/detailedclientview.cpp ../CUACS/animaldetailedview.cpp ../CUACS/clientmanager.cpp ../CUACS/animalmanager.cpp ../CUACS/login.cpp ../CUACS/clientonlyview.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../CUACS/cuacsview.ui ../CUACS/detailedclientview.ui ../CUACS/animaldetailedview.ui ../CUACS/login.ui ../CUACS/clientonlyview.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -422,14 +442,16 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -Wall -W -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_cuacsview.cpp moc_detailedclientview.cpp moc_animaldetailedview.cpp
+compiler_moc_header_make_all: moc_cuacsview.cpp moc_detailedclientview.cpp moc_animaldetailedview.cpp moc_login.cpp moc_clientonlyview.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_cuacsview.cpp moc_detailedclientview.cpp moc_animaldetailedview.cpp
+	-$(DEL_FILE) moc_cuacsview.cpp moc_detailedclientview.cpp moc_animaldetailedview.cpp moc_login.cpp moc_clientonlyview.cpp
 moc_cuacsview.cpp: ../CUACS/animal.h \
 		../CUACS/databasemanager.h \
 		../CUACS/client.h \
 		../CUACS/detailedclientview.h \
 		../CUACS/animaldetailedview.h \
+		../CUACS/animalmanager.h \
+		../CUACS/clientmanager.h \
 		../CUACS/cuacsview.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
@@ -442,16 +464,44 @@ moc_detailedclientview.cpp: ../CUACS/client.h \
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/detailedclientview.h -o moc_detailedclientview.cpp
 
 moc_animaldetailedview.cpp: ../CUACS/animal.h \
+		../CUACS/animalmanager.h \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h \
 		../CUACS/animaldetailedview.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/animaldetailedview.h -o moc_animaldetailedview.cpp
 
+moc_login.cpp: ../CUACS/cuacsview.h \
+		../CUACS/animal.h \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h \
+		../CUACS/detailedclientview.h \
+		../CUACS/animaldetailedview.h \
+		../CUACS/animalmanager.h \
+		../CUACS/clientmanager.h \
+		../CUACS/clientonlyview.h \
+		../CUACS/login.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/login.h -o moc_login.cpp
+
+moc_clientonlyview.cpp: ../CUACS/clientmanager.h \
+		../CUACS/client.h \
+		../CUACS/databasemanager.h \
+		../CUACS/animal.h \
+		../CUACS/animalmanager.h \
+		../CUACS/animaldetailedview.h \
+		../CUACS/clientonlyview.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include ./moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/student/Desktop/3004cuACS/CUACS -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtSql -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/include/c++/7 -I/usr/include/x86_64-linux-gnu/c++/7 -I/usr/include/c++/7/backward -I/usr/lib/gcc/x86_64-linux-gnu/7/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include ../CUACS/clientonlyview.h -o moc_clientonlyview.cpp
+
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h
+compiler_uic_make_all: ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h ui_login.h ui_clientonlyview.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h
+	-$(DEL_FILE) ui_cuacsview.h ui_detailedclientview.h ui_animaldetailedview.h ui_login.h ui_clientonlyview.h
 ui_cuacsview.h: ../CUACS/cuacsview.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../CUACS/cuacsview.ui -o ui_cuacsview.h
@@ -463,6 +513,14 @@ ui_detailedclientview.h: ../CUACS/detailedclientview.ui \
 ui_animaldetailedview.h: ../CUACS/animaldetailedview.ui \
 		/usr/lib/qt5/bin/uic
 	/usr/lib/qt5/bin/uic ../CUACS/animaldetailedview.ui -o ui_animaldetailedview.h
+
+ui_login.h: ../CUACS/login.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../CUACS/login.ui -o ui_login.h
+
+ui_clientonlyview.h: ../CUACS/clientonlyview.ui \
+		/usr/lib/qt5/bin/uic
+	/usr/lib/qt5/bin/uic ../CUACS/clientonlyview.ui -o ui_clientonlyview.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -479,7 +537,11 @@ main.o: ../CUACS/main.cpp ../CUACS/cuacsview.h \
 		../CUACS/databasemanager.h \
 		../CUACS/client.h \
 		../CUACS/detailedclientview.h \
-		../CUACS/animaldetailedview.h
+		../CUACS/animaldetailedview.h \
+		../CUACS/animalmanager.h \
+		../CUACS/clientmanager.h \
+		../CUACS/login.h \
+		../CUACS/clientonlyview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../CUACS/main.cpp
 
 cuacsview.o: ../CUACS/cuacsview.cpp ../CUACS/cuacsview.h \
@@ -488,6 +550,8 @@ cuacsview.o: ../CUACS/cuacsview.cpp ../CUACS/cuacsview.h \
 		../CUACS/client.h \
 		../CUACS/detailedclientview.h \
 		../CUACS/animaldetailedview.h \
+		../CUACS/animalmanager.h \
+		../CUACS/clientmanager.h \
 		ui_cuacsview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o cuacsview.o ../CUACS/cuacsview.cpp
 
@@ -509,8 +573,46 @@ detailedclientview.o: ../CUACS/detailedclientview.cpp ../CUACS/detailedclientvie
 
 animaldetailedview.o: ../CUACS/animaldetailedview.cpp ../CUACS/animaldetailedview.h \
 		../CUACS/animal.h \
+		../CUACS/animalmanager.h \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h \
 		ui_animaldetailedview.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animaldetailedview.o ../CUACS/animaldetailedview.cpp
+
+clientmanager.o: ../CUACS/clientmanager.cpp ../CUACS/clientmanager.h \
+		../CUACS/client.h \
+		../CUACS/databasemanager.h \
+		../CUACS/animal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientmanager.o ../CUACS/clientmanager.cpp
+
+animalmanager.o: ../CUACS/animalmanager.cpp ../CUACS/animalmanager.h \
+		../CUACS/animal.h \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o animalmanager.o ../CUACS/animalmanager.cpp
+
+login.o: ../CUACS/login.cpp ../CUACS/login.h \
+		../CUACS/cuacsview.h \
+		../CUACS/animal.h \
+		../CUACS/databasemanager.h \
+		../CUACS/client.h \
+		../CUACS/detailedclientview.h \
+		../CUACS/animaldetailedview.h \
+		../CUACS/animalmanager.h \
+		../CUACS/clientmanager.h \
+		../CUACS/clientonlyview.h \
+		ui_login.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o login.o ../CUACS/login.cpp
+
+clientonlyview.o: ../CUACS/clientonlyview.cpp ../CUACS/clientonlyview.h \
+		../CUACS/clientmanager.h \
+		../CUACS/client.h \
+		../CUACS/databasemanager.h \
+		../CUACS/animal.h \
+		../CUACS/animalmanager.h \
+		../CUACS/animaldetailedview.h \
+		ui_clientonlyview.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientonlyview.o ../CUACS/clientonlyview.cpp
 
 moc_cuacsview.o: moc_cuacsview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_cuacsview.o moc_cuacsview.cpp
@@ -520,6 +622,12 @@ moc_detailedclientview.o: moc_detailedclientview.cpp
 
 moc_animaldetailedview.o: moc_animaldetailedview.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_animaldetailedview.o moc_animaldetailedview.cpp
+
+moc_login.o: moc_login.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_login.o moc_login.cpp
+
+moc_clientonlyview.o: moc_clientonlyview.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_clientonlyview.o moc_clientonlyview.cpp
 
 ####### Install
 
