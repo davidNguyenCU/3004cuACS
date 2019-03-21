@@ -1,8 +1,7 @@
 #include "animal.h"
 
-int Animal::IDNum = 0;
+
 Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){
-    ID = IDNum++;
     breed = aBreed;
     ageYears = ageY;
     ageMonths = ageM;
@@ -24,30 +23,7 @@ Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinate
     independence = indp;
     obedience = obed;
 }
-Animal::Animal(int id, QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){
-    ID = id;
-    IDNum++;
-    breed = aBreed;
-    ageYears = ageY;
-    ageMonths = ageM;
-    gender = aGender;
-    vaccinated = isVaccinated;
-    name = aName;
-    dateOfBirth = DOB;
-    species = aSpecies;
-    temperament = temp;
-    trainability = train;
-    intelligence = intel;
-    mischievousness = misc;
-    socialAttitude = soc;
-    strangerFriendly = strange;
-    energy = nrg;
-    childFriendly = child;
-    playfulness = play;
-    patience = pat;
-    independence = indp;
-    obedience = obed;
-}
+
 
 
 void Animal::setVacc(bool v){vaccinated = v;}

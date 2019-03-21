@@ -49,7 +49,7 @@ bool databaseManager::createTable()
                   "patience INTEGER, "
                   "independence INTEGER, "
                   "obedience INTEGER, "
-                  "primary key (id));");
+                  "primary key (name));");
 
     if (!query.exec())
     {
@@ -162,13 +162,60 @@ void databaseManager::populateTables()
     query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
      "VALUES ('Miles', 'Parker', 'C4T2Q5', 'Halifax', 'NS', '789 Summit St.', '', 'MParker', 'notSpider', 'Parker@gmail.com', '(678)-567-3287',7,2,10,3,4,1,3,3)");
 
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Haya', 'Mac', 'K1A0L9', 'Ottawa', 'ON', '3910 Park Ave.', '', 'HiYah', 'Apple_51', 'H_Mac@gmail.com', '(666)-005-5137',5,2,9,3,1,1,1,1)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Patricia', 'Whittle', 'K2J0K6', 'Ottawa', 'ON', '4 White Hill Ave.', '', 'PatWhite', 'KrustyKrab456', 'P_Whittle@yahoo.com', '(007)-114-3692',1,1,1,1,1,1,1,1)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Saul', 'Cartwright', 'K1K4R4', 'Ottawa', 'ON', '41 Calavaires Ave.', '', 'BetterCallSaul', 'BluePower159', 'S_Cartwright@hotmail.com', '(989)-573-4825',2,2,2,2,2,2,2,2)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Hanan', 'Figueroa', 'L0P1N0', 'Brampton', 'ON', '321 Fake St.', '', 'HanFig', 'Montana89', 'H_Figueroa@live.com', '(573)-410-3722',3,3,3,3,3,3,3,3)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Zahra', 'Corbett', 'M4C1M5', 'Toronto', 'ON', '1 Horsey Dr.', '', 'Zahahahaha', 'CheckIt78', 'Z_Corbett@gmail.com', '(101)-628-2047',6,2,6,2,6,2,1,3)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Marnie', 'Francis', 'R0K0R0', 'Brandon', 'MB', '2 Quack St.', '', 'MarFrac', 'DeadPo0l', 'M_Francis@yahoo.com', '(209)-820-4782',8,2,5,1,1,2,2,1)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Shelly', 'Jones', 'P7A0A4', 'Thunder Bay', 'ON', '42 Leblanc Ave.', '', 'SJones', 'Gr8B8M8', 'S_Jones@hotmail.com', '(098)-665-0856',2,1,8,1,7,3,1,2)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Imaan', 'Chambers', 'R0K2A0', 'Shilo', 'MB', '420 Ramos Dr.', '', 'ImChamber', 'SnakeDown87', 'I_Chambers@live.com', '(427)-806-6583',1,3,1,3,1,3,2,2)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Asad', 'Bryan', 'T9M0B4', 'Cold Lake', 'AB', '69 Geiler Cres.', '', 'sadBryan', 'AsdBrY57', 'A_Bryan@gmail.com', '(333)-821-9143',8,1,3,1,4,1,3,3)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Giorgia', 'Welch', 'T1Y1A2', 'Calgary', 'AB', '45 Grickites Dr.', '', 'GeorgeWatch', 'NoWalch92', 'G_Welch@yahoo.com', '(357)-996-9919',5,3,5,3,5,1,3,1)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Aysha', 'Tierney', 'V5K0B2', 'Vancouver', 'BC', '98 Nguyen Ave.', '', 'AsayaTear', 'SadMissSad91', 'A_Tierney@hotmail.com', '(217)-020-0010',2,2,1,3,10,1,2,3)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Polly ', 'Walmsley', 'T5A0A7', 'Edmonton', 'AB', '56 MacDonald Blvd.', '', 'PollyWantsACracker', 'BadB1rd87', 'P_Walmsley@live.com', '(227)-006-9018',6,3,4,2,5,1,3,2)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Julius', 'Klein', 'C1A0A1', 'Charlottetown', 'PE', '7331 Khurshid Dr.', '', 'JCeasar', 'noFriends001', 'J_Klein@gmail.com', '(256)-826-4414',5,1,10,3,6,2,2,2)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Ella', 'Mason', 'G1B1K1', 'Quebec City', 'QC', '38 Rodriques Ave.', '', 'EllaEnchanted', 'NoGodMother159', 'E_Mason@yahoo.com', '(111)-111-1111',7,1,8,2,9,3,1,3)");
+
+    query.exec("INSERT OR REPLACE INTO clients(firstName, lastName, postalCode, city, province, addressLine1, addressLine2, username, password, email, phoneNumber, ownerCon, ownRank, socab, socRank, behav, behavRank, strangeFriend, childFriend) "
+        "VALUES ('Gregg', 'Millington', 'H1A4K2', 'Montreal', 'QC', '79 Pawley St.', '', 'GreggoryMill', 'Milling147', 'G_Millington@hotmail.com', '(626)-626-6262',8,1,6,2,10,2,1,1)");
+
+
+
 }
 
 void databaseManager::updateAnimal(Animal add){
     QSqlQuery query;
-    query.prepare("REPLACE INTO animals (id, breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
-                  "VALUES (:idnum, :br, :ay, :am, :gen, :vacc, :name, :DOB, :spec, :temp, :train, :intel, :misc, :soci, :stra, :ener, :child, :play, :pati, :ind, :obe)");
-    query.bindValue("idnum", add.getID());
+    query.prepare("REPLACE INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
+                  "VALUES (:br, :ay, :am, :gen, :vacc, :name, :DOB, :spec, :temp, :train, :intel, :misc, :soci, :stra, :ener, :child, :play, :pati, :ind, :obe)");
     query.bindValue(":br",add.getBreed());
     query.bindValue(":ay",(add.getYears()));
     query.bindValue(":am",add.getMonths());
@@ -211,9 +258,9 @@ purpose: Adds a given animal to the SQL Database
 
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
-    query.prepare("INSERT OR REPLACE INTO animals (id, breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
-                  "VALUES (:idnum, :br, :ay, :am, :gen, :vacc, :name, :DOB, :spec, :temp, :train, :intel, :misc, :soci, :stra, :ener, :child, :play, :pati, :ind, :obe)");
-    query.bindValue("idnum", add.getID());
+    query.prepare("INSERT OR REPLACE INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
+                  "VALUES (:br, :ay, :am, :gen, :vacc, :name, :DOB, :spec, :temp, :train, :intel, :misc, :soci, :stra, :ener, :child, :play, :pati, :ind, :obe)");
+
     query.bindValue(":br",add.getBreed());
     query.bindValue(":ay",(add.getYears()));
     query.bindValue(":am",add.getMonths());
@@ -325,7 +372,7 @@ vector<Animal> databaseManager::getAnimals(){
         int patience = query.value(18).toInt();
         int independence = query.value(19).toInt();
         int obedience = query.value(20).toInt();
-        Animal a = Animal(id, breed,ageYears,ageMonths,gender,vaccBool,name,species,temperance,trainability,intelligence,mischievousness,socialAttitude,strangerFriendly,energy,childFriendly,playfulness,patience,independence,obedience,DOB);
+        Animal a = Animal(breed,ageYears,ageMonths,gender,vaccBool,name,species,temperance,trainability,intelligence,mischievousness,socialAttitude,strangerFriendly,energy,childFriendly,playfulness,patience,independence,obedience,DOB);
         currentAnimals.push_back(a);
 
     }

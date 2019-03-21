@@ -12,11 +12,8 @@ public:
 
     //This constructor can be used to create a fully detailed animal profile
     Animal(QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
-    Animal(int, QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
-
 
     ~Animal();
-    static int IDNum;
     //Getter Functions
     QString getBreed() const;
     QString getGender() const;
