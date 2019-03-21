@@ -16,3 +16,9 @@ Run the program:
 1. Untar the .tar file
 2. Follow the install instructions
 3. Enter this command into the terminal: './CUACS'
+
+When logging in to the User accounts, The usernames and passwords can be found in the SQL database in build-CUACS-Desktop-Debug.
+Here are some you can use:
+Username: JHug Password: secret123
+Username: SMar Password: notsoSecret547
+Username: PianistBach Password: P1an0
