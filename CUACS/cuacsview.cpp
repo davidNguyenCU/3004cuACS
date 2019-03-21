@@ -13,7 +13,7 @@ CUACSView::CUACSView(QWidget *parent) :
     manageClients = ClientManager(localDB);
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
-    animalView = new AnimalDetailedView();
+    animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
 
     localDB->createTable();
     //localDB->populateTables();
@@ -420,6 +420,6 @@ purpose: Calls and displays the animalDetailedView when the button is clicked
 **/
 void CUACSView::on_pushButton_clicked()
 {
-    animalView->setAnimals(manageAnimals.getAnimals());
+    animalView->setAnimals();
     animalView->show();
 }

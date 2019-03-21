@@ -8,10 +8,10 @@ class Animal
 public:
     //This is the basic constructor that is to be used when creating a new animal
     //This constructor does not contain any of the algorithm matching attributes
-    Animal(QString, int, int, QString, bool, QString, QString, QString = "UNKNOWN");
+    Animal(int, QString, int, int, QString, bool, QString, QString, QString = "UNKNOWN");
 
     //This constructor can be used to create a fully detailed animal profile
-    Animal(QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
+    Animal(int, QString, int, int, QString, bool, QString, QString, int, int, int, int, int, int, int, int, int, int, int, int, QString = "UNKNOWN");
 
 
     ~Animal();
@@ -39,7 +39,23 @@ public:
     int getPatience() const;
     int getIndependence() const;
     int getObedience() const;
-
+    int getID() const;
+    void setVacc(bool);
+    void setID(int);
+    void setYrs(int);
+    void setMonths(int);
+    void setSocialAttitude(int);
+    void setEnergy(int);
+    void setIndependence(int);
+    void setIntelligence(int);
+    void setMisc(int);
+    void setObedience(int);
+    void setPatience(int);
+    void setPlay(int);
+    void setStrange(int);
+    void setChild(int);
+    void setTemp(int);
+    void setTrain(int);
 
 private:
     int ageYears;

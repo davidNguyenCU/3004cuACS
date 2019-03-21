@@ -127,8 +127,8 @@ void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
 
 void ClientOnlyView::on_pushButton_clicked()
 {
-    AnimalDetailedView *view = new AnimalDetailedView();
-    view->setAnimals(am.getAnimals());
+    AnimalDetailedView *view = new AnimalDetailedView(am, ui->animalTbl,false);
+    view->setAnimals();
     view->show();
 }
 

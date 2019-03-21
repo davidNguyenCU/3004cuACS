@@ -16,7 +16,7 @@ public:
     ~AnimalManager();
     vector<Animal> getAnimals();
     Animal addAnimal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB);
-
+    void editAnimal(bool, int,int,int,int,int,int,int,int,int,int,int,int, int, int, int);
 private:
     vector<Animal> animals;
     databaseManager *db;

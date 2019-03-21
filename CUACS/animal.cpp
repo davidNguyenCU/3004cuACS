@@ -3,7 +3,8 @@
 
 
 
-Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){
+Animal::Animal(int id, QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinated,QString aName,QString aSpecies,int temp, int train, int intel, int misc, int soc, int strange, int nrg, int child, int play, int pat, int indp, int obed, QString DOB){
+    ID = id;
     breed = aBreed;
     ageYears = ageY;
     ageMonths = ageM;
@@ -25,6 +26,26 @@ Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinate
     independence = indp;
     obedience = obed;
 }
+
+
+void Animal::setVacc(bool v){vaccinated = v;}
+void Animal::setYrs(int y){ageYears = y;}
+void Animal::setMonths(int m){ageMonths = m;}
+void Animal::setSocialAttitude(int s){socialAttitude = s;}
+void Animal::setEnergy(int e){energy = e;}
+void Animal::setIndependence(int i){independence = i;}
+void Animal::setIntelligence(int i){intelligence = i;}
+void Animal::setMisc(int m){mischievousness = m;}
+void Animal::setPatience(int p){patience = p;}
+void Animal::setPlay(int p){playfulness = p;}
+void Animal::setObedience(int o){obedience = o;}
+void Animal::setStrange(int s){strangerFriendly = s;}
+void Animal::setChild(int c){childFriendly = c;}
+void Animal::setTemp(int t){temperament = t;}
+void Animal::setTrain(int t){trainability = t;}
+void Animal::setID(int i){ID = i;}
+
+int Animal::getID() const{return ID;}
 
 Animal::~Animal(){
 }

@@ -1,13 +1,17 @@
 #include "animaldetailedview.h"
 #include "ui_animaldetailedview.h"
 
-AnimalDetailedView::AnimalDetailedView(QWidget *parent) :
+AnimalDetailedView::AnimalDetailedView(AnimalManager& animal, QTableWidget *t, bool staff,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AnimalDetailedView)
 {
     ui->setupUi(this);
     index = 0;
     edit(false);
+    am = animal;
+    table = t;
+    ui->editBtn->setVisible(staff);
+    editing = false;
 }
 
 AnimalDetailedView::~AnimalDetailedView()
@@ -22,8 +26,8 @@ out:
 return:
 purpose: Initialize the animals in the detailed View and display the first animal
 **/
-void AnimalDetailedView::setAnimals(vector<Animal> a){
-    animals = a;
+void AnimalDetailedView::setAnimals(){
+    vector<Animal> animals = am.getAnimals();
     if(animals.size()!=0){
         //ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
         ui->yearSpin->setValue(animals[0].getYears());
@@ -61,6 +65,7 @@ purpose: Displays the previous Animal or loops back around to the last animal up
 **/
 void AnimalDetailedView::on_previousBtn_clicked()
 {
+    vector<Animal> animals = am.getAnimals();
     if(index == 0){
         index = animals.size()-1;
     }else{
@@ -89,6 +94,8 @@ void AnimalDetailedView::on_previousBtn_clicked()
     ui->tempSpin->setValue(animals[index].getTemperament());
     ui->trainSpin->setValue(animals[index].getTrainability());
     edit(false);
+    ui->editBtn->setText("Edit");
+    editing = false;
 }
 
 void AnimalDetailedView::edit(bool enabled){
@@ -118,20 +125,20 @@ purpose:Display the next animal or loops back to the beginning when the next but
 **/
 void AnimalDetailedView::on_nextBtn_clicked()
 {
+    vector<Animal> animals = am.getAnimals();
     if(index == (animals.size()-1)){
         index = 0;
     }else{
         index+=1;
     }
-    ui->yearSpin->setValue(animals[index].getYears());
-    ui->monthSpin->setValue(animals[index].getMonths());
     ui->nameLbl->setText(animals[index].getName());
     ui->breedLbl->setText(animals[index].getBreed());
     ui->speciesLbl->setText(animals[index].getSpecies());
     ui->DOBLbl->setText(animals[index].getDOB());
     ui->genderLbl->setText(animals[index].getGender());
     ui->checkBox->setChecked(animals[index].isVaccinated());
-
+    ui->yearSpin->setValue(animals[index].getYears());
+    ui->monthSpin->setValue(animals[index].getMonths());
     //This sets the algorithm attributes
     ui->animalSpin->setValue(animals[index].getSocialAttitutde());
     ui->energySpin->setValue(animals[index].getEnergy());
@@ -146,4 +153,47 @@ void AnimalDetailedView::on_nextBtn_clicked()
     ui->tempSpin->setValue(animals[index].getTemperament());
     ui->trainSpin->setValue(animals[index].getTrainability());
     edit(false);
+    ui->editBtn->setText("Edit");
+    editing = false;
+}
+
+void AnimalDetailedView::on_editBtn_clicked()
+{
+    if (!editing){
+        ui->editBtn->setText("Save");
+        edit(true);
+        editing = true;
+    }else{
+        ui->editBtn->setText("Edit");
+        edit(false);
+        editing = false;
+
+        int year, month, soc,energy, indep, intel, misc, pat, play, obed, strange, child, temp, train;
+        bool vacc = ui->checkBox->isChecked();
+        year = ui->yearSpin->value();
+        month = ui->monthSpin->value();
+        soc = ui->animalSpin->value();
+        energy = ui->energySpin->value();
+        indep = ui->independenceSpin->value();
+        intel = ui->intSpin->value();
+        misc = ui->miscSpin->value();
+        pat = ui->patienceSpin->value();
+        play = ui->playSpin->value();
+        obed = ui->obedienceSpin->value();
+        strange = ui->strangerSpin->value();
+        child = ui->childFriendlySpin->value();
+        temp = ui->tempSpin->value();
+        train = ui->trainSpin->value();
+        am.editAnimal(vacc,year,month,soc,energy,indep,intel,misc,obed,pat,play,strange,child,temp,train,index);
+        int row = index;
+        table->setCellWidget(row,5,new QLabel(QString::number(am.getAnimals()[index].getYears()) + "/" + QString::number(am.getAnimals()[index].getMonths())));
+        QLabel *vaccinated;
+        if(am.getAnimals()[index].isVaccinated()){
+            vaccinated = new QLabel("Yes");
+        }else{
+            vaccinated = new QLabel("No");
+        }
+        table->setCellWidget(row,6,vaccinated);
+
+    }
 }

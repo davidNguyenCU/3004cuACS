@@ -18,6 +18,7 @@ public:
     void populateTables();
     void addAnimal(Animal);
     void addClient(Client);
+    void updateAnimal(Animal);
     vector<Animal> getAnimals();
     vector<Client> getClients();
 private:
