@@ -6,6 +6,7 @@
 #include <QSqlQuery>
 #include <QVariant>
 #include "animal.h"
+#include "client.h"
 #include <vector>
 #include <iostream>
 
@@ -14,10 +15,14 @@ class databaseManager
 public:
     databaseManager(const QString& path);
     bool createTable();
+    void populateTables();
     void addAnimal(Animal);
+    void addClient(Client);
+    void updateAnimal(Animal);
     vector<Animal> getAnimals();
+    vector<Client> getClients();
 private:
-    QSqlDatabase animalDB;
+    QSqlDatabase localDB;
 };
 
 #endif // DATABASEMANAGER_H
