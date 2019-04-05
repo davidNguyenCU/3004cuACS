@@ -40,6 +40,8 @@ private slots:
 private:
     int clientNum;
     int animalNum;
+    std::vector<Client> clients;
+    std::vector<Animal> animals;
     DetailedClientView *detailedView;
     AnimalDetailedView *animalView;
     const int Acceptable = QValidator::Acceptable;

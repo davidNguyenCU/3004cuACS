@@ -1,5 +1,6 @@
 #include "cuacsview.h"
 #include "ui_cuacsview.h"
+#include "ACM.h"
 
 //Constructor for the CUACSView, initializes all on screen items properly
 CUACSView::CUACSView(QWidget *parent) :
@@ -17,8 +18,6 @@ CUACSView::CUACSView(QWidget *parent) :
 
     localDB->createTable();
     //localDB->populateTables();
-    std::vector<Client> clients;
-    std::vector<Animal> animals;
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
 
@@ -425,5 +424,5 @@ void CUACSView::on_pushButton_clicked()
 }
 
 void CUACSView::on_runACMbutton_clicked(){
-    std::cout<<"Hey clients"<<std::endl;
+    std::cout<<ACM::getCompatabilityIndex(animals[1],clients[0])<<std::endl;
 }
