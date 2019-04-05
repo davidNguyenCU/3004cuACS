@@ -35,6 +35,8 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_runACMbutton_clicked();
+
 private:
     int clientNum;
     int animalNum;

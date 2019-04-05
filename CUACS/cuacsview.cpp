@@ -423,3 +423,7 @@ void CUACSView::on_pushButton_clicked()
     animalView->setAnimals();
     animalView->show();
 }
+
+void CUACSView::on_runACMbutton_clicked(){
+    std::cout<<"Hey clients"<<std::endl;
+}

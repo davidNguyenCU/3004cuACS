@@ -1240,11 +1240,11 @@
         </layout>
        </widget>
       </widget>
-      <widget class="QWidget" name="tab_4">
+      <widget class="QWidget" name="ACMtab">
        <attribute name="title">
-        <string>Page</string>
+        <string>ACM</string>
        </attribute>
-       <widget class="QTableWidget" name="clientTable_2">
+       <widget class="QTableWidget" name="ACM_table">
         <property name="geometry">
          <rect>
           <x>10</x>
@@ -1301,7 +1301,7 @@
          </property>
         </column>
        </widget>
-       <widget class="QPushButton" name="detailedClientsBtn_2">
+       <widget class="QPushButton" name="runACMbutton">
         <property name="geometry">
          <rect>
           <x>720</x>
