@@ -424,5 +424,10 @@ void CUACSView::on_pushButton_clicked()
 }
 
 void CUACSView::on_runACMbutton_clicked(){
-    std::cout<<ACM::getCompatabilityIndex(animals[1],clients[0])<<std::endl;
+
+    for(int i = 0; i < 25; i++){
+        std::cout<<"Bach vs all animals"<<std::endl;
+        std::cout<<ACM::getCompatabilityIndex(animals[i],clients[0])<<std::endl;
+        std::cout<<"---"<<std::endl;
+    }
 }

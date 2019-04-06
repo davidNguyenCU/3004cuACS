@@ -1,4 +1,6 @@
+#include <iostream>
 #include "ACM.h"
+#include <math.h>
 
 #define threshold .5
 
@@ -65,55 +67,167 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
 }
 
 float ACM::getCompatabilityIndex(Animal A, Client C){
-    return ((float)A.getIndependence())*.3 + ((float)C.getBehaviour())*.3;
-/*
-    //see d2 documentation
 
-    float ownerControlPref = C.getOwnerControlPref;
-    float ownerSocialPref = C.getPetSocialPref;
-    float ownerBehaviorPref = C.getBehaviorPref;
+    float overallCIX;
 
-    int strangerFriendlyRank = C.getStrangerPref;
-    int childFriendlyRank = C.getChildFriendlyPref;
+    int animalStrangerPref;
+    int animalChildPref;
+
+    if(A.getStrangerFriendly() < 3)
+        animalStrangerPref = 1;
+    else if(A.getStrangerFriendly() > 3)
+        animalStrangerPref = 3;
+    else
+        animalStrangerPref = 2;
+
+    if(A.getChildFriendly() < 3)
+        animalChildPref = 1;
+    else if(A.getChildFriendly() > 3)
+        animalChildPref = 3;
+    else
+        animalChildPref = 2;
+
+    if(C.getStrangerFriendly() != 2 && C.getStrangerFriendly() != animalStrangerPref)
+    {return overallCIX = 0;}
+
+    if(C.getChildFriendly() != 2 && C.getChildFriendly() != animalChildPref)
+    {return overallCIX = 0;}
+
+    float ownerControlPref = C.getOwnerControl()/10.0;
+    float ownerSocialPref = C.getSociability()/10.0;
+    float ownerBehaviorPref = C.getBehaviour()/10.0;
 
     //Certain scores may be multiplied by a factor to allow their scores to be equivalently scored in comparison to other scores
+    float petTrainingScore = ((A.getTrainability()*2) + A.getIntelligence() + A.getObedience())/30.0;
+    float petSocialScore = (A.getSocialAttitutde() + A.getPlayfulness() + (A.getEnergy()*2) + A.getIndependence())/40.0 ;
+    float petBehaviorScore = (A.getPatience() + (A.getTemperament()*2) + A.getMischievousness())/30.0 ;
 
+    float trainingCI = 1 - fabs(ownerControlPref - petTrainingScore);
+    float socialCI = 1 - fabs(ownerSocialPref - petSocialScore);
+    float behaviorCI = 1 - fabs(ownerBehaviorPref - petBehaviorScore);
 
-    float petTrainingScore = ((A.getTrainability()*2) + A.getIntelligence() + A.getObedience())/30;
+    float ownerRank;
+    float behaveRank;
+    float socialRank;
 
-    int getTemperament() const;
-    int getTrainability() const;
-    int getIntelligence() const;
-    int getMischievousness() const;
-    int getSocialAttitutde() const;
-    int getStrangerFriendly() const;
-    int getEnergy() const;
-    int getChildFriendly() const;
-    int getPlayfulness() const;
-    int getPatience() const;
-    int getIndependence() const;
-    int getObedience() const;
-    int getID() const;
+    //This gargantuan if statement handles all possible combinations of ranks
+    //There's probably a cleaner implementation of this (as this would definitely not be scalable with more
+    //attributes, but this will do for now with sufficient complexity
+    if(C.getOwnerRank() == C.getBehaveRank() && C.getOwnerRank() == C.getSocialRank()){
+        //All ranks being equal
+        ownerRank = 0.33;
+        socialRank = 0.33;
+        behaveRank = 0.33;
+    }
+    else if(C.getOwnerRank() != C.getBehaveRank() && C.getBehaveRank() != C.getSocialRank()){
+        //All ranks being unequal (and their various combinations)
+        if(C.getOwnerRank() == 1)
+        {ownerRank = 0.50;}
+        if(C.getOwnerRank() == 2)
+        {ownerRank = 0.3;}
+        if(C.getOwnerRank() == 3)
+        {ownerRank = 0.2;}
 
-    float petSocialScore = (A.getSocialAbility + A.getPlayfulness + (A.getActivity*2) + A.getDependence)/40 ;
+        if(C.getBehaveRank() == 1)
+        {behaveRank = 0.5;}
+        if(C.getBehaveRank() == 2)
+        {behaveRank = 0.3;}
+        if(C.getBehaveRank() == 3)
+        {behaveRank = 0.2;}
 
-    float petBehaviorScore = (A.getTolerance + (A.getTemperament*2) + A.getMischeviousness)/30 ;
+        if(C.getSocialRank() == 1)
+        {socialRank = 0.5;}
+        if(C.getSocialRank() == 2)
+        {socialRank = 0.3;}
+        if(C.getSocialRank() == 3)
+        {socialRank = 0.2;}
 
-    float trainingCI = 100% - |ownerControlPref - petTrainingScore| ;
-    float socialCI = 100% - |ownerSocialPref - petSocialScore| ;
-    float behaviorCI = 100% - |ownerBehaviorPref - petBehaviorScore| ;
+        //Needed to catch no preference cases here, so here's a big block of code to redundantly catch a bunch of no prefs
+        //Handling 1x No Preferences with equal rankings
+        if(C.getOwnerRank() == C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.5; behaveRank = 0.5; socialRank = 0;}
+        if(C.getSocialRank() == C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.5; socialRank = 0.5;}
+        if(C.getOwnerRank() == C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.5; behaveRank = 0; socialRank = 0.5;}
 
-    float overallCIX = (trainingCI*C.getTrainingRank) + (socialCI*C.getSocialRank) + (behaviorCI*C.getBehaviorRank)
+        //Handling 1x No Preferences with non even rankings
+        if(C.getOwnerRank() > C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.66; behaveRank = 0.33; socialRank = 0;}
+        if(C.getOwnerRank() < C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.33; behaveRank = 0.66; socialRank = 0;}
 
-    if(strangerFriendlyRank != 2 && strangerFriendlyRank != A.getStrangerFriendliness)
-    {overallCIX = 0;}
+        if(C.getSocialRank() > C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.33; socialRank = 0.66;}
+        if(C.getSocialRank() < C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.66; socialRank = 0.33;}
 
-    if(childFriendlyRank != 2 && childFriendlyRank != A.getChildFriendliness)
-    {overallCIX = 0;}
+        if(C.getOwnerRank() > C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.66; behaveRank = 0; socialRank = 0.33;}
+        if(C.getOwnerRank() < C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.33; behaveRank = 0; socialRank = 0.66;}
 
-    if(CI < threshold){ CI = 0;}
+        //Handling 2x No Preferences
+        if(C.getOwnerRank() == C.getSocialRank() && C.getSocialRank() == 4)
+        {ownerRank = 0; behaveRank = 1; socialRank = 0;}
+        if(C.getBehaveRank() == C.getSocialRank() && C.getSocialRank() == 4)
+        {ownerRank = 1; behaveRank = 0; socialRank = 0;}
+        if(C.getBehaveRank() == C.getOwnerRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0; behaveRank = 0; socialRank = 1;}
+
+    }
+    else{//Handling all Misc Cases
+
+        //Handling 2x Ranks being the same (with 1x rank being higher than the 2x same ranks)
+        if(C.getOwnerRank() == C.getBehaveRank() && C.getSocialRank() > C.getOwnerRank())
+        {ownerRank = 0.25; behaveRank = 0.25; socialRank = 0.5;}
+        if(C.getSocialRank() == C.getBehaveRank() && C.getOwnerRank() > C.getSocialRank())
+        {ownerRank = 0.5; behaveRank = 0.25; socialRank = 0.25;}
+        if(C.getOwnerRank() == C.getSocialRank() && C.getBehaveRank() > C.getOwnerRank())
+        {ownerRank = 0.25; behaveRank = 0.5; socialRank = 0.25;}
+
+        //Handling 2x ranks being the same (with 1x rank being lower than the 2 same ranks)
+        if(C.getOwnerRank() == C.getBehaveRank() && C.getSocialRank() < C.getOwnerRank())
+        {ownerRank = 0.4; behaveRank = 0.4; socialRank = 0.2;}
+        if(C.getSocialRank() == C.getBehaveRank() && C.getOwnerRank() < C.getSocialRank())
+        {ownerRank = 0.2; behaveRank = 0.4; socialRank = 0.4;}
+        if(C.getOwnerRank() == C.getSocialRank() && C.getBehaveRank() < C.getOwnerRank())
+        {ownerRank = 0.4; behaveRank = 0.2; socialRank = 0.4;}
+
+        //Handling 1x No Preferences with equal rankings
+        if(C.getOwnerRank() == C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.5; behaveRank = 0.5; socialRank = 0;}
+        if(C.getSocialRank() == C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.5; socialRank = 0.5;}
+        if(C.getOwnerRank() == C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.5; behaveRank = 0; socialRank = 0.5;}
+
+        //Handling 1x No Preferences with non even rankings
+        if(C.getOwnerRank() > C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.66; behaveRank = 0.33; socialRank = 0;}
+        if(C.getOwnerRank() < C.getBehaveRank() && C.getSocialRank() == 4)
+        {ownerRank = 0.33; behaveRank = 0.66; socialRank = 0;}
+
+        if(C.getSocialRank() > C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.33; socialRank = 0.66;}
+        if(C.getSocialRank() < C.getBehaveRank() && C.getOwnerRank() == 4)
+        {ownerRank = 0; behaveRank = 0.66; socialRank = 0.33;}
+
+        if(C.getOwnerRank() > C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.66; behaveRank = 0; socialRank = 0.33;}
+        if(C.getOwnerRank() < C.getSocialRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0.33; behaveRank = 0; socialRank = 0.66;}
+
+        //Handling 2x No Preferences
+        if(C.getOwnerRank() == C.getSocialRank() && C.getSocialRank() == 4)
+        {ownerRank = 0; behaveRank = 1; socialRank = 0;}
+        if(C.getBehaveRank() == C.getSocialRank() && C.getSocialRank() == 4)
+        {ownerRank = 1; behaveRank = 0; socialRank = 0;}
+        if(C.getBehaveRank() == C.getOwnerRank() && C.getBehaveRank() == 4)
+        {ownerRank = 0; behaveRank = 0; socialRank = 1;}
+    }
+    overallCIX = (trainingCI*ownerRank) + (behaviorCI*behaveRank) + (socialCI*socialRank);
+    if(overallCIX < 0.5) {overallCIX = 0;}
 
     return overallCIX;
-    */
-
 }
