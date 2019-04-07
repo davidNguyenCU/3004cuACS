@@ -87,10 +87,10 @@ float ACM::getCompatabilityIndex(Animal A, Client C){
     else
         animalChildPref = 2;
 
-    if(C.getStrangerFriendly() != 2 && C.getStrangerFriendly() != animalStrangerPref)
+    if(C.getStrangerFriendly() != 2 && C.getStrangerFriendly() == animalStrangerPref)
     {return overallCIX = 0;}
 
-    if(C.getChildFriendly() != 2 && C.getChildFriendly() != animalChildPref)
+    if(C.getChildFriendly() != 2 && C.getChildFriendly() == animalChildPref)
     {return overallCIX = 0;}
 
     float ownerControlPref = C.getOwnerControl()/10.0;
@@ -113,6 +113,12 @@ float ACM::getCompatabilityIndex(Animal A, Client C){
     //This gargantuan if statement handles all possible combinations of ranks
     //There's probably a cleaner implementation of this (as this would definitely not be scalable with more
     //attributes, but this will do for now with sufficient complexity
+    /*if(C.getOwnerRank() == C.getBehaveRank() && C.getOwnerRank() == C.getSocialRank()){
+        if(C.getOwnerRank() == 4){ //Handles scenario if all ranks are no preferences
+            return overallCIX = 1;
+        }
+    }*/
+
     if(C.getOwnerRank() == C.getBehaveRank() && C.getOwnerRank() == C.getSocialRank()){
         //All ranks being equal
         if(C.getOwnerRank() == 4){ //Handles scenario if all ranks are no preferences
