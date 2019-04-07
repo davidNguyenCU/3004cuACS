@@ -245,7 +245,7 @@ void ClientOnlyView::on_editClientBtn_clicked()
         strangeFriend = 1;
     }else if (ui->noStrangePreference->isChecked()){
         strangeFriend = 2;
-    } else if(ui->notFriendlyStrange->isChecked()){
+    } else if(ui->strangeFriend->isChecked()){
         strangeFriend = 3;
     }
 
