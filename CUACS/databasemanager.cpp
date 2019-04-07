@@ -323,7 +323,7 @@ void databaseManager::addClient(Client add)
     query.bindValue(":bhv", add.getBehaviour());
     query.bindValue(":bhvRank", add.getBehaveRank());
     query.bindValue(":strFr", add.getStrangerFriendly());
-    query.bindValue("child", add.getChildFriendly());
+    query.bindValue(":child", add.getChildFriendly());
 
     if(!query.exec()){
         qDebug()<<query.lastError()<<query.executedQuery();
