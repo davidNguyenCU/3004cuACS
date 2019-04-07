@@ -6,7 +6,8 @@ Login::Login(QWidget *parent) :
     ui(new Ui::Login)
 {
     ui->setupUi(this);
-
+    localDB = new databaseManager("localStorage.db");
+    localDB->createTable();
 }
 
 Login::~Login()
@@ -23,9 +24,7 @@ void Login::on_staffBtn_clicked()
 
 void Login::on_clientBtn_clicked()
 {
-    databaseManager *localDB = new databaseManager("localStorage.db");
-    std::printf("%s", "New LocalDB Created");
-    localDB->createTable();
+
     ClientManager newClientManager(localDB);
     QString user = ui->userTxt->text();
     QString pass = ui->passTxt->text();
@@ -34,7 +33,6 @@ void Login::on_clientBtn_clicked()
         auto win = new ClientOnlyView(c, localDB);
         win->setAttribute(Qt::WA_DeleteOnClose);
         win->show();
-        delete localDB;
         this->close();
     }
 }
