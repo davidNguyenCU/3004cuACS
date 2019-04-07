@@ -115,9 +115,14 @@ float ACM::getCompatabilityIndex(Animal A, Client C){
     //attributes, but this will do for now with sufficient complexity
     if(C.getOwnerRank() == C.getBehaveRank() && C.getOwnerRank() == C.getSocialRank()){
         //All ranks being equal
-        ownerRank = 0.33;
-        socialRank = 0.33;
-        behaveRank = 0.33;
+        if(C.getOwnerRank() == 4){ //Handles scenario if all ranks are no preferences
+            return overallCIX = 1;
+        }
+        else{
+            ownerRank = 0.33;
+            socialRank = 0.33;
+            behaveRank = 0.33;
+        }
     }
     else if(C.getOwnerRank() != C.getBehaveRank() && C.getBehaveRank() != C.getSocialRank()){
         //All ranks being unequal (and their various combinations)
