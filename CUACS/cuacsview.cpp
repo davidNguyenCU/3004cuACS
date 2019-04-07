@@ -3,21 +3,19 @@
 #include "ACM.h"
 
 //Constructor for the CUACSView, initializes all on screen items properly
-CUACSView::CUACSView(QWidget *parent) :
+CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CUACSView)
 {
     ui->setupUi(this);
     clientNum = 1;
     animalNum = 1;
-    databaseManager *localDB = new databaseManager("localStorage.db");
+    databaseManager *localDB = db;
     manageClients = ClientManager(localDB);
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
 
-    //localDB->createTable();
-    //localDB->populateTables();
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
 
@@ -88,7 +86,6 @@ CUACSView::~CUACSView()
     delete ui->centralWidget;
     delete ui->statusBar;
     delete ui;
-
 }
 
 /**

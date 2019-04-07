@@ -22,7 +22,7 @@ class CUACSView : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit CUACSView(QWidget *parent = 0);
+    explicit CUACSView(databaseManager *db, QWidget *parent = 0);
     ~CUACSView();
     void addAnimal();
     bool checkUsername(QString);

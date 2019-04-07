@@ -16,7 +16,7 @@ Login::~Login()
 }
 void Login::on_staffBtn_clicked()
 {
-    auto win = new CUACSView();
+    auto win = new CUACSView(localDB);
     win->setAttribute( Qt::WA_DeleteOnClose );
     win->show();
     this->close();
