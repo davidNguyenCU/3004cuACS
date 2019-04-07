@@ -24,14 +24,14 @@ void Login::on_staffBtn_clicked()
 void Login::on_clientBtn_clicked()
 {
     databaseManager *localDB = new databaseManager("localStorage.db");
+    std::printf("%s", "New LocalDB Created");
     localDB->createTable();
-    //localDB->populateTables();
     ClientManager newClientManager(localDB);
     QString user = ui->userTxt->text();
     QString pass = ui->passTxt->text();
     Client *c = newClientManager.login(user,pass);
     if(c){
-        auto win = new ClientOnlyView(c);
+        auto win = new ClientOnlyView(c, localDB);
         win->setAttribute(Qt::WA_DeleteOnClose);
         win->show();
         delete localDB;

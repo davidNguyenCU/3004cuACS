@@ -1,20 +1,18 @@
 #include "clientonlyview.h"
 #include "ui_clientonlyview.h"
 
-ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
+ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOnlyView)
 {
     ui->setupUi(this);
-    databaseManager *localDB = new databaseManager("localStorage.db");
+    databaseManager *localDB = db;
     localDB->createTable();
     //localDB->populateTables();
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 
-    //QString fName = currentClient->getFirstName();
-    //QString lName = currentClient->getLastName();
-    //QString user = currentClient->getUsername();
+
     fName = c->getFirstName();
     lName = c->getLastName();
     user = c->getUsername();

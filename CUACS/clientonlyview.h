@@ -23,7 +23,7 @@ class ClientOnlyView : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit ClientOnlyView(Client *, QWidget *parent = 0);
+    explicit ClientOnlyView(Client *, databaseManager*, QWidget *parent = 0);
     ~ClientOnlyView();
 
 private slots:
