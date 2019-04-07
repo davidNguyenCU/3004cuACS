@@ -6,64 +6,176 @@
 
 
 vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Client> clients){
-
+    std::cout << "ACM BEGIN" <<std::endl;
 
     vector<std::pair<Client, Animal>> resultVec = vector<std::pair<Client, Animal>>();  //result vector containing all Client/Animal matches.
-    vector<vector<float>> compatArray; //2d vec containing CI's for every Client, Animal pair.
+    vector<vector<float>> compatArray = vector<vector<float>>(); //2d vec containing CI's for every Client, Animal pair.
     vector<int> nMatchs = vector<int>();  //Vector containing client, number of animal matches.
 
 
-    for(int i = 0; i < clients.size(); i++){
-        int numMatches = 0;
-        for(int j = 0; j < animals.size(); j++){
-            compatArray[i][j] = getCompatabilityIndex(animals.at(j), clients.at(i));    //calculate every CI for each Client, Animal pair.
-            if(compatArray[i][j] != 0){     //count number of client matches
-                numMatches++;
-            }
+    std::cout << "Running ACM on " << clients.size() << " clients, and " << animals.size() << " animals. "<<std::endl;
+
+
+    bool FLAG_PRINT_DEBUG = false;
+    bool FLAG_PRINT_INITIAL_INFO = true;
+    bool FLAG_PRINT_END_MATCHES = true;
+    if(FLAG_PRINT_INITIAL_INFO){
+        for(uint i = 0; i < clients.size(); i++){
+            printCLIENT(clients.at(i));
         }
-        nMatchs.push_back(numMatches);
-        //nMatchs.push_back(std::make_pair(clients.at(i), numMatches));
+        std::cout << "=====================================" << std::endl;
+        for(uint i = 0; i < animals.size(); i++){
+            printANIMAL(animals.at(i));
+        }
     }
 
 
-    while(clients.size() > 0 && animals.size() > 0){
+    for(uint i = 0; i < clients.size(); i++){
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "CLIENT "<< i << " - "<< clients.at(i).getFirstName().toStdString() <<std::endl;
 
-        /* GET INDEX OF CLIENT WITH MIN MATCHES */
+
+        int numMatches = 0;
+        vector<float> matches = vector<float>();
+
+        //calculate every CI for each Client, Animal pair.
+        for(uint j = 0; j < animals.size(); j++){
+            float compatability = getCompatabilityIndex(animals.at(j), clients.at(i));
+            if(compatability != 0){     //count number of client matches
+                numMatches++;
+            }
+
+            if(FLAG_PRINT_DEBUG)
+                std::cout << "  "<< compatability;
+
+            matches.push_back(compatability);
+        }
+        nMatchs.push_back(numMatches);
+        compatArray.push_back(matches);
+
+        if(FLAG_PRINT_DEBUG)
+            std::cout << std::endl;
+    }
+
+
+
+    if(FLAG_PRINT_DEBUG)
+        std::cout << "START CORE LOOP" <<std::endl;
+
+    while(clients.size() > 0 && animals.size() > 0){
+        if(FLAG_PRINT_DEBUG){
+            for(uint i = 0; i < clients.size(); i++){
+                std::cout << "CLIENT "<< i << " - "<< clients.at(i).getFirstName().toStdString() <<std::endl;
+                for(uint j = 0; j < animals.size(); j++){
+                    float compatability = compatArray.at(i).at(j);
+                    std::cout << "  "<< compatability;
+                }
+                std::cout << std::endl;
+            }
+
+            std::cout << "begin >> " << std::endl;
+            std::cout << "FIND_MIN_START" << std::endl;
+        }
+
+        // GET INDEX OF CLIENT WITH MIN MATCHES /
         int minClientIndex = 0;
-        for(int i = 0; i < compatArray.size(); i++){
+        for(uint i = 0; i < compatArray.size(); i++){
             if(nMatchs.at(i) < nMatchs.at(minClientIndex)){
                 minClientIndex = i;
             }
         }
 
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "FIND_MIN_END" << std::endl;
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "FIND_MATCHES_START" << std::endl;
         //TODO OPTIMIZE
         if (nMatchs.at(minClientIndex) != 0){   //IF CLIENT HAS MATCHES
             int minAnimalIndex = -1;
-            for(int i = 0; i < compatArray.at(minClientIndex).size(); i++){
+            for(uint i = 0; i < compatArray.at(minClientIndex).size(); i++){
                 if(compatArray.at(minClientIndex).at(i) != 0){  //ANIMAL FOUND, BREAK AND ADD
                     minAnimalIndex = i;
                     break;
                 }
             }
 
+            //create result and add to return vector
             resultVec.push_back(std::make_pair(clients.at(minClientIndex), animals.at(minAnimalIndex)));
+
+            //remove animal from vectors
             animals.erase(animals.begin() + minAnimalIndex);
+            for(uint i = 0; i < compatArray.size(); i++){
+                compatArray.at(i).erase(compatArray.at(i).begin() + minAnimalIndex);
+            }
 
-        }else{  //IF CLIENT HAS NO MATCHES, do nothing
-            // Create empty match and add to result
-//            resultVec.push_back(std::make_pair(clients.at(minClientIndex), NULL));
+        }else{
+            //IF CLIENT HAS NO MATCHES, DO NOTHING
         }
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "FIND_MATCHES_END" << std::endl;
 
-        //REMOVE CLIENT
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "REMOVE_CLIENT_START" << std::endl;
+        //REMOVE CLIENT FROM MATCHING POOL
         nMatchs.erase(nMatchs.begin() + minClientIndex);
         clients.erase(clients.begin() + minClientIndex);
+        compatArray.erase(compatArray.begin() + minClientIndex);
 
+        if(FLAG_PRINT_DEBUG)
+            std::cout << "REMOVE_CLIENT_END" << std::endl;
     }
 
 
+    //*/
+    if(FLAG_PRINT_END_MATCHES){
+        std::cout << "ACM ENDED" <<std::endl;
+        std::cout << "DISPLAYING MATCHES" << std::endl;
+        for(uint i = 0; i < resultVec.size(); i++){
+            std::pair<Client, Animal> match = resultVec.at(i);
+            std::cout << match.first.getFirstName().toStdString() << " with " << match.second.getName().toStdString() << " - "<< 100.0f*getCompatabilityIndex(match.second, match.first) << "% match"<< std::endl;
+        }
+    }
     return resultVec;
 
 
+}
+
+void ACM::printCLIENT(Client C){
+    using namespace std;
+
+    cout << "CLIENT NAME: " << C.getFirstName().toStdString() << " " << C.getLastName().toStdString() << endl;
+    cout << "  CHILD FRIENDLY:    " << C.getChildFriendly() << " (1 = yes | 3 = no | 2 = don't care)" << endl;
+    cout << "  STRANGER FRIENDLY: " << C.getStrangerFriendly() << " (1 = yes | 3 = no | 2 = don't care)" << endl;
+    cout << "  Behaviour     - " << C.getBehaviour() << "/10 - rank "<< C.getBehaveRank() << endl;
+    cout << "  Owner Control - " << C.getOwnerControl() << "/10 - rank "<< C.getOwnerRank() << endl;
+    cout << "  Sociability   - " << C.getSociability() << "/10 - rank "<< C.getSocialRank() << endl;
+    cout << endl;
+
+}
+
+void ACM::printANIMAL(Animal A){
+    using namespace std;
+
+    cout << "ANIMAL NAME: " << A.getName().toStdString() << endl;
+    cout << "  CHILD FRIENDLY:    " << A.getChildFriendly() << " (1,2 = no | 3,4,5 = yes)" << endl;
+    cout << "  STRANGER FRIENDLY: " << A.getStrangerFriendly() << " (1,2 = no | 3,4,5 = yes)" << endl;
+
+    cout << "  Behaviour" << endl;
+    cout << "    Patience:       " << A.getPatience() << "/10" << endl;
+    cout << "    Temperament:    " << A.getTemperament() << "/5" << endl;
+    cout << "    Michievousness: " << A.getMischievousness() << "/10" << endl;
+
+    cout << "  Owner Control" << endl;
+    cout << "    Training Ease:         " << A.getTrainability() << "/5" << endl;
+    cout << "    Training Intelligence: " << A.getIntelligence() << "/10" << endl;
+    cout << "    Obedience:             " << A.getObedience() << "/10" << endl;
+
+    cout << "  Sociability" << endl;    //done
+    cout << "    Playfullness:       " << A.getPlayfulness() << "/10" << endl;
+    cout << "    Energy:             " << A.getEnergy() << "/5" << endl;
+    cout << "    Independence:       " << A.getIndependence() << "/10" << endl;
+    cout << "    Animal Sociability: " << A.getSocialAttitutde() << "/10" << endl;
+    cout << endl;
 }
 
 float ACM::getCompatabilityIndex(Animal A, Client C){
