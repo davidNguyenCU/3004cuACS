@@ -8,7 +8,7 @@ ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
     ui->setupUi(this);
     databaseManager *localDB = new databaseManager("localStorage.db");
     localDB->createTable();
-    //localDB->populateTables();
+    localDB->populateTables();
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 

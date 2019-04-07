@@ -17,7 +17,7 @@ CUACSView::CUACSView(QWidget *parent) :
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
 
     localDB->createTable();
-    //localDB->populateTables();
+    localDB->populateTables();
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
 
