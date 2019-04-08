@@ -48,7 +48,16 @@ void DetailedClientView::on_nextBtn_clicked()
     update();
 }
 
+
+/**
+Function: update()
+in:
+out:
+return:
+purpose: Update the detailed client display, displaying te client at the given index in the clients vector
+**/
 void DetailedClientView::update(){
+    //set the labels to display the client at the given information
     ui->firstNameLbl->setText(clients[index].getFirstName());
     ui->lastNameLbl->setText(clients[index].getLastName());
     ui->addLn1Lbl->setText(clients[index].getAddressLine1());
@@ -59,7 +68,11 @@ void DetailedClientView::update(){
     ui->phoneNumberLbl->setText(clients[index].getPhoneNumber());
     ui->provinceLbl->setText(clients[index].getProvince());
     ui->postalCodeLbl->setText(clients[index].getPostalCode());
+    ui->trainLbl->setText(QString::number(clients[index].getOwnerControl()));
+    ui->socLbl->setText(QString::number(clients[index].getSociability()));
+    ui->tempLbl->setText(QString::number(clients[index].getBehaviour()));
 
+    //Convert the int value stored to a string corresponding to the value
     int child = clients[index].getChildFriendly();
     QString childText;
     if(child ==1){
@@ -70,6 +83,8 @@ void DetailedClientView::update(){
         childText = "Must be child friendly.";
     }
     ui->childLbl->setText(childText);
+
+    //Convert the int value stored to a string corresponding to the value
     int strange = clients[index].getStrangerFriendly();
     QString stranger;
     if(strange == 1){
@@ -81,9 +96,8 @@ void DetailedClientView::update(){
     }
     ui->strangeLbl->setText(stranger);
 
-    ui->trainLbl->setText(QString::number(clients[index].getOwnerControl()));
-    ui->socLbl->setText(QString::number(clients[index].getSociability()));
-    ui->tempLbl->setText(QString::number(clients[index].getBehaviour()));
+
+    //Display the value for the different ranks, or display No preference
     int ownRank, socRank, bhvRank;
     ownRank = clients[index].getOwnerRank();
     if (ownRank == 4){

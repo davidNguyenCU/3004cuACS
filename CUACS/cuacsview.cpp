@@ -20,16 +20,17 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
 
     l = lg;
 
+    //These connect() calls link the signal, with the slot, passing the same parameters between each function.
+    //Whenever the signal occurs, the function that is set as the slot will be called.
     connect(ui->actionExit_2, SIGNAL(triggered()), this, SLOT(exitFunc()));
     connect(ui->actionLog_Out_2, SIGNAL(triggered()), this, SLOT(logout()));
-
-
     connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
     connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
 
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
 
+    //Initialize the displays for the gender and species combo boxes
     ui->genderCombo->insertItem(0, "Male");
     ui->genderCombo->insertItem(1,"Female");
     QString species[] = {"Dog","Cat","Bird","Turtle","Frog","Hamster","Guinea Pig"};
@@ -37,11 +38,13 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
         ui->speciesCombo->insertItem(i,species[i]);
     }
 
+    //Initialize the provinces Combo box
     QString provinces[] = {"BC", "AB", "SK", "MB", "ON", "QC", "NL", "NB","NU","NS", "NT","PE", "YT"};
     for(int i = 0;i<13; i++){
         ui->provinceCombo->insertItem(i,provinces[i]);
     }
 
+    //initialize the displays
     ui->speciesCombo->setCurrentIndex(-1);
     ui->genderCombo->setCurrentIndex(-1);
     ui->provinceCombo->setCurrentIndex(-1);
@@ -49,6 +52,7 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     ui->emptyClientLbl->setHidden(true);
     ui->passConLbl->setHidden(true);
 
+    //Populate the animal, client, and ACM tables
     ui->animalTbl->setRowCount(animals.size());
     for(unsigned int i = 0;i< animals.size();i++){
         displayNewAnimal(animals[i],i+1);
@@ -63,11 +67,25 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     }
 }
 
+/**
+Function: logout
+in:
+out:
+return:
+purpose: Close the current view, and return to the login screen
+**/
 void CUACSView::logout(){
     l->show();
     this->close();
 }
 
+/**
+Function: exitFunc()
+in:
+out:
+return:
+purpose: Close the program
+**/
 void CUACSView::exitFunc(){
     this->close();
 }
@@ -216,14 +234,16 @@ void CUACSView::on_addAnimalBtn_clicked()
 {
     QString errorString = "";
 
+    //Get user inputs from the display
     QString name = ui->nameTxt->text();
     QString breed = ui->breedTxt->text();
     QString species = ui->speciesCombo->currentText();
     QString DOB = ui->DOBTxt->text();
     QString gender = ui->genderCombo->currentText();
 
+    //set up validators for breed and DOY
     QRegExp breedRegEx("^[a-zA-Z][a-zA-Z\\s]*$");
-    QRegExpValidator breedValidator(breedRegEx);
+    QRegExpValidator breedValidator(breedRegEx); 
     //format yyyy-mm-dd
     QRegExp DOBRegEx("\\d\\d\\d\\d-\\d\\d-\\d\\d");
     QRegExpValidator DOBValidator(DOBRegEx);
@@ -233,20 +253,22 @@ void CUACSView::on_addAnimalBtn_clicked()
     int pos = 0;
     bool emptyVal = false;
 
+    //get user inputs (ACM attributes) from the display
     int temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience;
-    temperament = ui->temperamentSpin->value();
-    trainability = ui->trainabilitySpin->value();
-    intelligence = ui->intelligenceSpin->value();
-    mischievousness = ui->mischievousnessSpin->value();
-    socialAttitude = ui->animalFriendlySpin->value();
-    strangerFriendly = ui->friendlyStrangerSpin->value();
-    energy = ui->energySpin->value();
-    childFriendly = ui->childFriendlySpin->value();
-    playfulness = ui->playfulnessSpin->value();
-    patience = ui->patienceSpin->value();
-    independence = ui->independenceSpin->value();
-    obedience = ui->obedienceSpin->value();
+    temperament = ui->temperamentCombo->currentIndex() + 1;
+    trainability = ui->trainCombo->currentIndex() + 1;
+    intelligence = ui->intCombo->currentIndex() + 1;
+    mischievousness = ui->miscCombo->currentIndex() + 1;
+    socialAttitude = ui->animalFriendlyCombo->currentIndex() + 1;
+    strangerFriendly = ui->strangeCombo->currentIndex() + 1;
+    energy = ui->nrgCombo->currentIndex() + 1;
+    childFriendly = ui->childCombo->currentIndex() + 1;
+    playfulness = ui->playCombo->currentIndex() + 1;
+    patience = ui->patienceCombo->currentIndex() + 1;
+    independence = ui->independenceCombo->currentIndex() + 1;
+    obedience = ui->obedienceCombo->currentIndex() + 1;
 
+    //Validate the DOB, Breed, and ensure all the fields have some input
     if(DOBValidator.validate(DOB,pos)!=Acceptable &&DOB!=""){
         errorString += "Please ensure you enter a valid date of birth of the form: YYYY-MM-DD.\n";
         emptyVal = true;
@@ -258,23 +280,24 @@ void CUACSView::on_addAnimalBtn_clicked()
         emptyVal = true;
     }
 
+    //If any of the values cause errors, display the errors, otherwise wipe the input fields, and add the new animal
     if(emptyVal){
         errorInformation *e = new errorInformation(errorString);
         e->show();
     }else{
 
-        ui->temperamentSpin->setValue(1);
-        ui->trainabilitySpin->setValue(1);
-        ui->intelligenceSpin->setValue(1);
-        ui->mischievousnessSpin->setValue(1);
-        ui->animalFriendlySpin->setValue(1);
-        ui->friendlyStrangerSpin->setValue(1);
-        ui->energySpin->setValue(1);
-        ui->childFriendlySpin->setValue(1);
-        ui->playfulnessSpin->setValue(1);
-        ui->patienceSpin->setValue(1);
-        ui->independenceSpin->setValue(1);
-        ui->obedienceSpin->setValue(1);
+        ui->temperamentCombo->setCurrentIndex(0);
+        ui->trainCombo->setCurrentIndex(0);
+        ui->intCombo->setCurrentIndex(0);
+        ui->miscCombo->setCurrentIndex(0);
+        ui->animalFriendlyCombo->setCurrentIndex(0);
+        ui->strangeCombo->setCurrentIndex(0);
+        ui->nrgCombo->setCurrentIndex(0);
+        ui->childCombo->setCurrentIndex(0);
+        ui->playCombo->setCurrentIndex(0);
+        ui->patienceCombo->setCurrentIndex(0);
+        ui->independenceCombo->setCurrentIndex(0);
+        ui->obedienceCombo->setCurrentIndex(0);
 
         displayNewAnimal(manageAnimals.addAnimal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB),animalNum);
         ui->nameTxt->clear();
@@ -295,9 +318,9 @@ out:
 return:
 purpose: Handle adding a new Client to the database and updating the display as a new Client is added.
 **/
-//change this function to pass info to client management, return bool
 void CUACSView::on_addClientBtn_clicked()
 {
+    //Set up the validators, and get the information entered by the user
     QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
     bool allFull = true;
     int pos = 0;
@@ -310,7 +333,6 @@ void CUACSView::on_addClientBtn_clicked()
     QRegExp postalRegex("^([A-Za-z]\\d[A-Za-z][-]?\\d[A-Za-z]\\d)");
     QRegExpValidator postalValidator(postalRegex);
     postal = ui->postalCodeTxt->text();
-
     QRegExp passRegex("^[a-zA-Z0-9]*$");
     QRegExpValidator validatePassword(passRegex);
     pass = ui->passwordTxt->text();
@@ -327,6 +349,10 @@ void CUACSView::on_addClientBtn_clicked()
     QRegExp phoneRegex("\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d");
     QRegExpValidator phoneValidator(phoneRegex);
     phone = ui->phoneTxt->text();
+
+    //Validate the input, track whether or not any has caused an error,
+    //and update the errorString
+
     if(!manageClients.checkUsername(user, errorString)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
@@ -345,7 +371,6 @@ void CUACSView::on_addClientBtn_clicked()
         errorString += "Postal code must be of the format: A1A1A1\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
-
     }
     if(pass!=confirmPass){
         errorString += "The two passwords must match.\n";
@@ -386,6 +411,8 @@ void CUACSView::on_addClientBtn_clicked()
        allFull = false;
     }
 
+
+    //Get and store the information for the ACM
     int ownCon = ui->trainSpin->value();
     int ownRank;
     QString oR = ui->trainRank->currentText();
@@ -441,9 +468,8 @@ void CUACSView::on_addClientBtn_clicked()
         strangeFriend = 3;
     }
 
-
+    //If no errors were cuase in the input, create a new client, and wipe the display, otherwise display the error message?
     if(allFull){
-        //clients.push_back(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2));
         displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clientNum);
         ui->passConLbl->setHidden(true);
         ui->usernameTxt->clear();
@@ -459,7 +485,6 @@ void CUACSView::on_addClientBtn_clicked()
         ui->provinceCombo->setCurrentIndex(-1);
         ui->emailTxt->clear();
         ui->emptyClientLbl->setHidden(true);
-
     }else{
         errorInformation *e = new errorInformation(errorString);
         e->show();
@@ -479,13 +504,32 @@ void CUACSView::on_detailedClientsBtn_clicked()
     detailedView->show();
 }
 
+/**
+Function: setSelectedClient
+in: int row, int _x, int _y, int _z
+out:
+return:
+purpose: sets the index of the detailed Client view, based on the current selected row in the table
+NOTE: Due to the function of slots and signals, this function must have the same number of parameters
+as the signal that calls it, despite only needing to use the one parameter for the row.
+**/
 void CUACSView::setSelectedClient(int row, int _x, int _y, int _z){
     detailedView->setIndex(row);
 }
 
+/**
+Function: setSelectedAnimal
+in: int row, int _x, int _y, int _z
+out:
+return:
+purpose: sets the index of the detailed Animal view, based on the current selected row in the table
+NOTE: Due to the function of slots and signals, this function must have the same number of parameters
+as the signal that calls it, despite only needing to use the one parameter for the row.
+**/
 void CUACSView::setSelectedAnimal(int row, int _x, int _y, int _z){
     animalView->setIndex(row);
 }
+
 /**
 Function: on_pushButton_clicked()
 in:
@@ -511,6 +555,13 @@ void CUACSView::on_runACMbutton_clicked(){
     displayACMResults(animalClientPairs);
 }
 
+/**
+Function: on_detailMatchButton_clicked()
+in:
+out:
+return:
+purpose: display the detailed match view
+**/
 void CUACSView::on_detailMatchButton_clicked(){
     vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
     detailMatches->setMatches(animalClientPairs);

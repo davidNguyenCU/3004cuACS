@@ -19,9 +19,16 @@ AnimalDetailedView::~AnimalDetailedView()
     delete ui;
 }
 
-
+//Set the current index for the animal to view
 void AnimalDetailedView::setIndex(int row){index = row;}
 
+
+/**
+Function: update()
+out:
+return:
+purpose: Update the detailed animal display with the information of the animal at the given index
+**/
 void AnimalDetailedView::update(){
     if(animals.size()!=0){
         //ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
@@ -81,6 +88,13 @@ void AnimalDetailedView::on_previousBtn_clicked()
     editing = false;
 }
 
+/**
+Function: edit()
+in: bool enabled
+out:
+return:
+purpose: Enable the different inputs on the display to be changed
+**/
 void AnimalDetailedView::edit(bool enabled){
     ui->yearSpin->setEnabled(enabled);
     ui->monthSpin->setEnabled(enabled);
@@ -120,6 +134,13 @@ void AnimalDetailedView::on_nextBtn_clicked()
     editing = false;
 }
 
+/**
+Function: on_editBtn_clicked()
+in:
+out:
+return:
+purpose: If the user is in edit mode, save the current values, otherwise turn on edit mode
+**/
 void AnimalDetailedView::on_editBtn_clicked()
 {
     if (!editing){
@@ -131,6 +152,7 @@ void AnimalDetailedView::on_editBtn_clicked()
         edit(false);
         editing = false;
 
+        //get the information that the user has input
         int year, month, soc,energy, indep, intel, misc, pat, play, obed, strange, child, temp, train;
         bool vacc = ui->checkBox->isChecked();
         year = ui->yearSpin->value();
@@ -147,8 +169,11 @@ void AnimalDetailedView::on_editBtn_clicked()
         child = ui->childFriendlySpin->value();
         temp = ui->tempSpin->value();
         train = ui->trainSpin->value();
+
         am.editAnimal(vacc,year,month,soc,energy,indep,intel,misc,obed,pat,play,strange,child,temp,train,index);
         int row = index;
+
+        //update the table view
         table->setCellWidget(row,5,new QLabel(QString::number(am.getAnimals()[index].getYears()) + "/" + QString::number(am.getAnimals()[index].getMonths())));
         QLabel *vaccinated;
         if(am.getAnimals()[index].isVaccinated()){

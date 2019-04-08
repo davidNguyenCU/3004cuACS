@@ -14,6 +14,14 @@ Login::~Login()
 {
     delete ui;
 }
+
+/**
+Function: on_staffBtn_clicked()
+in:
+out:
+return:
+purpose: Launches the staff view of the CUACS
+**/
 void Login::on_staffBtn_clicked()
 {
     auto win = new CUACSView(this, localDB);
@@ -24,6 +32,13 @@ void Login::on_staffBtn_clicked()
     this->close();
 }
 
+/**
+Function: on_clientBtn_clicked()
+in:
+out:
+return:
+purpose: Launches the client view of the CUACS
+**/
 void Login::on_clientBtn_clicked()
 {
 
@@ -33,6 +48,8 @@ void Login::on_clientBtn_clicked()
     ui->passTxt->setText("");
     ui->userTxt->setText("");
     Client *c = newClientManager.login(user,pass);
+
+    //If a client with the given credentials exists, launch client view
     if(c){
         auto win = new ClientOnlyView(this, c, localDB);
         win->setAttribute(Qt::WA_DeleteOnClose);

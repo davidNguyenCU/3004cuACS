@@ -25,7 +25,7 @@ Animal::Animal(QString aBreed,int ageY,int ageM,QString aGender,bool isVaccinate
 }
 
 
-
+//Setter functions
 void Animal::setVacc(bool v){vaccinated = v;}
 void Animal::setYrs(int y){ageYears = y;}
 void Animal::setMonths(int m){ageMonths = m;}
