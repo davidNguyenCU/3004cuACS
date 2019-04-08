@@ -37,7 +37,8 @@ SOURCES += \
     login.cpp \
     clientonlyview.cpp \
     ACM.cpp \
-    detailedmatchesview.cpp
+    detailedmatchesview.cpp \
+    errorinformation.cpp
 
 HEADERS += \
         cuacsview.h \
@@ -52,7 +53,8 @@ HEADERS += \
     clientonlyview.h \
     ACM.h \
     matchpair.h \
-    detailedmatchesview.h
+    detailedmatchesview.h \
+    errorinformation.h
 
 FORMS += \
         cuacsview.ui \
@@ -60,4 +62,5 @@ FORMS += \
     animaldetailedview.ui \
     login.ui \
     clientonlyview.ui \
-    detailedmatchesview.ui
+    detailedmatchesview.ui \
+    errorinformation.ui

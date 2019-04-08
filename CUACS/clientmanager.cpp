@@ -6,19 +6,22 @@ ClientManager::ClientManager(databaseManager *data)
     clients = db->getClients();
 }
 ClientManager::ClientManager(){}
-bool ClientManager::checkUsername(QString newUser){
+bool ClientManager::checkUsername(QString newUser, QString& errorString){
     int pos = 0;
     if(newUser==""){
+        errorString += "Please enter a username.\n";
         return false;
     }
     for(int i = 0;i<clients.size();i++){
         if(newUser==clients[i].getUsername()){
+            errorString += "That username is already selected.\n";
             return false;
         }
     }
     QRegExp userRegex("^[a-zA-Z0-9]*$");
     QRegExpValidator userValid(userRegex);
     if(userValid.validate(newUser,pos)!=QValidator::Acceptable){
+        errorString += "Please ensure that your username only contains letters and numbers.\n";
         return false;
     }
     return true;
