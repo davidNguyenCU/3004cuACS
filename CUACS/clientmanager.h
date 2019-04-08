@@ -6,6 +6,7 @@
 #include "databasemanager.h"
 #include <QRegExpValidator>
 #include <QRegExp>
+#include "errorinformation.h"
 
 class ClientManager
 {

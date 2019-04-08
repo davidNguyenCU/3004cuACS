@@ -24,8 +24,9 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     //Whenever the signal occurs, the function that is set as the slot will be called.
     connect(ui->actionExit_2, SIGNAL(triggered()), this, SLOT(exitFunc()));
     connect(ui->actionLog_Out_2, SIGNAL(triggered()), this, SLOT(logout()));
-    connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
+    connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedClient(int, int, int, int)));
     connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
+    connect(ui->ACM_table, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedMatch(int, int, int, int)));
 
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
@@ -61,10 +62,8 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     for(unsigned int i = 0;i< clients.size();i++){
         displayNewClient(clients[i],i+1 );
     }
-    ui->ACM_table->setRowCount(clients.size());
-    for(unsigned int i = 0;i< clients.size();i++){
-        displayNewClient(clients[i],i+1 );
-    }
+
+    ui->detailMatchButton->setVisible(false);
 }
 
 /**
@@ -285,7 +284,8 @@ void CUACSView::on_addAnimalBtn_clicked()
         errorInformation *e = new errorInformation(errorString);
         e->show();
     }else{
-
+        errorInformation *e = new errorInformation("Animal successfully added!");
+        e->show();
         ui->temperamentCombo->setCurrentIndex(0);
         ui->trainCombo->setCurrentIndex(0);
         ui->intCombo->setCurrentIndex(0);
@@ -470,7 +470,7 @@ void CUACSView::on_addClientBtn_clicked()
 
     //If no errors were cuase in the input, create a new client, and wipe the display, otherwise display the error message?
     if(allFull){
-        displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clientNum);
+        displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clients.size());
         ui->passConLbl->setHidden(true);
         ui->usernameTxt->clear();
         ui->firstNameTxt->clear();
@@ -485,6 +485,8 @@ void CUACSView::on_addClientBtn_clicked()
         ui->provinceCombo->setCurrentIndex(-1);
         ui->emailTxt->clear();
         ui->emptyClientLbl->setHidden(true);
+        errorInformation *e = new errorInformation("Client successfully added!");
+        e->show();
     }else{
         errorInformation *e = new errorInformation(errorString);
         e->show();
@@ -516,6 +518,20 @@ as the signal that calls it, despite only needing to use the one parameter for t
 void CUACSView::setSelectedClient(int row, int _x, int _y, int _z){
     detailedView->setIndex(row);
 }
+
+/**
+Function: setSelectedMatch
+in: int row, int _x, int _y, int _z
+out:
+return:
+purpose: sets the index of the detailed Match view, based on the current selected row in the table
+NOTE: Due to the function of slots and signals, this function must have the same number of parameters
+as the signal that calls it, despite only needing to use the one parameter for the row.
+**/
+void CUACSView::setSelectedMatch(int row, int _x, int _y, int _z){
+    detailMatches->setIndex(row);
+}
+
 
 /**
 Function: setSelectedAnimal
@@ -551,6 +567,7 @@ return:
 purpose: Calls the ACM algorithm and populates the ACM view with the results.
 **/
 void CUACSView::on_runACMbutton_clicked(){
+    ui->detailMatchButton->setVisible(true);
     vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
     displayACMResults(animalClientPairs);
 }

@@ -25,7 +25,7 @@ bool ClientManager::checkUsername(QString newUser, QString& errorString){
 
     //Check whether the username is taken
     for(int i = 0;i<clients.size();i++){
-        if(newUser==clients[i].getUsername()){
+        if(newUser.toUpper()==clients[i].getUsername().toUpper()){
             errorString += "That username is already selected.\n";
             return false;
         }
@@ -50,10 +50,19 @@ purpose: verify whether there is a user with the given username and password
 **/
 Client* ClientManager::login(QString user, QString pass){
     for (int i = 0; i<clients.size();i++){
-        if(clients[i].getPassword()==pass && clients[i].getUsername()==user){
-            return &(clients[i]);
+
+        if(clients[i].getUsername().toUpper() == user.toUpper()){
+            if(clients[i].getPassword() == pass){
+                return &(clients[i]);
+            }else{
+                errorInformation *e = new errorInformation("Incorrect Password.");
+                e->show();
+                return NULL;
+            }
         }
     }
+    errorInformation *e = new errorInformation("No user with that username exists.");
+    e->show();
     return NULL;
 }
 

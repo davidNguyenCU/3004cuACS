@@ -50,6 +50,8 @@ private slots:
 public slots:
     void setSelectedClient(int, int, int, int);
     void setSelectedAnimal(int, int, int, int);
+    void setSelectedMatch(int, int, int, int);
+
 private:
     QMainWindow *l;
     int clientNum;
