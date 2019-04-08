@@ -9,6 +9,7 @@
 #include "client.h"
 #include "detailedclientview.h"
 #include "animaldetailedview.h"
+#include "detailedmatchesview.h"
 #include "clientmanager.h"
 #include "animalmanager.h"
 using namespace std;
@@ -37,6 +38,8 @@ private slots:
 
     void on_runACMbutton_clicked();
 
+    void on_detailMatchButton_clicked();
+
 
 public slots:
     void setSelectedClient(int, int, int, int);
@@ -48,6 +51,7 @@ private:
     std::vector<Animal> animals;
     DetailedClientView *detailedView;
     AnimalDetailedView *animalView;
+    DetailedMatchesView *detailMatches;
     const int Acceptable = QValidator::Acceptable;
     Ui::CUACSView *ui;
     void displayNewAnimal(Animal, int);

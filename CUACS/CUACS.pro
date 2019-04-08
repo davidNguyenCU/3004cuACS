@@ -36,7 +36,8 @@ SOURCES += \
     animalmanager.cpp \
     login.cpp \
     clientonlyview.cpp \
-    ACM.cpp
+    ACM.cpp \
+    detailedmatchesview.cpp
 
 HEADERS += \
         cuacsview.h \
@@ -49,11 +50,14 @@ HEADERS += \
     animalmanager.h \
     login.h \
     clientonlyview.h \
-    ACM.h
+    ACM.h \
+    matchpair.h \
+    detailedmatchesview.h
 
 FORMS += \
         cuacsview.ui \
     detailedclientview.ui \
     animaldetailedview.ui \
     login.ui \
-    clientonlyview.ui
+    clientonlyview.ui \
+    detailedmatchesview.ui

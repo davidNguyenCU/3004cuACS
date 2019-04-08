@@ -16,6 +16,7 @@ CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
+    detailMatches = new DetailedMatchesView();
 
     connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
     connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
@@ -467,4 +468,11 @@ purpose: Calls the ACM algorithm and populates the ACM view with the results.
 void CUACSView::on_runACMbutton_clicked(){
     vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
     displayACMResults(animalClientPairs);
+}
+
+void CUACSView::on_detailMatchButton_clicked(){
+    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
+    detailMatches->setMatches(animalClientPairs);
+    detailMatches->show();
+
 }
