@@ -4,7 +4,7 @@
 using namespace std;
 
 //Constructor for the CUACSView, initializes all on screen items properly
-CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
+CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CUACSView)
 {
@@ -17,6 +17,12 @@ CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
     detailMatches = new DetailedMatchesView();
+
+    l = lg;
+
+    connect(ui->actionExit_2, SIGNAL(triggered()), this, SLOT(exitFunc()));
+    connect(ui->actionLog_Out_2, SIGNAL(triggered()), this, SLOT(logout()));
+
 
     connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
     connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
@@ -55,6 +61,15 @@ CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
     for(unsigned int i = 0;i< clients.size();i++){
         displayNewClient(clients[i],i+1 );
     }
+}
+
+void CUACSView::logout(){
+    l->show();
+    this->close();
+}
+
+void CUACSView::exitFunc(){
+    this->close();
 }
 
 //destructor for CUACSView

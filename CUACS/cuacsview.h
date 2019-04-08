@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QRegExpValidator>
 #include <QRegExp>
+#include <QAction>
 #include "animal.h"
 #include "databasemanager.h"
 #include "client.h"
@@ -12,6 +13,8 @@
 #include "detailedmatchesview.h"
 #include "clientmanager.h"
 #include "animalmanager.h"
+#include "login.h"
+
 using namespace std;
 
 namespace Ui {
@@ -23,7 +26,7 @@ class CUACSView : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit CUACSView(databaseManager *db, QWidget *parent = 0);
+    explicit CUACSView(QMainWindow *lg, databaseManager *db, QWidget *parent = 0);
     ~CUACSView();
     void addAnimal();
     bool checkUsername(QString);
@@ -40,13 +43,18 @@ private slots:
 
     void on_detailMatchButton_clicked();
 
+    void logout();
+    void exitFunc();
 
 public slots:
     void setSelectedClient(int, int, int, int);
     void setSelectedAnimal(int, int, int, int);
 private:
+    QMainWindow *l;
     int clientNum;
     int animalNum;
+    QAction *log;
+    QAction *quit;
     std::vector<Client> clients;
     std::vector<Animal> animals;
     DetailedClientView *detailedView;

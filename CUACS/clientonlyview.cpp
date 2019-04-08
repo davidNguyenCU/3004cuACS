@@ -1,10 +1,12 @@
 #include "clientonlyview.h"
 #include "ui_clientonlyview.h"
 
-ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
+ClientOnlyView::ClientOnlyView(QMainWindow *lg, Client *c, databaseManager* db,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOnlyView)
 {
+    login = lg;
+
     ui->setupUi(this);
       
     databaseManager *localDB = db;
@@ -16,6 +18,9 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     fName = c->getFirstName();
     lName = c->getLastName();
     user = c->getUsername();
+
+    connect(ui->actionLog_Out, SIGNAL(triggered()), this, SLOT(logout()));
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(exitFunc()));
 
     animalNum = 1;
     ui->animalTbl->setRowCount(am.getAnimals().size());
@@ -98,6 +103,15 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
 ClientOnlyView::~ClientOnlyView()
 {
     delete ui;
+}
+
+void ClientOnlyView::logout(){
+    login->show();
+    this->close();
+}
+
+void ClientOnlyView::exitFunc(){
+    this->close();
 }
 
 void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
