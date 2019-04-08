@@ -13,7 +13,7 @@ public:
     ClientManager(databaseManager *data);
     ClientManager();
     vector<Client> getClients();
-    bool checkUsername(QString newUser);
+    bool checkUsername(QString newUser, QString &errorString);
     Client* login(QString, QString);
     Client addClient(QString, QString, QString, QString, QString, QString, QString, QString, QString, QString, QString, int ownCon, int ownRank, int socab, int socRank, int behave, int behavRank, int strangeFriend, int childFriend);
 private:

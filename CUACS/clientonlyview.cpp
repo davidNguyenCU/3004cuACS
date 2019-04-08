@@ -172,39 +172,49 @@ void ClientOnlyView::on_editClientBtn_clicked()
     QRegExpValidator phoneValidator(phoneRegex);
     phone = ui->phoneTxt->text();
 
+    QString errorString = "";
 
     if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
         ui->emptyClientLbl->setHidden(false);
+        errorString += "Postal code must be of the format: A1A1A1\n";
         allFull = false;
 
     }
     if(pass!=confirmPass){
         ui->passConLbl->setHidden(false);
+        errorString += "Both passwords must match.\n";
+        allFull = false;
     }else{
         ui->passConLbl->setHidden(true);
     }
     if(validatePassword.validate(pass,pos)!=Acceptable||pass==""){
+        errorString += "Please ensure your password only contains alphanumeric characters.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
 
     }
     if(validateTextOnly.validate(town,pos)!=Acceptable||town==""){
+        errorString += "Please ensure that the city you entered only contains alphabetic characters.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(emailValid.validate(mail,pos) != Acceptable||mail==""){
+        errorString += "Please ensure you entered a valid email address.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if (prov ==""){
+        errorString += "Please select a province.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(addLn1 == ""){
+        errorString += "Please enter your address.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(phoneValidator.validate(phone,pos)!=Acceptable||phone==""){
+       errorString += "Please ensure your phone number is in the format: (xxx)-xxx-xxxx.\n";
        ui->emptyClientLbl->setHidden(false);
        allFull = false;
     }
@@ -265,9 +275,11 @@ void ClientOnlyView::on_editClientBtn_clicked()
     }
 
 
-    if(true){
+    if(allFull){
         //clients.push_back(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2));
       Client temp = cm.addClient(fName,lName,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend);
-
+    }else{
+        errorInformation *e = new errorInformation(errorString);
+        e->show();
     }
 }

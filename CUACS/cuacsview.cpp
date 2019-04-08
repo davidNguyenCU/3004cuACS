@@ -213,6 +213,8 @@ purpose: Handle adding a new animal to the database and updating the display as 
 //Change this function to pass information to the animalManagementClass
 void CUACSView::on_addAnimalBtn_clicked()
 {
+    QString errorString = "";
+
     QString name = ui->nameTxt->text();
     QString breed = ui->breedTxt->text();
     QString species = ui->speciesCombo->currentText();
@@ -228,6 +230,7 @@ void CUACSView::on_addAnimalBtn_clicked()
     int ageYears = ui->yearsSpn->value();
     int ageMonths = ui->monthsSpn->value();
     int pos = 0;
+    bool emptyVal = false;
 
     int temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience;
     temperament = ui->temperamentSpin->value();
@@ -244,11 +247,19 @@ void CUACSView::on_addAnimalBtn_clicked()
     obedience = ui->obedienceSpin->value();
 
     if(DOBValidator.validate(DOB,pos)!=Acceptable &&DOB!=""){
-        ui->emptyAnimalLbl->setHidden(false);
+        errorString += "Please ensure you enter a valid date of birth of the form: YYYY-MM-DD.\n";
+        emptyVal = true;
     }else if(breedValidator.validate(breed,pos)!=Acceptable){
-        ui->emptyAnimalLbl->setHidden(false);
+        errorString += "Please ensure that you entered a valid breed.\n";
+        emptyVal = true;
     }else if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
-        ui->emptyAnimalLbl->setHidden(false);
+        errorString += "Please ensure that all fields are filled out\n";
+        emptyVal = true;
+    }
+
+    if(emptyVal){
+        errorInformation *e = new errorInformation(errorString);
+        e->show();
     }else{
 
         ui->temperamentSpin->setValue(1);
@@ -289,6 +300,7 @@ void CUACSView::on_addClientBtn_clicked()
     QString first, last, postal, pass, town, prov, mail, addLn1, addLn2, phone, user, confirmPass;
     bool allFull = true;
     int pos = 0;
+    QString errorString = "";
     user = ui->usernameTxt->text();
     QRegExp textNoSpaces("^[a-zA-Z]*$");
     QRegExpValidator validateTextOnly(textNoSpaces);
@@ -314,50 +326,61 @@ void CUACSView::on_addClientBtn_clicked()
     QRegExp phoneRegex("\\(\\d\\d\\d\\)-\\d\\d\\d-\\d\\d\\d\\d");
     QRegExpValidator phoneValidator(phoneRegex);
     phone = ui->phoneTxt->text();
-    if(!manageClients.checkUsername(user)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
+    if(!manageClients.checkUsername(user, errorString)){//checkuser will check regex, if the name is available, and ensure the name has enough characters
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(validateTextOnly.validate(first,pos)!=Acceptable||first==""){
+        errorString += "First name must include letters only.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(validateTextOnly.validate(last,pos)!=Acceptable||last==""){
+        errorString += "Last name must include letters only.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
+        errorString += "Postal code must be of the format: A1A1A1\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
 
     }
     if(pass!=confirmPass){
+        errorString += "The two passwords must match.\n";
+        allFull = false;
         ui->passConLbl->setHidden(false);
     }else{
         ui->passConLbl->setHidden(true);
     }
     if(validatePassword.validate(pass,pos)!=Acceptable||pass==""){
+        errorString += "Password must only be alphanumeric.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
 
     }
     if(validateTextOnly.validate(town,pos)!=Acceptable||town==""){
+        errorString += "City must only contain Alphabetic characters.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(emailValid.validate(mail,pos) != Acceptable||mail==""){
+        errorString += "Please ensure you enter a valid email address.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if (prov ==""){
+        errorString += "Please select your province.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(addLn1 == ""){
+        errorString += "Please enter your address.\n";
         ui->emptyClientLbl->setHidden(false);
         allFull = false;
     }
     if(phoneValidator.validate(phone,pos)!=Acceptable||phone==""){
+        errorString += "Please ensure your phone number is in the format: (xxx)-xxx-xxxx.\n";
        ui->emptyClientLbl->setHidden(false);
        allFull = false;
     }
@@ -436,6 +459,9 @@ void CUACSView::on_addClientBtn_clicked()
         ui->emailTxt->clear();
         ui->emptyClientLbl->setHidden(true);
 
+    }else{
+        errorInformation *e = new errorInformation(errorString);
+        e->show();
     }
 }
 

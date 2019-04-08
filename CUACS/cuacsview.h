@@ -13,6 +13,7 @@
 #include "clientmanager.h"
 #include "animalmanager.h"
 #include "login.h"
+#include "errorinformation.h"
 
 using namespace std;
 
