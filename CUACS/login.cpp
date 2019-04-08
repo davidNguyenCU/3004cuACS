@@ -16,8 +16,10 @@ Login::~Login()
 }
 void Login::on_staffBtn_clicked()
 {
-    auto win = new CUACSView(localDB);
+    auto win = new CUACSView(this, localDB);
     win->setAttribute( Qt::WA_DeleteOnClose );
+    ui->passTxt->setText("");
+    ui->userTxt->setText("");
     win->show();
     this->close();
 }
@@ -28,9 +30,11 @@ void Login::on_clientBtn_clicked()
     ClientManager newClientManager(localDB);
     QString user = ui->userTxt->text();
     QString pass = ui->passTxt->text();
+    ui->passTxt->setText("");
+    ui->userTxt->setText("");
     Client *c = newClientManager.login(user,pass);
     if(c){
-        auto win = new ClientOnlyView(c, localDB);
+        auto win = new ClientOnlyView(this, c, localDB);
         win->setAttribute(Qt::WA_DeleteOnClose);
         win->show();
         this->close();
