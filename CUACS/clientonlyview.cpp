@@ -6,6 +6,7 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     ui(new Ui::ClientOnlyView)
 {
     ui->setupUi(this);
+      
     databaseManager *localDB = db;
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
@@ -29,12 +30,7 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
             ui->provinceCombo->setCurrentIndex(i);
         }
     }
-    QString ranks[] = {"1","2","3", "No preference."};
-    for (int i = 0;i<4;i++){
-        ui->tempRank->insertItem(i, ranks[i]);
-        ui->socRank->insertItem(i, ranks[i]);
-        ui->trainRank->insertItem(i, ranks[i]);
-    }
+
     ui->socSpin->setValue(c->getSociability());
     ui->trainSpin->setValue(c->getOwnerControl());
     ui->tempSpin->setValue(c->getBehaviour());
