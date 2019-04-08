@@ -1297,7 +1297,7 @@
         </column>
         <column>
          <property name="text">
-          <string>Compatiability Index</string>
+          <string>Compatibility</string>
          </property>
         </column>
        </widget>

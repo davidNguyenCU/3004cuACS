@@ -17,7 +17,8 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
 
 
     bool FLAG_PRINT_DEBUG = false;
-    bool FLAG_PRINT_INITIAL_INFO = true;
+    bool FLAG_PRINT_INITIAL_INFO = false;
+    bool FLAG_PRINT_INITIAL_ARRAY = true;
     bool FLAG_PRINT_END_MATCHES = true;
     if(FLAG_PRINT_INITIAL_INFO){
         for(uint i = 0; i < clients.size(); i++){
@@ -31,7 +32,7 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
 
 
     for(uint i = 0; i < clients.size(); i++){
-        if(FLAG_PRINT_DEBUG)
+        if(FLAG_PRINT_INITIAL_ARRAY)
             std::cout << "CLIENT "<< i << " - "<< clients.at(i).getFirstName().toStdString() <<std::endl;
 
 
@@ -40,12 +41,12 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
 
         //calculate every CI for each Client, Animal pair.
         for(uint j = 0; j < animals.size(); j++){
-            float compatability = getCompatabilityIndex(animals.at(j), clients.at(i));
+            float compatability = getCompatibilityIndex(animals.at(j), clients.at(i));
             if(compatability != 0){     //count number of client matches
                 numMatches++;
             }
 
-            if(FLAG_PRINT_DEBUG)
+            if(FLAG_PRINT_INITIAL_ARRAY)
                 std::cout << "  "<< compatability;
 
             matches.push_back(compatability);
@@ -53,7 +54,7 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
         nMatchs.push_back(numMatches);
         compatArray.push_back(matches);
 
-        if(FLAG_PRINT_DEBUG)
+        if(FLAG_PRINT_INITIAL_ARRAY)
             std::cout << std::endl;
     }
 
@@ -129,10 +130,10 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
     //*/
     if(FLAG_PRINT_END_MATCHES){
         std::cout << "ACM ENDED" <<std::endl;
-        std::cout << "DISPLAYING MATCHES" << std::endl;
+        std::cout << "DISPLAYING MATCHES (" << resultVec.size() << " matches)" << std::endl;
         for(uint i = 0; i < resultVec.size(); i++){
             std::pair<Client, Animal> match = resultVec.at(i);
-            std::cout << match.first.getFirstName().toStdString() << " with " << match.second.getName().toStdString() << " - "<< 100.0f*getCompatabilityIndex(match.second, match.first) << "% match"<< std::endl;
+            std::cout << match.first.getFirstName().toStdString() << " with " << match.second.getName().toStdString() << " - "<< (int)(100.0f*getCompatibilityIndex(match.second, match.first)) << "% match"<< std::endl;
         }
     }
     return resultVec;
@@ -178,7 +179,7 @@ void ACM::printANIMAL(Animal A){
     cout << endl;
 }
 
-float ACM::getCompatabilityIndex(Animal A, Client C){
+float ACM::getCompatibilityIndex(Animal A, Client C){
 
     float overallCIX;
 

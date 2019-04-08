@@ -10,8 +10,8 @@
 class ACM{
 
 public:
-    static vector<std::pair<Client, Animal>> runACM(vector<Animal>, vector<Client>);
-    static float getCompatabilityIndex(Animal, Client);
+    static vector<std::pair<Client, Animal>> runACM(vector<Animal>, vector<Client>);    //SHOULD RETURN MAP of CLIENT > (ANIMAL_MATCH)
+    static float getCompatibilityIndex(Animal, Client);
 
 
     static void printCLIENT(Client C);
