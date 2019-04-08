@@ -16,6 +16,7 @@ public:
     explicit DetailedClientView(QWidget *parent = 0);
     ~DetailedClientView();
     void setClients(vector<Client>);
+    void setIndex(int i);
 private slots:
 
     void on_nextBtn_clicked();

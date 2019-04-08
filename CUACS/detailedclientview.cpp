@@ -14,6 +14,8 @@ DetailedClientView::~DetailedClientView()
     delete ui;
 }
 
+void DetailedClientView::setIndex(int i){index = i;}
+
 /**
 Function: setClients
 in: A vector of Clients that will be displayed in detail

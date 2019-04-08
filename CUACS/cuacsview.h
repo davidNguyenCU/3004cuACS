@@ -22,7 +22,7 @@ class CUACSView : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit CUACSView(QWidget *parent = 0);
+    explicit CUACSView(databaseManager *db, QWidget *parent = 0);
     ~CUACSView();
     void addAnimal();
     bool checkUsername(QString);
@@ -37,6 +37,10 @@ private slots:
 
     void on_runACMbutton_clicked();
 
+
+public slots:
+    void setSelectedClient(int, int, int, int);
+    void setSelectedAnimal(int, int, int, int);
 private:
     int clientNum;
     int animalNum;

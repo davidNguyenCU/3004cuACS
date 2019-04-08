@@ -1,20 +1,18 @@
 #include "clientonlyview.h"
 #include "ui_clientonlyview.h"
 
-ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
+ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOnlyView)
 {
     ui->setupUi(this);
-    databaseManager *localDB = new databaseManager("localStorage.db");
-    localDB->createTable();
-    localDB->populateTables();
+      
+    databaseManager *localDB = db;
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 
-    //QString fName = currentClient->getFirstName();
-    //QString lName = currentClient->getLastName();
-    //QString user = currentClient->getUsername();
+    view = new AnimalDetailedView(am, ui->animalTbl,false);
+
     fName = c->getFirstName();
     lName = c->getLastName();
     user = c->getUsername();
@@ -94,6 +92,7 @@ ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
     ui->addressLine2Txt->setText(c->getAddressLine2());
     ui->phoneTxt->setText(c->getPhoneNumber());
 
+    connect(ui->animalTbl,SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int,int,int,int)));
 }
 
 ClientOnlyView::~ClientOnlyView()
@@ -122,9 +121,12 @@ void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
 
 void ClientOnlyView::on_pushButton_clicked()
 {
-    AnimalDetailedView *view = new AnimalDetailedView(am, ui->animalTbl,false);
-    view->setAnimals();
+    view->setAnimals(am.getAnimals());
     view->show();
+}
+
+void ClientOnlyView::setSelectedAnimal(int row, int _x, int _y, int _z){
+    view->setIndex(row);
 }
 
 void ClientOnlyView::on_editClientBtn_clicked()
