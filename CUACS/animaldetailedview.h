@@ -18,7 +18,8 @@ class AnimalDetailedView : public QDialog
 public:
     explicit AnimalDetailedView(AnimalManager&, QTableWidget*,bool, QWidget *parent = 0);
     ~AnimalDetailedView();
-    void setAnimals();
+    void setAnimals(vector<Animal>);
+    void setIndex(int);
 private slots:
     void on_previousBtn_clicked();
 
@@ -27,7 +28,9 @@ private slots:
     void on_editBtn_clicked();
 
 private:
+    void update();
     Ui::AnimalDetailedView *ui;
+    vector<Animal> animals;
     AnimalManager am;
     QTableWidget *table;
     int index;

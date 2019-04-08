@@ -7,7 +7,6 @@ AnimalManager::AnimalManager(databaseManager *data){
     animals = db->getAnimals();
 }
 AnimalManager::~AnimalManager(){
-    delete db;
 }
 void AnimalManager::editAnimal(bool vacc, int year,int month,int soc,int energy,int indep,int intel,int misc,int obed,int pat,int play,int strange,int child, int temp, int train, int index){
     animals[index].setVacc(vacc);

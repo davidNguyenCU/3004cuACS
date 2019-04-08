@@ -1,23 +1,26 @@
 #include "clientonlyview.h"
 #include "ui_clientonlyview.h"
 
-ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
+ClientOnlyView::ClientOnlyView(QMainWindow *lg, Client *c, databaseManager* db,QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOnlyView)
 {
+    login = lg;
+
     ui->setupUi(this);
-    databaseManager *localDB = new databaseManager("localStorage.db");
-    localDB->createTable();
-    //localDB->populateTables();
+      
+    databaseManager *localDB = db;
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 
-    //QString fName = currentClient->getFirstName();
-    //QString lName = currentClient->getLastName();
-    //QString user = currentClient->getUsername();
+    view = new AnimalDetailedView(am, ui->animalTbl,false);
+
     fName = c->getFirstName();
     lName = c->getLastName();
     user = c->getUsername();
+
+    connect(ui->actionLog_Out, SIGNAL(triggered()), this, SLOT(logout()));
+    connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(exitFunc()));
 
     animalNum = 1;
     ui->animalTbl->setRowCount(am.getAnimals().size());
@@ -32,12 +35,7 @@ ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
             ui->provinceCombo->setCurrentIndex(i);
         }
     }
-    QString ranks[] = {"1","2","3", "No preference."};
-    for (int i = 0;i<4;i++){
-        ui->tempRank->insertItem(i, ranks[i]);
-        ui->socRank->insertItem(i, ranks[i]);
-        ui->trainRank->insertItem(i, ranks[i]);
-    }
+
     ui->socSpin->setValue(c->getSociability());
     ui->trainSpin->setValue(c->getOwnerControl());
     ui->tempSpin->setValue(c->getBehaviour());
@@ -99,11 +97,21 @@ ClientOnlyView::ClientOnlyView(Client *c,QWidget *parent) :
     ui->addressLine2Txt->setText(c->getAddressLine2());
     ui->phoneTxt->setText(c->getPhoneNumber());
 
+    connect(ui->animalTbl,SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int,int,int,int)));
 }
 
 ClientOnlyView::~ClientOnlyView()
 {
     delete ui;
+}
+
+void ClientOnlyView::logout(){
+    login->show();
+    this->close();
+}
+
+void ClientOnlyView::exitFunc(){
+    this->close();
 }
 
 void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
@@ -127,9 +135,12 @@ void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
 
 void ClientOnlyView::on_pushButton_clicked()
 {
-    AnimalDetailedView *view = new AnimalDetailedView(am, ui->animalTbl,false);
-    view->setAnimals();
+    view->setAnimals(am.getAnimals());
     view->show();
+}
+
+void ClientOnlyView::setSelectedAnimal(int row, int _x, int _y, int _z){
+    view->setIndex(row);
 }
 
 void ClientOnlyView::on_editClientBtn_clicked()
@@ -249,7 +260,7 @@ void ClientOnlyView::on_editClientBtn_clicked()
         strangeFriend = 1;
     }else if (ui->noStrangePreference->isChecked()){
         strangeFriend = 2;
-    } else if(ui->notFriendlyStrange->isChecked()){
+    } else if(ui->strangeFriend->isChecked()){
         strangeFriend = 3;
     }
 

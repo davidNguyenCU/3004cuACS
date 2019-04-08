@@ -1,24 +1,31 @@
 #include "cuacsview.h"
 #include "ui_cuacsview.h"
+#include "ACM.h"
+using namespace std;
 
 //Constructor for the CUACSView, initializes all on screen items properly
-CUACSView::CUACSView(QWidget *parent) :
+CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::CUACSView)
 {
     ui->setupUi(this);
     clientNum = 1;
     animalNum = 1;
-    databaseManager *localDB = new databaseManager("localStorage.db");
+    databaseManager *localDB = db;
     manageClients = ClientManager(localDB);
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
 
-    localDB->createTable();
-    //localDB->populateTables();
-    std::vector<Client> clients;
-    std::vector<Animal> animals;
+    l = lg;
+
+    connect(ui->actionExit_2, SIGNAL(triggered()), this, SLOT(exitFunc()));
+    connect(ui->actionLog_Out_2, SIGNAL(triggered()), this, SLOT(logout()));
+
+
+    connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
+    connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
+
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
 
@@ -49,6 +56,19 @@ CUACSView::CUACSView(QWidget *parent) :
     for(unsigned int i = 0;i< clients.size();i++){
         displayNewClient(clients[i],i+1 );
     }
+    ui->ACM_table->setRowCount(clients.size());
+    for(unsigned int i = 0;i< clients.size();i++){
+        displayNewClient(clients[i],i+1 );
+    }
+}
+
+void CUACSView::logout(){
+    l->show();
+    this->close();
+}
+
+void CUACSView::exitFunc(){
+    this->close();
 }
 
 //destructor for CUACSView
@@ -89,7 +109,6 @@ CUACSView::~CUACSView()
     delete ui->centralWidget;
     delete ui->statusBar;
     delete ui;
-
 }
 
 /**
@@ -143,6 +162,7 @@ void CUACSView::editDisplayedAnimal (Animal newAnimal, int row){
     ui->animalTbl->setCellWidget(row-1,6,vaccinated);
 
 }
+
 /**
 Function: displayNewClient(Client, int)
 in: Client newClient to be displayed in the GUI, int rownum to set where to place the newly added Client
@@ -150,7 +170,6 @@ out:
 return:
 purpose: Display a newly added Client to the clientTbl, for listing all clients
 **/
-
 void CUACSView::displayNewClient(Client newClient, int rowNum){
     int row = rowNum;
     ui->clientTable->setRowCount(row);
@@ -162,6 +181,27 @@ void CUACSView::displayNewClient(Client newClient, int rowNum){
     clientNum += 1;
 }
 
+/**
+Function: displayACMResults(vector<std::pair<Client, Animal>>)
+in: vector of <Client, Animal> pairs, to be displayed in ACM tab
+out:
+return:
+purpose: Display ACM results to ACM_table, for listing all client and animal pairs.
+**/
+void CUACSView::displayACMResults(vector<std::pair<Client, Animal>> animalClientPairs){
+    for(uint i = 0; i < animalClientPairs.size(); i++){
+        std::pair<Client, Animal> currentPair = animalClientPairs.at(i);
+        float compatibilityIndex = ACM::getCompatibilityIndex(currentPair.second, currentPair.first);
+        int compatibilityPercent = (int)(compatibilityIndex * 100.0f);
+
+        ui->ACM_table->setCellWidget(i, 0, new QLabel(currentPair.first.getFirstName() + " " + currentPair.first.getLastName()));
+        ui->ACM_table->setCellWidget(i, 1, new QLabel(currentPair.second.getName() + ", " + currentPair.second.getBreed()));
+        ui->ACM_table->setCellWidget(i, 2, new QLabel(QString::number(compatibilityPercent) + "%"));
+        //ui->ACM_table->setCellWidget(i, 2, new QLabel());
+        //ui->ACM_table->setCellWidget(i, 3, new QLabel());
+
+    }
+}
 
 /**
 Function: on_addAnimalBtn_clicked()
@@ -395,6 +435,7 @@ void CUACSView::on_addClientBtn_clicked()
         ui->provinceCombo->setCurrentIndex(-1);
         ui->emailTxt->clear();
         ui->emptyClientLbl->setHidden(true);
+
     }
 }
 
@@ -411,6 +452,13 @@ void CUACSView::on_detailedClientsBtn_clicked()
     detailedView->show();
 }
 
+void CUACSView::setSelectedClient(int row, int _x, int _y, int _z){
+    detailedView->setIndex(row);
+}
+
+void CUACSView::setSelectedAnimal(int row, int _x, int _y, int _z){
+    animalView->setIndex(row);
+}
 /**
 Function: on_pushButton_clicked()
 in:
@@ -420,6 +468,18 @@ purpose: Calls and displays the animalDetailedView when the button is clicked
 **/
 void CUACSView::on_pushButton_clicked()
 {
-    animalView->setAnimals();
+    animalView->setAnimals(manageAnimals.getAnimals());
     animalView->show();
+}
+
+/**
+Function: on_runACMbutton_clicked()
+in:
+out:
+return:
+purpose: Calls the ACM algorithm and populates the ACM view with the results.
+**/
+void CUACSView::on_runACMbutton_clicked(){
+    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
+    displayACMResults(animalClientPairs);
 }

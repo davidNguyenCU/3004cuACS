@@ -26,6 +26,7 @@ private slots:
 
 private:
     Ui::Login *ui;
+    databaseManager *localDB;
 };
 
 #endif // LOGIN_H
