@@ -31,6 +31,9 @@ private slots:
 
     void on_editClientBtn_clicked();
 
+public slots:
+    void setSelectedAnimal(int, int, int, int);
+
 private:
     QString fName;
     QString lName;
@@ -40,6 +43,7 @@ private:
     const int Acceptable = QValidator::Acceptable;
     int animalNum;
     AnimalManager am;
+    AnimalDetailedView *view;
 
     void displayNewAnimal(Animal, int rowNum);
 };

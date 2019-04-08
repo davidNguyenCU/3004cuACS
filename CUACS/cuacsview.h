@@ -37,6 +37,10 @@ private slots:
 
     void on_runACMbutton_clicked();
 
+
+public slots:
+    void setSelectedClient(int, int, int, int);
+    void setSelectedAnimal(int, int, int, int);
 private:
     int clientNum;
     int animalNum;

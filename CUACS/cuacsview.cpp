@@ -1,6 +1,7 @@
 #include "cuacsview.h"
 #include "ui_cuacsview.h"
 #include "ACM.h"
+using namespace std;
 
 //Constructor for the CUACSView, initializes all on screen items properly
 CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
@@ -15,6 +16,9 @@ CUACSView::CUACSView(databaseManager* db, QWidget *parent) :
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
     animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
+
+    connect(ui->clientTable,SIGNAL(currentCellChanged(int,int,int,int)),this, SLOT(setSelectedClient(int, int, int, int)));
+    connect(ui->animalTbl, SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int, int, int, int)));
 
     animals = manageAnimals.getAnimals();
     clients = manageClients.getClients();
@@ -391,6 +395,7 @@ void CUACSView::on_addClientBtn_clicked()
         ui->provinceCombo->setCurrentIndex(-1);
         ui->emailTxt->clear();
         ui->emptyClientLbl->setHidden(true);
+
     }
 }
 
@@ -407,6 +412,13 @@ void CUACSView::on_detailedClientsBtn_clicked()
     detailedView->show();
 }
 
+void CUACSView::setSelectedClient(int row, int _x, int _y, int _z){
+    detailedView->setIndex(row);
+}
+
+void CUACSView::setSelectedAnimal(int row, int _x, int _y, int _z){
+    animalView->setIndex(row);
+}
 /**
 Function: on_pushButton_clicked()
 in:
@@ -416,7 +428,7 @@ purpose: Calls and displays the animalDetailedView when the button is clicked
 **/
 void CUACSView::on_pushButton_clicked()
 {
-    animalView->setAnimals();
+    animalView->setAnimals(manageAnimals.getAnimals());
     animalView->show();
 }
 

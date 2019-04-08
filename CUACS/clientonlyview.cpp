@@ -10,6 +10,7 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 
+    view = new AnimalDetailedView(am, ui->animalTbl,false);
 
     fName = c->getFirstName();
     lName = c->getLastName();
@@ -95,6 +96,7 @@ ClientOnlyView::ClientOnlyView(Client *c, databaseManager* db,QWidget *parent) :
     ui->addressLine2Txt->setText(c->getAddressLine2());
     ui->phoneTxt->setText(c->getPhoneNumber());
 
+    connect(ui->animalTbl,SIGNAL(currentCellChanged(int,int,int,int)), this, SLOT(setSelectedAnimal(int,int,int,int)));
 }
 
 ClientOnlyView::~ClientOnlyView()
@@ -123,9 +125,12 @@ void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
 
 void ClientOnlyView::on_pushButton_clicked()
 {
-    AnimalDetailedView *view = new AnimalDetailedView(am, ui->animalTbl,false);
-    view->setAnimals();
+    view->setAnimals(am.getAnimals());
     view->show();
+}
+
+void ClientOnlyView::setSelectedAnimal(int row, int _x, int _y, int _z){
+    view->setIndex(row);
 }
 
 void ClientOnlyView::on_editClientBtn_clicked()

@@ -19,6 +19,36 @@ AnimalDetailedView::~AnimalDetailedView()
     delete ui;
 }
 
+
+void AnimalDetailedView::setIndex(int row){index = row;}
+
+void AnimalDetailedView::update(){
+    if(animals.size()!=0){
+        //ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
+        ui->yearSpin->setValue(animals[index].getYears());
+        ui->monthSpin->setValue(animals[index].getMonths());
+        ui->nameLbl->setText(animals[index].getName());
+        ui->breedLbl->setText(animals[index].getBreed());
+        ui->speciesLbl->setText(animals[index].getSpecies());
+        ui->DOBLbl->setText(animals[index].getDOB());
+        ui->genderLbl->setText(animals[index].getGender());
+        ui->checkBox->setChecked(animals[index].isVaccinated());
+
+        //This sets the algorithm attributes
+        ui->animalSpin->setValue(animals[index].getSocialAttitutde());
+        ui->energySpin->setValue(animals[index].getEnergy());
+        ui->independenceSpin->setValue(animals[index].getIndependence());
+        ui->intSpin->setValue(animals[index].getIntelligence());
+        ui->miscSpin->setValue(animals[index].getMischievousness());
+        ui->obedienceSpin->setValue(animals[index].getObedience());
+        ui->patienceSpin->setValue(animals[index].getPatience());
+        ui->playSpin->setValue(animals[index].getPlayfulness());
+        ui->strangerSpin->setValue(animals[index].getStrangerFriendly());
+        ui->childFriendlySpin->setValue(animals[index].getChildFriendly());
+        ui->tempSpin->setValue(animals[index].getTemperament());
+        ui->trainSpin->setValue(animals[index].getTrainability());
+    }
+}
 /**
 Function: setAnimals
 in: A vector of Animals that will be displayed in detail
@@ -26,34 +56,9 @@ out:
 return:
 purpose: Initialize the animals in the detailed View and display the first animal
 **/
-void AnimalDetailedView::setAnimals(){
-    vector<Animal> animals = am.getAnimals();
-    if(animals.size()!=0){
-        //ui->ageLbl->setText(QString::number(animals[0].getYears()) + "/" + QString::number(animals[0].getMonths()));
-        ui->yearSpin->setValue(animals[0].getYears());
-        ui->monthSpin->setValue(animals[0].getMonths());
-        ui->nameLbl->setText(animals[0].getName());
-        ui->breedLbl->setText(animals[0].getBreed());
-        ui->speciesLbl->setText(animals[0].getSpecies());
-        ui->DOBLbl->setText(animals[0].getDOB());
-        ui->genderLbl->setText(animals[0].getGender());
-        ui->checkBox->setChecked(animals[0].isVaccinated());
-
-        //This sets the algorithm attributes
-        ui->animalSpin->setValue(animals[0].getSocialAttitutde());
-        ui->energySpin->setValue(animals[0].getEnergy());
-        ui->independenceSpin->setValue(animals[0].getIndependence());
-        ui->intSpin->setValue(animals[0].getIntelligence());
-        ui->miscSpin->setValue(animals[0].getMischievousness());
-        ui->obedienceSpin->setValue(animals[0].getObedience());
-        ui->patienceSpin->setValue(animals[0].getPatience());
-        ui->playSpin->setValue(animals[0].getPlayfulness());
-        ui->strangerSpin->setValue(animals[0].getStrangerFriendly());
-        ui->childFriendlySpin->setValue(animals[0].getChildFriendly());
-        ui->tempSpin->setValue(animals[0].getTemperament());
-        ui->trainSpin->setValue(animals[0].getTrainability());
-
-    }
+void AnimalDetailedView::setAnimals(vector<Animal> anim){
+    animals = anim;
+    update();
 }
 
 /**
@@ -65,34 +70,12 @@ purpose: Displays the previous Animal or loops back around to the last animal up
 **/
 void AnimalDetailedView::on_previousBtn_clicked()
 {
-    vector<Animal> animals = am.getAnimals();
     if(index == 0){
         index = animals.size()-1;
     }else{
         index-=1;
     }
-    ui->yearSpin->setValue(animals[index].getYears());
-    ui->monthSpin->setValue(animals[index].getMonths());
-    ui->nameLbl->setText(animals[index].getName());
-    ui->breedLbl->setText(animals[index].getBreed());
-    ui->speciesLbl->setText(animals[index].getSpecies());
-    ui->DOBLbl->setText(animals[index].getDOB());
-    ui->genderLbl->setText(animals[index].getGender());
-    ui->checkBox->setChecked(animals[index].isVaccinated());
-
-    //This sets the algorithm attributes
-    ui->animalSpin->setValue(animals[index].getSocialAttitutde());
-    ui->energySpin->setValue(animals[index].getEnergy());
-    ui->independenceSpin->setValue(animals[index].getIndependence());
-    ui->intSpin->setValue(animals[index].getIntelligence());
-    ui->miscSpin->setValue(animals[index].getMischievousness());
-    ui->obedienceSpin->setValue(animals[index].getObedience());
-    ui->patienceSpin->setValue(animals[index].getPatience());
-    ui->playSpin->setValue(animals[index].getPlayfulness());
-    ui->strangerSpin->setValue(animals[index].getStrangerFriendly());
-    ui->childFriendlySpin->setValue(animals[index].getChildFriendly());
-    ui->tempSpin->setValue(animals[index].getTemperament());
-    ui->trainSpin->setValue(animals[index].getTrainability());
+    update();
     edit(false);
     ui->editBtn->setText("Edit");
     editing = false;
@@ -131,27 +114,7 @@ void AnimalDetailedView::on_nextBtn_clicked()
     }else{
         index+=1;
     }
-    ui->nameLbl->setText(animals[index].getName());
-    ui->breedLbl->setText(animals[index].getBreed());
-    ui->speciesLbl->setText(animals[index].getSpecies());
-    ui->DOBLbl->setText(animals[index].getDOB());
-    ui->genderLbl->setText(animals[index].getGender());
-    ui->checkBox->setChecked(animals[index].isVaccinated());
-    ui->yearSpin->setValue(animals[index].getYears());
-    ui->monthSpin->setValue(animals[index].getMonths());
-    //This sets the algorithm attributes
-    ui->animalSpin->setValue(animals[index].getSocialAttitutde());
-    ui->energySpin->setValue(animals[index].getEnergy());
-    ui->independenceSpin->setValue(animals[index].getIndependence());
-    ui->intSpin->setValue(animals[index].getIntelligence());
-    ui->miscSpin->setValue(animals[index].getMischievousness());
-    ui->obedienceSpin->setValue(animals[index].getObedience());
-    ui->patienceSpin->setValue(animals[index].getPatience());
-    ui->playSpin->setValue(animals[index].getPlayfulness());
-    ui->strangerSpin->setValue(animals[index].getStrangerFriendly());
-    ui->childFriendlySpin->setValue(animals[index].getChildFriendly());
-    ui->tempSpin->setValue(animals[index].getTemperament());
-    ui->trainSpin->setValue(animals[index].getTrainability());
+    update();
     edit(false);
     ui->editBtn->setText("Edit");
     editing = false;
