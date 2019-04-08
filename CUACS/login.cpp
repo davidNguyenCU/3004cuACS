@@ -8,6 +8,7 @@ Login::Login(QWidget *parent) :
     ui->setupUi(this);
     localDB = new databaseManager("localStorage.db");
     localDB->createTable();
+    localDB->populateTables();
 }
 
 Login::~Login()
