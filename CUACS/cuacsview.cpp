@@ -63,7 +63,28 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
         displayNewClient(clients[i],i+1 );
     }
 
+    ui->ACM_table->setRowCount(clients.size());
+
     ui->detailMatchButton->setVisible(false);
+    ui->ACM_table->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
+    ui->ACM_table->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
+    ui->ACM_table->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
+
+    ui->clientTable->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->clientTable->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->clientTable->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->clientTable->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    ui->clientTable->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Stretch);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(1, QHeaderView::Stretch);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(2, QHeaderView::Stretch);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);
+    ui->animalTbl->horizontalHeader()->setSectionResizeMode(6, QHeaderView::ResizeToContents);
+
+
 }
 
 /**

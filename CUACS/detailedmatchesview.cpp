@@ -16,7 +16,7 @@ DetailedMatchesView::~DetailedMatchesView(){
     delete ui;
 }
 
-void DetailedMatchesView::setIndex(int i){index = 1;}
+void DetailedMatchesView::setIndex(int i){index = i;}
 
 void DetailedMatchesView::setMatches(vector<std::pair<Client, Animal>> m){
     matches = m;

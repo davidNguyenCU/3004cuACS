@@ -15,6 +15,7 @@
 #include "animalmanager.h"
 #include "login.h"
 #include "errorinformation.h"
+#include <QHeaderView>
 
 using namespace std;
 
