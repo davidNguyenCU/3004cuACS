@@ -91,13 +91,6 @@
       </property>
      </widget>
     </item>
-    <item row="20" column="1">
-     <widget class="QLabel" name="socialCI">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="1">
      <widget class="QLabel" name="clientControlPref">
       <property name="text">
@@ -259,13 +252,6 @@
       </property>
      </widget>
     </item>
-    <item row="19" column="1">
-     <widget class="QLabel" name="socialScore">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="2">
      <widget class="QLabel" name="addLn1Lbl">
       <property name="text">
@@ -275,13 +261,6 @@
     </item>
     <item row="7" column="1">
      <widget class="QLabel" name="clientChildPref">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="17" column="1">
-     <widget class="QLabel" name="energy">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -301,22 +280,8 @@
       </property>
      </widget>
     </item>
-    <item row="21" column="1">
-     <widget class="QLabel" name="finalCIX">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
     <item row="13" column="3">
      <widget class="QLabel" name="mischeviousness">
-      <property name="text">
-       <string>TextLabel</string>
-      </property>
-     </widget>
-    </item>
-    <item row="18" column="1">
-     <widget class="QLabel" name="independence">
       <property name="text">
        <string>TextLabel</string>
       </property>
@@ -450,6 +415,41 @@
     </item>
     <item row="14" column="3">
      <widget class="QLabel" name="behaviorScore">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="21" column="1" colspan="3">
+     <widget class="QLabel" name="finalCIX">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="20" column="1" colspan="2">
+     <widget class="QLabel" name="socialCI">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="19" column="1" colspan="2">
+     <widget class="QLabel" name="socialScore">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="18" column="1" colspan="2">
+     <widget class="QLabel" name="independence">
+      <property name="text">
+       <string>TextLabel</string>
+      </property>
+     </widget>
+    </item>
+    <item row="17" column="1" colspan="2">
+     <widget class="QLabel" name="energy">
       <property name="text">
        <string>TextLabel</string>
       </property>
