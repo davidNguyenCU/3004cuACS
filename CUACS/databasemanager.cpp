@@ -212,6 +212,13 @@ void databaseManager::populateTables()
 
 }
 
+/**
+Function: updateAnimal()
+in: Animal add to be replaced in the database
+out:
+return:
+purpose: Update the database, adjusting the given Animal
+**/
 void databaseManager::updateAnimal(Animal add){
     QSqlQuery query;
     query.prepare("REPLACE INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "
@@ -255,7 +262,6 @@ out:
 return: void
 purpose: Adds a given animal to the SQL Database
 **/
-
 void databaseManager::addAnimal(Animal add){
     QSqlQuery query;
     query.prepare("INSERT OR REPLACE INTO animals (breed, ageYears, ageMonths, gender, vaccinated, name, DOB, species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfullness, patience, independence, obedience) "

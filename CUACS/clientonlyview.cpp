@@ -19,15 +19,19 @@ ClientOnlyView::ClientOnlyView(QMainWindow *lg, Client *c, databaseManager* db,Q
     lName = c->getLastName();
     user = c->getUsername();
 
+    //These connect() calls link the signal, with the slot, passing the same parameters between each function.
+    //Whenever the signal occurs, the function that is set as the slot will be called.
     connect(ui->actionLog_Out, SIGNAL(triggered()), this, SLOT(logout()));
     connect(ui->actionExit, SIGNAL(triggered()), this, SLOT(exitFunc()));
 
+    //Populate the animal table
     animalNum = 1;
     ui->animalTbl->setRowCount(am.getAnimals().size());
     for(unsigned int i = 0;i< am.getAnimals().size();i++){
         displayNewAnimal(am.getAnimals()[i],i+1);
     }
 
+    //Set up the values for the provinces combo box
     QString provinces[] = {"BC", "AB", "SK", "MB", "ON", "QC", "NL", "NB","NU","NS", "NT","PE", "YT"};
     for(int i = 0;i<13; i++){
         ui->provinceCombo->insertItem(i,provinces[i]);
@@ -36,6 +40,7 @@ ClientOnlyView::ClientOnlyView(QMainWindow *lg, Client *c, databaseManager* db,Q
         }
     }
 
+    //Set up the display values
     ui->socSpin->setValue(c->getSociability());
     ui->trainSpin->setValue(c->getOwnerControl());
     ui->tempSpin->setValue(c->getBehaviour());
@@ -105,15 +110,36 @@ ClientOnlyView::~ClientOnlyView()
     delete ui;
 }
 
+/**
+Function: logout()
+in:
+out:
+return:
+purpose: Close the current view, and return to the login screen
+**/
 void ClientOnlyView::logout(){
     login->show();
     this->close();
 }
 
+/**
+Function: exitFunc()
+in:
+out:
+return:
+purpose: Close the program
+**/
 void ClientOnlyView::exitFunc(){
     this->close();
 }
 
+/**
+Function: displayNewAnimal()
+in: Animal newAnimal, int rowNum
+out:
+return:
+purpose: Display the given animal on the table, at the given row
+**/
 void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
     int row = rowNum;
     ui->animalTbl->setRowCount(row);
@@ -133,28 +159,53 @@ void ClientOnlyView::displayNewAnimal(Animal newAnimal, int rowNum){
     animalNum+=1;
 }
 
+/**
+Function: on_pushButton_clicked()
+in:
+out:
+return:
+purpose: display the detailed animal view
+**/
 void ClientOnlyView::on_pushButton_clicked()
 {
     view->setAnimals(am.getAnimals());
     view->show();
 }
 
+/**
+Function: setSelectedAnimal()
+in: int row, int _x, int _y, int _z
+out:
+return:
+purpose: sets the index of the detailed Animal view, based on the current selected row in the table
+NOTE: Due to the function of slots and signals, this function must have the same number of parameters
+as the signal that calls it, despite only needing to use the one parameter for the row.
+**/
 void ClientOnlyView::setSelectedAnimal(int row, int _x, int _y, int _z){
     view->setIndex(row);
 }
 
+
+/**
+Function: on_editClientBtn_clicked()
+in:
+out:
+return:
+purpose: Handle getting and validating the edited values from the edit client page
+**/
 void ClientOnlyView::on_editClientBtn_clicked()
 {
 
     QString postal, pass, town, prov, mail, addLn1, addLn2, phone, confirmPass;
     bool allFull = true;
     int pos = 0;
+
+    //Set up the RegExp validators, and get the information from the page
     QRegExp textNoSpaces("^[a-zA-Z]*$");
     QRegExpValidator validateTextOnly(textNoSpaces);
     QRegExp postalRegex("^([A-Za-z]\\d[A-Za-z][-]?\\d[A-Za-z]\\d)");
     QRegExpValidator postalValidator(postalRegex);
     postal = ui->postalCodeTxt->text();
-
     QRegExp passRegex("^[a-zA-Z0-9]*$");
     QRegExpValidator validatePassword(passRegex);
     pass = ui->passwordTxt->text();
@@ -174,11 +225,13 @@ void ClientOnlyView::on_editClientBtn_clicked()
 
     QString errorString = "";
 
+    //These if statements will validate each string, and update a boolean
+    //to keep track of whether there are any errors, as well as updating
+    //the logs.
     if(postalValidator.validate(postal,pos)!=Acceptable||postal==""){
         ui->emptyClientLbl->setHidden(false);
         errorString += "Postal code must be of the format: A1A1A1\n";
         allFull = false;
-
     }
     if(pass!=confirmPass){
         ui->passConLbl->setHidden(false);
@@ -219,6 +272,7 @@ void ClientOnlyView::on_editClientBtn_clicked()
        allFull = false;
     }
 
+    //Get and store the values from the radio buttons
     int ownCon = ui->trainSpin->value();
     int ownRank;
     QString oR = ui->trainRank->currentText();
@@ -274,7 +328,7 @@ void ClientOnlyView::on_editClientBtn_clicked()
         strangeFriend = 3;
     }
 
-
+    //if there are no errors, add the client, otherwise display what errors there are
     if(allFull){
         //clients.push_back(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2));
       Client temp = cm.addClient(fName,lName,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend);
