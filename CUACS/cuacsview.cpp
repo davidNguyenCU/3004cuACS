@@ -233,18 +233,18 @@ void CUACSView::on_addAnimalBtn_clicked()
     bool emptyVal = false;
 
     int temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience;
-    temperament = ui->temperamentSpin->value();
-    trainability = ui->trainabilitySpin->value();
-    intelligence = ui->intelligenceSpin->value();
-    mischievousness = ui->mischievousnessSpin->value();
-    socialAttitude = ui->animalFriendlySpin->value();
-    strangerFriendly = ui->friendlyStrangerSpin->value();
-    energy = ui->energySpin->value();
-    childFriendly = ui->childFriendlySpin->value();
-    playfulness = ui->playfulnessSpin->value();
-    patience = ui->patienceSpin->value();
-    independence = ui->independenceSpin->value();
-    obedience = ui->obedienceSpin->value();
+    temperament = ui->temperamentCombo->currentIndex() + 1;
+    trainability = ui->trainCombo->currentIndex() + 1;
+    intelligence = ui->intCombo->currentIndex() + 1;
+    mischievousness = ui->miscCombo->currentIndex() + 1;
+    socialAttitude = ui->animalFriendlyCombo->currentIndex() + 1;
+    strangerFriendly = ui->strangeCombo->currentIndex() + 1;
+    energy = ui->nrgCombo->currentIndex() + 1;
+    childFriendly = ui->childCombo->currentIndex() + 1;
+    playfulness = ui->playCombo->currentIndex() + 1;
+    patience = ui->patienceCombo->currentIndex() + 1;
+    independence = ui->independenceCombo->currentIndex() + 1;
+    obedience = ui->obedienceCombo->currentIndex() + 1;
 
     if(DOBValidator.validate(DOB,pos)!=Acceptable &&DOB!=""){
         errorString += "Please ensure you enter a valid date of birth of the form: YYYY-MM-DD.\n";
@@ -262,18 +262,18 @@ void CUACSView::on_addAnimalBtn_clicked()
         e->show();
     }else{
 
-        ui->temperamentSpin->setValue(1);
-        ui->trainabilitySpin->setValue(1);
-        ui->intelligenceSpin->setValue(1);
-        ui->mischievousnessSpin->setValue(1);
-        ui->animalFriendlySpin->setValue(1);
-        ui->friendlyStrangerSpin->setValue(1);
-        ui->energySpin->setValue(1);
-        ui->childFriendlySpin->setValue(1);
-        ui->playfulnessSpin->setValue(1);
-        ui->patienceSpin->setValue(1);
-        ui->independenceSpin->setValue(1);
-        ui->obedienceSpin->setValue(1);
+        ui->temperamentCombo->setCurrentIndex(0);
+        ui->trainCombo->setCurrentIndex(0);
+        ui->intCombo->setCurrentIndex(0);
+        ui->miscCombo->setCurrentIndex(0);
+        ui->animalFriendlyCombo->setCurrentIndex(0);
+        ui->strangeCombo->setCurrentIndex(0);
+        ui->nrgCombo->setCurrentIndex(0);
+        ui->childCombo->setCurrentIndex(0);
+        ui->playCombo->setCurrentIndex(0);
+        ui->patienceCombo->setCurrentIndex(0);
+        ui->independenceCombo->setCurrentIndex(0);
+        ui->obedienceCombo->setCurrentIndex(0);
 
         displayNewAnimal(manageAnimals.addAnimal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB),animalNum);
         ui->nameTxt->clear();
