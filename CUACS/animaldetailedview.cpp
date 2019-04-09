@@ -183,6 +183,7 @@ void AnimalDetailedView::on_editBtn_clicked()
             vaccinated = new QLabel("No");
         }
         table->setCellWidget(row,6,vaccinated);
-
+        errorInformation *e = new errorInformation("Edits saved!");
+        e->show();
     }
 }

@@ -6,6 +6,7 @@
 #include "animal.h"
 #include <animalmanager.h>
 #include <QTableWidget>
+#include "errorinformation.h"
 
 namespace Ui {
 class AnimalDetailedView;
