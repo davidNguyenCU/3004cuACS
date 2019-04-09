@@ -19,7 +19,7 @@ class DetailedMatchesView : public QDialog
 public:
     explicit DetailedMatchesView(QWidget *parent = 0);
     ~DetailedMatchesView();
-    void setMatches(vector<std::pair<Client, Animal>>);
+    void setMatches(vector<std::pair<Client, Animal>>, vector<Client> nonMatches);
     void setIndex(int);
 private slots:
     void on_previousBtn_clicked();
@@ -30,6 +30,7 @@ private:
     void update();
     Ui::DetailedMatchesView *ui;
     vector<std::pair<Client, Animal>> matches;
+    vector<Client> nonMatches;
     QTableWidget *table;
     int index;
 };

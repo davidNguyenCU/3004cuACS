@@ -18,7 +18,7 @@ DetailedMatchesView::~DetailedMatchesView(){
 
 void DetailedMatchesView::setIndex(int i){index = i;}
 
-void DetailedMatchesView::setMatches(vector<std::pair<Client, Animal>> m){
+void DetailedMatchesView::setMatches(vector<std::pair<Client, Animal>> m, vector<Client> nonMatches){
     matches = m;
     if(matches.size()!=0){update();}
 }

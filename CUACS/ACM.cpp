@@ -2,10 +2,15 @@
 #include "ACM.h"
 #include <math.h>
 
-#define threshold .5
+#define threshold .65
 
-
-vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Client> clients){
+/*
+in: vector<Animal>, vector<Client>
+out: vector<Client> &nonMatches - list of all clients that have not been matched
+return: vector<std::pair<Client, Animal>> - vector of <Client, Animal> pairs that have been matched
+purpose: match all clients and animals inputted in an optimal manner
+*/
+vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Client> clients, vector<Client> &nonMatches){
     vector<std::pair<Client, Animal>> resultVec = vector<std::pair<Client, Animal>>();  //result vector containing all Client/Animal matches.
     vector<vector<float>> compatArray = vector<vector<float>>(); //2d vec containing CI's for every Client, Animal pair.
     vector<int> nMatchs = vector<int>();  //Vector containing client, number of animal matches.
@@ -14,8 +19,8 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
 
     bool FLAG_PRINT_DEBUG = false;
     bool FLAG_PRINT_INITIAL_INFO = false;
-    bool FLAG_PRINT_INITIAL_ARRAY = true;
-    bool FLAG_PRINT_END_MATCHES = true;
+    bool FLAG_PRINT_INITIAL_ARRAY = false;
+    bool FLAG_PRINT_END_MATCHES = false;
     if(FLAG_PRINT_INITIAL_INFO){
         for(uint i = 0; i < clients.size(); i++){
             printCLIENT(clients.at(i));
@@ -72,6 +77,16 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
             std::cout << "FIND_MIN_START" << std::endl;
         }
 
+        for(uint i = 0; i < compatArray.size(); i++){
+            int numMatches = 0;
+            for(uint j = 0; j < compatArray.at(i).size(); j++){
+                if (compatArray.at(i).at(j) != 0){
+                    numMatches++;
+                }
+            }
+            nMatchs.at(i) = numMatches;
+        }
+
         // GET INDEX OF CLIENT WITH MIN MATCHES /
         int minClientIndex = 0;
         for(uint i = 0; i < compatArray.size(); i++){
@@ -83,15 +98,18 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
         if(FLAG_PRINT_DEBUG)
             std::cout << "FIND_MIN_END" << std::endl;
         if(FLAG_PRINT_DEBUG)
-            std::cout << "FIND_MATCHES_START" << std::endl;
-        //TODO OPTIMIZE
-        if (nMatchs.at(minClientIndex) != 0){   //IF CLIENT HAS MATCHES
+            std::cout << "FIND_MATCHES_START: minClientIndex = "<< minClientIndex <<", nMatches = "<< nMatchs.at(minClientIndex) << std::endl;
+
+        if (nMatchs.at(minClientIndex) !=0){   //IF CLIENT HAS MATCHES
 
             //INDEX OF ANIMAL MATCH
             int minAnimalIndex = -1;
 
             //IF THERE IS ONLY ONE MATCH, FIND IT AND RETURN IT
             if(nMatchs.at(minClientIndex) == 1){
+                if(FLAG_PRINT_DEBUG)
+                    std::cout << "FIND_SINGLE" << std::endl;
+
                 for(uint i = 0; i < compatArray.at(minClientIndex).size(); i++){
                     if(compatArray.at(minClientIndex).at(i) != 0){  //ANIMAL FOUND, BREAK AND ADD
                         minAnimalIndex = i;
@@ -102,6 +120,9 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
             //OTHERWISE IDENTIFY MATCH THAT WILL AFFECT LEAST NUMBER OF OTHER CLIENTS
             }else{
                 int minMatchs = 100000;
+
+                if(FLAG_PRINT_DEBUG)
+                    std::cout << "FIND_MATCH_OPTIMAL_START" << std::endl;
 
                 //foreach animal, identify how many client matches it has.
                 for(uint i = 0; i < animals.size(); i++){
@@ -122,6 +143,8 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
                         }
                     }
                 }
+                if(FLAG_PRINT_DEBUG)
+                    std::cout << "FIND_MATCH_OPTIMAL_END, minAnimalIndex = "<< minAnimalIndex << std::endl;
             }
 
             //create result and add to return vector
@@ -133,7 +156,8 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
                 compatArray.at(i).erase(compatArray.at(i).begin() + minAnimalIndex);
             }
         }else{
-            //IF CLIENT HAS NO MATCHES, DO NOTHING
+            nonMatches.push_back(clients.at(minClientIndex));
+            //IF CLIENT HAS NO MATCHES, ADD TO NONMATCHES VECTOR
         }
         if(FLAG_PRINT_DEBUG)
             std::cout << "FIND_MATCHES_END" << std::endl;
@@ -158,7 +182,14 @@ vector<std::pair<Client, Animal>> ACM::runACM(vector<Animal> animals, vector<Cli
             std::pair<Client, Animal> match = resultVec.at(i);
             std::cout << match.first.getFirstName().toStdString() << " with " << match.second.getName().toStdString() << " - "<< (int)(100.0f*getCompatibilityIndex(match.second, match.first)) << "% match"<< std::endl;
         }
+        std::cout << "UNMATCHED (" << nonMatches.size() << ")" << std::endl;
+        for(uint i = 0; i < nonMatches.size(); i++){
+            std::cout << nonMatches.at(i).getFirstName().toStdString() << std::endl;
+        }
     }
+
+    if(FLAG_PRINT_DEBUG)
+        std::cout <<"ACM ALGORITHM COMPLETED SUCCESSFULLY" << std::endl;
     return resultVec;
 }
 
@@ -372,7 +403,7 @@ float ACM::getCompatibilityIndex(Animal A, Client C){
         {ownerRank = 0; behaveRank = 0; socialRank = 1;}
     }
     overallCIX = (trainingCI*ownerRank) + (behaviorCI*behaveRank) + (socialCI*socialRank);
-    if(overallCIX < 0.5) {overallCIX = 0;}
+    if(overallCIX < threshold) {overallCIX = 0;}
 
     return overallCIX;
 }

@@ -69,7 +69,7 @@ private:
     void displayNewAnimal(Animal, int);
     void editDisplayedAnimal(Animal, int);
     void displayNewClient(Client, int);
-    void displayACMResults(vector<std::pair<Client, Animal>> animalClientPairs);
+    void displayACMResults(vector<std::pair<Client, Animal>> animalClientPairs, vector<Client> nonMatches);
     ClientManager manageClients;
     AnimalManager manageAnimals;
 };

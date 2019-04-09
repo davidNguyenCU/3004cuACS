@@ -8,9 +8,9 @@ localDB.setDatabaseName(path);
 
 
 if (!localDB.open()){
-    cout <<"Error: Failed connection with database";
+    cout <<"Error: Failed connection with database" << endl;
 }else{
-    cout << "Successfully connected with database";
+    cout << "Successfully connected with database" << endl;
     }
 }
 

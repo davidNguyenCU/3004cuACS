@@ -218,6 +218,8 @@ void CUACSView::displayNewClient(Client newClient, int rowNum){
     ui->clientTable->setCellWidget(row-1,3,new QLabel(newClient.getEmail()));
     ui->clientTable->setCellWidget(row-1,4,new QLabel(newClient.getPhoneNumber()));
     clientNum += 1;
+
+    ui->ACM_table->setRowCount(row);    //update ACM table as well
 }
 
 /**
@@ -227,8 +229,9 @@ out:
 return:
 purpose: Display ACM results to ACM_table, for listing all client and animal pairs.
 **/
-void CUACSView::displayACMResults(vector<std::pair<Client, Animal>> animalClientPairs){
-    for(uint i = 0; i < animalClientPairs.size(); i++){
+void CUACSView::displayACMResults(vector<std::pair<Client, Animal>> animalClientPairs, vector<Client> nonMatches){
+    uint numMatches = animalClientPairs.size();
+    for(uint i = 0; i < numMatches; i++){
         std::pair<Client, Animal> currentPair = animalClientPairs.at(i);
         float compatibilityIndex = ACM::getCompatibilityIndex(currentPair.second, currentPair.first);
         int compatibilityPercent = (int)(compatibilityIndex * 100.0f);
@@ -236,10 +239,13 @@ void CUACSView::displayACMResults(vector<std::pair<Client, Animal>> animalClient
         ui->ACM_table->setCellWidget(i, 0, new QLabel(currentPair.first.getFirstName() + " " + currentPair.first.getLastName()));
         ui->ACM_table->setCellWidget(i, 1, new QLabel(currentPair.second.getName() + ", " + currentPair.second.getBreed()));
         ui->ACM_table->setCellWidget(i, 2, new QLabel(QString::number(compatibilityPercent) + "%"));
-        //ui->ACM_table->setCellWidget(i, 2, new QLabel());
-        //ui->ACM_table->setCellWidget(i, 3, new QLabel());
-
     }
+    for(uint i = 0; i < nonMatches.size(); i++){
+        ui->ACM_table->setCellWidget(i + numMatches, 0, new QLabel(nonMatches.at(i).getFirstName() + " " + nonMatches.at(i).getLastName()));
+        ui->ACM_table->setCellWidget(i + numMatches, 1, new QLabel("No Match Found"));
+        ui->ACM_table->setCellWidget(i + numMatches, 2, new QLabel(""));
+    }
+    // std::cout <<"ACM DISPLAY UPDATED" <<std::endl;
 }
 
 /**
@@ -590,8 +596,9 @@ purpose: Calls the ACM algorithm and populates the ACM view with the results.
 **/
 void CUACSView::on_runACMbutton_clicked(){
     ui->detailMatchButton->setVisible(true);
-    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
-    displayACMResults(animalClientPairs);
+    vector<Client> nonMatches = vector<Client>();
+    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients(), nonMatches);
+    displayACMResults(animalClientPairs, nonMatches);
 }
 
 /**
@@ -602,8 +609,9 @@ return:
 purpose: display the detailed match view
 **/
 void CUACSView::on_detailMatchButton_clicked(){
-    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients());
-    detailMatches->setMatches(animalClientPairs);
+    vector<Client> nonMatches = vector<Client>();
+    vector<std::pair<Client, Animal>> animalClientPairs = ACM::runACM(manageAnimals.getAnimals(), manageClients.getClients(), nonMatches);
+    detailMatches->setMatches(animalClientPairs, nonMatches);
     detailMatches->show();
 
 }
