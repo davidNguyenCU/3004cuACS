@@ -11,13 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>ACM Match</string>
   </property>
   <widget class="QPushButton" name="previousBtn">
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>520</y>
+     <y>530</y>
      <width>83</width>
      <height>25</height>
     </rect>
@@ -30,7 +30,7 @@
    <property name="geometry">
     <rect>
      <x>660</x>
-     <y>520</y>
+     <y>530</y>
      <width>83</width>
      <height>25</height>
     </rect>
@@ -66,7 +66,7 @@
       <height>501</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout">
+    <layout class="QGridLayout" name="gridLayoutMatch">
      <item row="4" column="3">
       <widget class="QLabel" name="behaveRank">
        <property name="text">
@@ -500,10 +500,10 @@
       <x>10</x>
       <y>0</y>
       <width>731</width>
-      <height>511</height>
+      <height>521</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayout_2">
+    <layout class="QGridLayout" name="gridLayoutNonMatch">
      <item row="2" column="2">
       <widget class="QLabel" name="lblClient2">
        <property name="text">
