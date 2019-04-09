@@ -1,7 +1,7 @@
 #include "animaldetailedview.h"
 #include "ui_animaldetailedview.h"
 
-AnimalDetailedView::AnimalDetailedView(AnimalManager& animal, QTableWidget *t, bool staff,QWidget *parent) :
+AnimalDetailedView::AnimalDetailedView(AnimalManager *animal, QTableWidget *t, bool staff,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::AnimalDetailedView)
 {
@@ -60,13 +60,13 @@ void AnimalDetailedView::update(){
 }
 /**
 Function: setAnimals
-in: A vector of Animals that will be displayed in detail
+in:
 out:
 return:
 purpose: Initialize the animals in the detailed View and display the first animal
 **/
-void AnimalDetailedView::setAnimals(vector<Animal> anim){
-    animals = anim;
+void AnimalDetailedView::setAnimals(){
+    animals = am->getAnimals();
     update();
 }
 
@@ -171,13 +171,13 @@ void AnimalDetailedView::on_editBtn_clicked()
         temp = ui->tempSpin->value();
         train = ui->trainSpin->value();
 
-        am.editAnimal(vacc,year,month,soc,energy,indep,intel,misc,obed,pat,play,strange,child,temp,train,index);
+        am->editAnimal(vacc,year,month,soc,energy,indep,intel,misc,obed,pat,play,strange,child,temp,train,index);
         int row = index;
 
         //update the table view
-        table->setCellWidget(row,5,new QLabel(QString::number(am.getAnimals()[index].getYears()) + "/" + QString::number(am.getAnimals()[index].getMonths())));
+        table->setCellWidget(row,5,new QLabel(QString::number(am->getAnimals()[index].getYears()) + "/" + QString::number(am->getAnimals()[index].getMonths())));
         QLabel *vaccinated;
-        if(am.getAnimals()[index].isVaccinated()){
+        if(am->getAnimals()[index].isVaccinated()){
             vaccinated = new QLabel("Yes");
         }else{
             vaccinated = new QLabel("No");

@@ -13,7 +13,7 @@ ClientOnlyView::ClientOnlyView(QMainWindow *lg, Client *c, databaseManager* db,Q
     cm = ClientManager(localDB);
     am = AnimalManager(localDB);
 
-    view = new AnimalDetailedView(am, ui->animalTbl,false);
+    view = new AnimalDetailedView(&(am), ui->animalTbl,false);
 
     fName = c->getFirstName();
     lName = c->getLastName();
@@ -168,7 +168,7 @@ purpose: display the detailed animal view
 **/
 void ClientOnlyView::on_pushButton_clicked()
 {
-    view->setAnimals(am.getAnimals());
+    view->setAnimals();
     view->show();
 }
 
