@@ -238,7 +238,7 @@ void CUACSView::displayACMResults(vector<std::pair<Client, Animal>> animalClient
         int compatibilityPercent = (int)(compatibilityIndex * 100.0f);
 
         ui->ACM_table->setCellWidget(i, 0, new QLabel(currentPair.first.getFirstName() + " " + currentPair.first.getLastName()));
-        ui->ACM_table->setCellWidget(i, 1, new QLabel(currentPair.second.getName() + ", " + currentPair.second.getBreed()));
+        ui->ACM_table->setCellWidget(i, 1, new QLabel(currentPair.second.getName() + ", " + currentPair.second.getBreed() + " (" + currentPair.second.getSpecies() + ")"));
         ui->ACM_table->setCellWidget(i, 2, new QLabel(QString::number(compatibilityPercent) + "%"));
     }
     for(uint i = 0; i < nonMatches.size(); i++){

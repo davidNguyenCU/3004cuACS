@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>761</width>
-    <height>566</height>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>530</y>
+     <y>520</y>
      <width>83</width>
      <height>25</height>
     </rect>
@@ -29,8 +29,8 @@
   <widget class="QPushButton" name="nextBtn">
    <property name="geometry">
     <rect>
-     <x>660</x>
-     <y>530</y>
+     <x>670</x>
+     <y>520</y>
      <width>83</width>
      <height>25</height>
     </rect>
@@ -47,8 +47,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1491</width>
-     <height>521</height>
+     <width>761</width>
+     <height>481</height>
     </rect>
    </property>
    <property name="frameShape">
@@ -57,426 +57,562 @@
    <property name="frameShadow">
     <enum>QFrame::Raised</enum>
    </property>
-   <widget class="QWidget" name="gridLayoutWidget">
+   <widget class="QGroupBox" name="clientInfoGroupBox">
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>20</y>
-      <width>731</width>
-      <height>501</height>
+      <y>10</y>
+      <width>741</width>
+      <height>91</height>
      </rect>
     </property>
-    <layout class="QGridLayout" name="gridLayoutMatch">
-     <item row="4" column="3">
-      <widget class="QLabel" name="behaveRank">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label">
-       <property name="text">
-        <string>Client: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1">
-      <widget class="QLabel" name="clientName">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="0">
-      <widget class="QLabel" name="label_24">
-       <property name="text">
-        <string>Child Friendly Preference: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Behavior Preference: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="2">
-      <widget class="QLabel" name="label_40">
-       <property name="text">
-        <string>Temperament: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="1">
-      <widget class="QLabel" name="clientControlPref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="0">
-      <widget class="QLabel" name="label_23">
-       <property name="text">
-        <string>Stranger Friendly Preference: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="0">
-      <widget class="QLabel" name="label_9">
-       <property name="text">
-        <string>Training Ease: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="21" column="0">
-      <widget class="QLabel" name="tempLbl_9">
-       <property name="text">
-        <string>Final Compatibility Score: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="1">
-      <widget class="QLabel" name="trainability">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="2">
-      <widget class="QLabel" name="label_7">
-       <property name="text">
-        <string>Child Friendliness: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="1">
-      <widget class="QLabel" name="clientSocialPref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="0">
-      <widget class="QLabel" name="label_33">
-       <property name="text">
-        <string>Control Compatibility Index: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="0">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>Intelligence: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="1">
-      <widget class="QLabel" name="intelligence">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="1">
-      <widget class="QLabel" name="controlCI">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="1">
-      <widget class="QLabel" name="controlScore">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>Owner Control Preference: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="3">
-      <widget class="QLabel" name="tolerance">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="1">
-      <widget class="QLabel" name="clientBehavePref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="1">
-      <widget class="QLabel" name="obedience">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="2">
-      <widget class="QLabel" name="label_39">
-       <property name="text">
-        <string>Tolerance: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="strangeLbl_2">
-       <property name="text">
-        <string>Animal: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="2">
-      <widget class="QLabel" name="label_8">
-       <property name="text">
-        <string>Stranger Friendliness:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Social Preference: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="9" column="3">
-      <widget class="QLabel" name="animalStrangePref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="3">
-      <widget class="QLabel" name="socialRank">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="2">
-      <widget class="QLabel" name="usernameLbl">
-       <property name="text">
-        <string>Ranking: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="2">
-      <widget class="QLabel" name="addLn1Lbl">
-       <property name="text">
-        <string>Ranking: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="7" column="1">
-      <widget class="QLabel" name="clientChildPref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="20" column="0">
-      <widget class="QLabel" name="label_38">
-       <property name="text">
-        <string>Social Compatibility Index: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="3">
-      <widget class="QLabel" name="temperament">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="3">
-      <widget class="QLabel" name="mischeviousness">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="13" column="2">
-      <widget class="QLabel" name="label_41">
-       <property name="text">
-        <string>Mischeviousness: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="2">
-      <widget class="QLabel" name="label_44">
-       <property name="text">
-        <string>Overall Behavior Score: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="11" column="0">
-      <widget class="QLabel" name="label_13">
-       <property name="text">
-        <string>Obedience: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="3">
-      <widget class="QLabel" name="behaviorCI">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="0">
-      <widget class="QLabel" name="label_34">
-       <property name="text">
-        <string>Animal Sociability: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="4" column="2">
-      <widget class="QLabel" name="cityLbl">
-       <property name="text">
-        <string>Ranking: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="10" column="3">
-      <widget class="QLabel" name="animalChildPref">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="2">
-      <widget class="QLabel" name="label_42">
-       <property name="text">
-        <string>Behavior Compatibility Index: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="19" column="0">
-      <widget class="QLabel" name="label_43">
-       <property name="text">
-        <string>Overall Social Score:</string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="0">
-      <widget class="QLabel" name="label_35">
-       <property name="text">
-        <string>Playfulness: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="3">
-      <widget class="QLabel" name="controlRank">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLabel" name="animalName">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="17" column="0">
-      <widget class="QLabel" name="label_36">
-       <property name="text">
-        <string>Energy: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="18" column="0">
-      <widget class="QLabel" name="label_37">
-       <property name="text">
-        <string>Independence: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="12" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="text">
-        <string>Overall Owner Control Score: </string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="1">
-      <widget class="QLabel" name="sociability">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLabel" name="clientStrangePref">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="15" column="1">
-      <widget class="QLabel" name="playfulness">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="14" column="3">
-      <widget class="QLabel" name="behaviorScore">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="21" column="1" colspan="3">
-      <widget class="QLabel" name="finalCIX">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="20" column="1" colspan="2">
-      <widget class="QLabel" name="socialCI">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="19" column="1" colspan="2">
-      <widget class="QLabel" name="socialScore">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="18" column="1" colspan="2">
-      <widget class="QLabel" name="independence">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-     <item row="17" column="1" colspan="2">
-      <widget class="QLabel" name="energy">
-       <property name="text">
-        <string>TextLabel</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
+    <widget class="QWidget" name="gridLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>741</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="clientInfoGrid">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_24">
+        <property name="text">
+         <string>Child Friendly Preference: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="clientStrangePref">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="clientChildPref">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_23">
+        <property name="text">
+         <string>Stranger Friendly Preference: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Social Preference: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="3">
+       <widget class="QLabel" name="clientBehavePref">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3">
+       <widget class="QLabel" name="clientSocialPref">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="4">
+       <widget class="QLabel" name="behaveRank">
+        <property name="text">
+         <string>Ranking: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="socialRank">
+        <property name="text">
+         <string>Ranking: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLabel" name="controlRank">
+        <property name="text">
+         <string>Ranking: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLabel" name="clientControlPref">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>Owner Control Preference: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="2">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Behavior Preference: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLabel" name="clientName">
+        <property name="font">
+         <font>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="text">
+         <string>Client: </string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="animalGroupBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>110</y>
+      <width>741</width>
+      <height>281</height>
+     </rect>
+    </property>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="geometry">
+      <rect>
+       <x>370</x>
+       <y>20</y>
+       <width>161</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Behaviour</string>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>161</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="behaviourGrid">
+       <item row="0" column="1">
+        <widget class="QLabel" name="tolerance">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_39">
+         <property name="text">
+          <string>Tolerance: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_40">
+         <property name="text">
+          <string>Temperament: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="temperament">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_41">
+         <property name="text">
+          <string>Mischeviousness: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="mischeviousness">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>20</y>
+       <width>131</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Owner Control</string>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>131</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="ownerControlGrid">
+       <item row="4" column="1">
+        <widget class="QLabel" name="obedience">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0">
+        <widget class="QLabel" name="label_13">
+         <property name="text">
+          <string>Obedience: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="1">
+        <widget class="QLabel" name="intelligence">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0">
+        <widget class="QLabel" name="label_11">
+         <property name="text">
+          <string>Intelligence: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="0">
+        <widget class="QLabel" name="label_9">
+         <property name="text">
+          <string>Training Ease: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="6" column="1">
+        <widget class="QLabel" name="trainability">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QWidget" name="gridLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>140</y>
+       <width>731</width>
+       <height>134</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="5" column="0">
+       <widget class="QLabel" name="label_38">
+        <property name="text">
+         <string>Social Compatibility Index: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QLabel" name="socialCI">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="1">
+       <widget class="QLabel" name="behaviorCI">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_6">
+        <property name="text">
+         <string>Overall Owner Control Score: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QLabel" name="label_42">
+        <property name="text">
+         <string>Behavior Compatibility Index: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_33">
+        <property name="text">
+         <string>Control Compatibility Index: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QLabel" name="socialScore">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="controlScore">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="label_43">
+        <property name="text">
+         <string>Overall Social Score:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="controlCI">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_44">
+        <property name="text">
+         <string>Overall Behavior Score: </string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="behaviorScore">
+        <property name="text">
+         <string>bigLongFormulThatExtendsAStupidAmount</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="geometry">
+      <rect>
+       <x>560</x>
+       <y>20</y>
+       <width>151</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string>Independence</string>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget_7">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>151</width>
+        <height>88</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="independenceGrid">
+       <item row="0" column="1">
+        <widget class="QLabel" name="independence">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_34">
+         <property name="text">
+          <string>Animal Sociability: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_37">
+         <property name="text">
+          <string>Independence: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="sociability">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QLabel" name="label_35">
+         <property name="text">
+          <string>Playfulness: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QLabel" name="label_36">
+         <property name="text">
+          <string>Energy: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QLabel" name="playfulness">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QLabel" name="energy">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>19</y>
+       <width>171</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="title">
+      <string/>
+     </property>
+     <widget class="QWidget" name="gridLayoutWidget_8">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>20</y>
+        <width>171</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>Child Friendliness: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QLabel" name="animalChildPref">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>Stranger Friendliness:</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QLabel" name="animalStrangePref">
+         <property name="text">
+          <string>n</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+    <widget class="QLabel" name="animalName">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>1</y>
+       <width>411</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Animal: </string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="finalCompatScore">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>410</y>
+      <width>281</width>
+      <height>29</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="text">
+     <string>Final Compatibility Score: </string>
+    </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="finalCIX">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>450</y>
+      <width>701</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
    </widget>
   </widget>
   <widget class="QFrame" name="nonMatchFrame">
@@ -528,6 +664,10 @@
     </layout>
    </widget>
   </widget>
+  <zorder>nonMatchFrame</zorder>
+  <zorder>previousBtn</zorder>
+  <zorder>nextBtn</zorder>
+  <zorder>matchFrame</zorder>
  </widget>
  <resources/>
  <connections/>

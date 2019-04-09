@@ -65,18 +65,58 @@ void DetailedMatchesView::update(bool isMatch){
         ui->matchFrame->setVisible(true);  //set nonMatch frame invisible and match visible
         ui->nonMatchFrame->setVisible(false);
         std::pair<Client, Animal> currentPair = matches.at(index);
-        ui->clientName->setText(currentPair.first.getFirstName() + " " + currentPair.first.getLastName());
+        ui->clientName->setText("Client: " + currentPair.first.getFirstName() + " " + currentPair.first.getLastName());
         ui->clientBehavePref->setText(QString::number(currentPair.first.getBehaviour()));
         ui->clientControlPref->setText(QString::number(currentPair.first.getOwnerControl()));
         ui->clientSocialPref->setText(QString::number(currentPair.first.getSociability()));
-        ui->clientChildPref->setText(QString::number(currentPair.first.getChildFriendly()));
-        ui->clientStrangePref->setText(QString::number(currentPair.first.getStrangerFriendly()));
 
-        ui->behaveRank->setText(QString::number(currentPair.first.getBehaveRank()));
-        ui->controlRank->setText(QString::number(currentPair.first.getOwnerRank()));
-        ui->socialRank->setText(QString::number(currentPair.first.getSocialRank()));
+        //CUSTOM TEXT FOR IF CHILD OR STRANGER FRIENDLY
+        QString childFriendlyText;
+        QString strangerFriendlyText;
 
-        ui->animalName->setText(currentPair.second.getName());
+        switch(currentPair.first.getChildFriendly()){
+            case 1:
+                childFriendlyText = "Yes";
+                break;
+            case 2:
+                childFriendlyText = "No Preference";
+                break;
+            case 3:
+                childFriendlyText = "No";
+                break;
+            default:
+                childFriendlyText = "ERROR";
+        }
+        switch(currentPair.first.getStrangerFriendly()){
+            case 1:
+                strangerFriendlyText = "Yes";
+                break;
+            case 2:
+                strangerFriendlyText = "No Preference";
+                break;
+            case 3:
+                strangerFriendlyText = "No";
+                break;
+            default:
+                strangerFriendlyText = "ERROR: " + QString::number(currentPair.first.getStrangerFriendly());
+        }
+
+        ui->clientChildPref->setText(childFriendlyText);
+        ui->clientStrangePref->setText(strangerFriendlyText);
+
+
+        QString behaveRankText = "Rank: " + QString::number(currentPair.first.getBehaveRank());
+        QString controlRankText = "Rank: " + QString::number(currentPair.first.getOwnerRank());
+        QString socialRankText = "Rank: " + QString::number(currentPair.first.getSocialRank());
+        if(currentPair.first.getBehaveRank() == 4){ behaveRankText = "No Preference"; }
+        if(currentPair.first.getOwnerRank() == 4){ controlRankText = "No Preference"; }
+        if(currentPair.first.getSocialRank() == 4){ socialRankText = "No Preference"; }
+
+        ui->behaveRank->setText(behaveRankText);
+        ui->controlRank->setText(controlRankText);
+        ui->socialRank->setText(socialRankText);
+
+        ui->animalName->setText("Animal: " + currentPair.second.getName() + ", " + currentPair.second.getBreed() + " (" + currentPair.second.getSpecies() + ")");
         ui->animalStrangePref->setText(QString::number(currentPair.second.getStrangerFriendly()));
         ui->animalChildPref->setText(QString::number(currentPair.second.getChildFriendly()));
 
@@ -135,7 +175,7 @@ void DetailedMatchesView::update(bool isMatch){
       QString::number(100-abs(((int)((currentPair.first.getBehaviour())*10.0f))-((int)(((currentPair.second.getPatience()+currentPair.second.getTemperament()+currentPair.second.getMischievousness())/30.0)*100.0f))))
       +'%'
     );
-
+    ui->finalCompatScore->setText("Final Compatibility Score: " + QString::number((int)((ACM::getCompatibilityIndex(currentPair.second, currentPair.first))*100.0f))+'%');
       ui->finalCIX->setText(
         "("+QString::number(100-abs(((int)((currentPair.first.getOwnerControl())*10.0f))-((int)(((currentPair.second.getTrainability()+currentPair.second.getIntelligence()+currentPair.second.getObedience())/30.0)*100.0f))))
         +"%)*ControlRank+("+
