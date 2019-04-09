@@ -27,7 +27,7 @@ private slots:
     void on_nextBtn_clicked();
 
 private:
-    void update();
+    void update(bool);
     Ui::DetailedMatchesView *ui;
     vector<std::pair<Client, Animal>> matches;
     vector<Client> nonMatches;
