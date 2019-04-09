@@ -306,6 +306,11 @@ void CUACSView::on_addAnimalBtn_clicked()
         errorString += "Please ensure that all fields are filled out\n";
         emptyVal = true;
     }
+
+    if(breedValidator.validate(name, pos)!=Acceptable){
+        errorString += "Please ensure that the name only includes alphabetic characters.\n";
+        emptyVal = true;
+    }
     for(int i = 0;i<manageAnimals.getAnimals().size();i++){
         if(manageAnimals.getAnimals()[i].getName().toUpper() == name.toUpper()){
             emptyVal = true;
