@@ -15,7 +15,7 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     manageClients = ClientManager(localDB);
     manageAnimals = AnimalManager(localDB);
     detailedView = new DetailedClientView();
-    animalView = new AnimalDetailedView(manageAnimals,ui->animalTbl, true);
+    animalView = new AnimalDetailedView(&(manageAnimals)  ,ui->animalTbl, true);
     detailMatches = new DetailedMatchesView();
 
     l = lg;
@@ -64,8 +64,9 @@ CUACSView::CUACSView(QMainWindow *lg, databaseManager* db, QWidget *parent) :
     }
 
     ui->ACM_table->setRowCount(clients.size());
-
     ui->detailMatchButton->setVisible(false);
+
+    //Set the table views to resize properly
     ui->ACM_table->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
     ui->ACM_table->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
     ui->ACM_table->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
@@ -321,7 +322,8 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->obedienceCombo->setCurrentIndex(0);
 
         displayNewAnimal(manageAnimals.addAnimal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB),animalNum);
-        animalView->setAnimals(manageAnimals.getAnimals());
+        animalView->setAnimals();
+
         ui->nameTxt->clear();
         ui->breedTxt->clear();
         ui->speciesCombo->setCurrentIndex(-1);
@@ -577,7 +579,7 @@ purpose: Calls and displays the animalDetailedView when the button is clicked
 **/
 void CUACSView::on_pushButton_clicked()
 {
-    animalView->setAnimals(manageAnimals.getAnimals());
+    animalView->setAnimals();
     animalView->show();
 }
 
