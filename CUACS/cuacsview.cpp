@@ -491,7 +491,7 @@ void CUACSView::on_addClientBtn_clicked()
 
     //If no errors were cuase in the input, create a new client, and wipe the display, otherwise display the error message?
     if(allFull){
-        displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clients.size());
+        displayNewClient(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend), clientNum);
         ui->passConLbl->setHidden(true);
         ui->usernameTxt->clear();
         ui->firstNameTxt->clear();
