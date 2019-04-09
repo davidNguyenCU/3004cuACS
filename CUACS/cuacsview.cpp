@@ -302,10 +302,18 @@ void CUACSView::on_addAnimalBtn_clicked()
     }else if(breedValidator.validate(breed,pos)!=Acceptable){
         errorString += "Please ensure that you entered a valid breed.\n";
         emptyVal = true;
-    }else if(name == ""||breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
+    }else if(breed == ""||(ageYears == 0 && ageMonths == 0)||gender==""||species==""){
         errorString += "Please ensure that all fields are filled out\n";
         emptyVal = true;
     }
+    for(int i = 0;i<manageAnimals.getAnimals().size();i++){
+        if(manageAnimals.getAnimals()[i].getName().toUpper() == name.toUpper()){
+            emptyVal = true;
+            errorString += "To avoid confusion, please change the name of the current Animal, as it shares a name with an animal already in the shelter.\n";
+            break;
+        }
+    }
+
 
     //If any of the values cause errors, display the errors, otherwise wipe the input fields, and add the new animal
     if(emptyVal){
