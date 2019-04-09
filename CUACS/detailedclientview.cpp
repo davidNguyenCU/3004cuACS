@@ -28,7 +28,6 @@ void DetailedClientView::setClients(vector<Client> c){
     if(clients.size()!=0){
         update();
     }
-
 }
 
 /**

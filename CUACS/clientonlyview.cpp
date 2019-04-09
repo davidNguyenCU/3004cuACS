@@ -330,7 +330,8 @@ void ClientOnlyView::on_editClientBtn_clicked()
 
     //if there are no errors, add the client, otherwise display what errors there are
     if(allFull){
-        //clients.push_back(manageClients.addClient(first,last,postal,town,prov,user,mail,pass,phone,addLn1,addLn2));
+       errorInformation *e = new errorInformation("Changes saved!");
+       e->show();
       Client temp = cm.addClient(fName,lName,postal,town,prov,user,mail,pass,phone,addLn1,addLn2, ownCon, ownRank, socab, socRank,behav, behavRank,strangeFriend, childFriend);
     }else{
         errorInformation *e = new errorInformation(errorString);

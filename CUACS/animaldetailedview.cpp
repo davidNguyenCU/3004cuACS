@@ -20,8 +20,10 @@ AnimalDetailedView::~AnimalDetailedView()
 }
 
 //Set the current index for the animal to view
-void AnimalDetailedView::setIndex(int row){index = row;}
-
+void AnimalDetailedView::setIndex(int row){
+    index = row;
+    update();
+}
 
 /**
 Function: update()
@@ -122,7 +124,6 @@ purpose:Display the next animal or loops back to the beginning when the next but
 **/
 void AnimalDetailedView::on_nextBtn_clicked()
 {
-    vector<Animal> animals = am.getAnimals();
     if(index == (animals.size()-1)){
         index = 0;
     }else{

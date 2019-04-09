@@ -47,11 +47,12 @@ void Login::on_clientBtn_clicked()
     QString user = ui->userTxt->text();
     QString pass = ui->passTxt->text();
     ui->passTxt->setText("");
-    ui->userTxt->setText("");
+
     Client *c = newClientManager.login(user,pass);
 
     //If a client with the given credentials exists, launch client view
     if(c){
+        ui->userTxt->setText("");
         auto win = new ClientOnlyView(this, c, localDB);
         win->setAttribute(Qt::WA_DeleteOnClose);
         win->show();

@@ -321,6 +321,7 @@ void CUACSView::on_addAnimalBtn_clicked()
         ui->obedienceCombo->setCurrentIndex(0);
 
         displayNewAnimal(manageAnimals.addAnimal(breed,ageYears,ageMonths,gender, vaccinated, name,species, temperament, trainability, intelligence, mischievousness, socialAttitude, strangerFriendly, energy, childFriendly, playfulness, patience, independence, obedience, DOB),animalNum);
+        animalView->setAnimals(manageAnimals.getAnimals());
         ui->nameTxt->clear();
         ui->breedTxt->clear();
         ui->speciesCombo->setCurrentIndex(-1);
