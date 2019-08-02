@@ -1,4 +1,9 @@
 # 3004cuACS
+
+This Repo was made in response to our COMP3004 Class in 3rd year which was designed around a large C++ object oriented software project.
+cuACS stands for Carleton University Animal Care System.
+The goal of this project was to design and implement a GUI QT-based client in C++ that would handle a database of animals and clients interested in adopting animals from a shelter. In addition, there was to be an algorithm that was designed to create a set of optimal matches between clients based on their preferences and animal characteristics. 
+
 Instructions on how to untar, install, and run this program:
 
 Untar:
